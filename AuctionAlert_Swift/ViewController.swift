@@ -67,9 +67,8 @@ class ViewController: UIViewController {
                                                width: standardControlWidth,
                                                height: standardControlHeight)
         searchButton = UIButton(frame: searchButtonFrame)
-        searchButton.titleLabel?.text = "Search"
-        searchButton.titleLabel?.textColor = UIColor.whiteColor()
-        searchButton.titleLabel?.backgroundColor = UIColor(red: 0, green: 188/256, blue: 212/256, alpha: 1)
+        searchButton.setTitle("Search", forState: .Normal)
+        searchButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         self.view.addSubview(searchButton)
     }
     
