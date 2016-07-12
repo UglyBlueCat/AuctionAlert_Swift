@@ -52,6 +52,7 @@ class ViewController: UIViewController {
                                              height: standardControlHeight)
         realmEntry = UITextField(frame: realmEntryFrame)
         realmEntry.placeholder = "Realm"
+        realmEntry.textColor = UIColor.whiteColor()
         self.view.addSubview(realmEntry)
         
         let objectEntryFrame: CGRect = CGRect(x: margin,
@@ -60,6 +61,7 @@ class ViewController: UIViewController {
                                               height: standardControlHeight)
         objectEntry = UITextField(frame: objectEntryFrame)
         objectEntry.placeholder = "Object"
+        objectEntry.textColor = UIColor.whiteColor()
         self.view.addSubview(objectEntry)
         
         let searchButtonFrame: CGRect = CGRect(x: (self.view.bounds.size.width - standardControlWidth) / 2,
@@ -69,8 +71,13 @@ class ViewController: UIViewController {
         searchButton = UIButton(frame: searchButtonFrame)
         searchButton.setTitle("Search", forState: .Normal)
         searchButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        searchButton.addTarget(self, action: #selector(searchButtonTapped), forControlEvents: .TouchUpInside)
         self.view.addSubview(searchButton)
     }
     
-    
+    func searchButtonTapped() {
+        let realm: String = realmEntry.text!
+        let object: String = objectEntry.text!
+        print("\(#function) Searching for \(object) on \(realm)")
+    }
 }
