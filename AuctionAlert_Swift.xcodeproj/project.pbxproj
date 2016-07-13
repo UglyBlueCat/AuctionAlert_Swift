@@ -17,6 +17,7 @@
 		00B192481D2D2894009A363E /* AuctionAlert_SwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B192471D2D2894009A363E /* AuctionAlert_SwiftUITests.swift */; };
 		00B1D1BA1D35501200CB145D /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B1D1AD1D354EF600CB145D /* Alamofire.framework */; };
 		00B1D1BB1D35501200CB145D /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 00B1D1AD1D354EF600CB145D /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		00B1D1C01D35519F00CB145D /* API_Interface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B1D1BF1D35519F00CB145D /* API_Interface.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -122,6 +123,7 @@
 		00B192471D2D2894009A363E /* AuctionAlert_SwiftUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuctionAlert_SwiftUITests.swift; sourceTree = "<group>"; };
 		00B192491D2D2894009A363E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00B1D1A21D354EF600CB145D /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
+		00B1D1BF1D35519F00CB145D /* API_Interface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API_Interface.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +183,7 @@
 				00B192301D2D2894009A363E /* LaunchScreen.storyboard */,
 				00B192331D2D2894009A363E /* Info.plist */,
 				00B1922B1D2D2894009A363E /* AuctionAlert_Swift.xcdatamodeld */,
+				00B1D1BF1D35519F00CB145D /* API_Interface.swift */,
 			);
 			path = AuctionAlert_Swift;
 			sourceTree = "<group>";
@@ -224,8 +227,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00B1924C1D2D2894009A363E /* Build configuration list for PBXNativeTarget "AuctionAlert_Swift" */;
 			buildPhases = (
-				00B1921D1D2D2894009A363E /* Sources */,
 				00B1921E1D2D2894009A363E /* Frameworks */,
+				00B1921D1D2D2894009A363E /* Sources */,
 				00B1921F1D2D2894009A363E /* Resources */,
 				00B1D1BE1D35501300CB145D /* Embed Frameworks */,
 			);
@@ -409,6 +412,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00B1D1C01D35519F00CB145D /* API_Interface.swift in Sources */,
 				00B1922D1D2D2894009A363E /* AuctionAlert_Swift.xcdatamodeld in Sources */,
 				00B192271D2D2894009A363E /* ViewController.swift in Sources */,
 				00B192251D2D2894009A363E /* AppDelegate.swift in Sources */,
@@ -563,6 +567,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = AuctionAlert_Swift/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.uglybluecat.AuctionAlert-Swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -576,6 +581,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = AuctionAlert_Swift/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.uglybluecat.AuctionAlert-Swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";

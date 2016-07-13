@@ -79,5 +79,6 @@ class ViewController: UIViewController {
         let realm: String = realmEntry.text!
         let object: String = objectEntry.text!
         print("\(#function) Searching for \(object) on \(realm)")
+        API_Interface.searchAuction(realm, object: object)
     }
 }
