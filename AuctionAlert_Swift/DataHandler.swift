@@ -47,6 +47,7 @@ class DataHandler {
         } else {
             DLog("Cannot convert data into array")
         }
+        NSNotificationCenter.defaultCenter().postNotificationName("kDataRecieved", object: self)
     }
     
     /*

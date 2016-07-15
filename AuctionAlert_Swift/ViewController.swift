@@ -19,10 +19,12 @@ class ViewController: UIViewController {
     var realmEntry: UITextField!
     var objectEntry: UITextField!
     var searchButton: UIButton!
+    var resultsTable: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(newDataReceived), name: "kDataRecieved", object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -83,13 +85,21 @@ class ViewController: UIViewController {
         searchButton.addTarget(self, action: #selector(searchButtonTapped), forControlEvents: .TouchUpInside)
         self.view.addSubview(searchButton)
         
+        let resultsTableFrame: CGRect = CGRect(x: margin,
+                                               y: CGRectGetMaxY(objectEntryFrame) + margin,
+                                               width: self.view.bounds.size.width - 2*margin,
+                                               height: CGRectGetMinY(searchButtonFrame) - CGRectGetMaxY(objectEntryFrame) - 2*margin)
+        resultsTable = UITableView(frame: resultsTableFrame)
+        resultsTable.backgroundColor = UIColor.init(colorLiteralRed: 1.0, green: 0, blue: 1.0, alpha: 1)
+        self.view.addSubview(resultsTable)
+        
         // TODO: Remove temporary debugging code
         realmEntry.text = "Hellfire"
         objectEntry.text = "silk cloth"
     }
     
     /*
-     * func searchButtonTapped()
+     * searchButtonTapped()
      *
      * Respond to the tapping of the search button
      * Initiates the download of new data with parameters entered
@@ -99,5 +109,16 @@ class ViewController: UIViewController {
         let object: String = objectEntry.text!
         DLog("Searching for \(object) on \(realm)")
         API_Interface.searchAuction(realm, object: object)
+    }
+    
+    /*
+     * newDataReceived()
+     *
+     * Called when notification of new data download completion is received
+     * Reloads the table
+     */
+    func newDataReceived() {
+        DLog("Data:\n\(DataHandler.sharedInstance.searchResults)")
+        resultsTable.reloadData()
     }
 }

@@ -48,6 +48,9 @@ class API_Interface {
         
         Alamofire.request(method, baseURL, parameters: params)
             .validate()
+            .progress({ (read, total, expected) in
+                DLog("read: \(read) total: \(total) expected: \(expected)")
+            })
             .responseJSON { response in
                 switch response.result {
                 case .Success:
