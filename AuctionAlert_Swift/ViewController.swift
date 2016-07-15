@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     
     let topMargin: CGFloat = 20.0
-    let margin: CGFloat = 10.0
+    let margin: CGFloat = 20.0
     let standardControlWidth: CGFloat = 200.0
     let standardControlHeight: CGFloat = 30.0
     
@@ -22,19 +22,28 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupView()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
+    
+    /*
+     * setupView()
+     *
+     * Set up the view
+     */
     func setupView() {
         self.view.backgroundColor = UIColor(red: 123/256, green: 31/256, blue: 162/256, alpha: 1)
         addObjects()
     }
     
+    /*
+     * addObjects()
+     *
+     * Add objects to the view
+     */
     func addObjects() {
         let titleLabelFrame: CGRect = CGRect(x: margin,
                                              y: topMargin,
@@ -73,12 +82,22 @@ class ViewController: UIViewController {
         searchButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         searchButton.addTarget(self, action: #selector(searchButtonTapped), forControlEvents: .TouchUpInside)
         self.view.addSubview(searchButton)
+        
+        // TODO: Remove temporary debugging code
+        realmEntry.text = "Hellfire"
+        objectEntry.text = "silk cloth"
     }
     
+    /*
+     * func searchButtonTapped()
+     *
+     * Respond to the tapping of the search button
+     * Initiates the download of new data with parameters entered
+     */
     func searchButtonTapped() {
         let realm: String = realmEntry.text!
         let object: String = objectEntry.text!
-        print("[\(#function)] Searching for \(object) on \(realm)")
+        DLog("Searching for \(object) on \(realm)")
         API_Interface.searchAuction(realm, object: object)
     }
 }

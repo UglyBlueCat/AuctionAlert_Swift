@@ -11,19 +11,39 @@ import Alamofire
 
 class API_Interface {
     
+    /*
+     * searchAuction
+     *
+     * Initiates a search API call for an object in a realm
+     *
+     * @param: realm:   String - The realm to search in
+     * @param: object:  String - The object to search for
+     */
     class func searchAuction (realm: String, object: String) {
-        print("[\(#function)] Searching for \(object) on \(realm)")
         let params: Dictionary = ["command": "search", "realm": realm, "object_name": object]
         self.getRequest(params)
     }
     
+    /*
+     * getRequest
+     *
+     * Calls a request with the GET method
+     *
+     * @param: params: Dictionary<String, String> - The parameters for the GET request
+     */
     class func getRequest (params: Dictionary<String, String>) {
-        print("[\(#function)] Parameters: \(params)")
         self.makeRequest(.GET, params: params)
     }
     
+    /*
+     * makeRequest
+     *
+     * Makes an HTTP request with the provided parameterd
+     *
+     * @param: method: Alamofire.Method             - The method for the request
+     * @param: params: Dictionary<String, String>   - The parameters for the request
+     */
     class func makeRequest (method: Alamofire.Method, params: Dictionary<String, String>) {
-        print("[\(#function)] Method: \(method) Parameters: \(params)")
         let baseURL: String = "http://uglybluecat.com/AuctionAlert.php"
         
         Alamofire.request(method, baseURL, parameters: params)
@@ -31,10 +51,9 @@ class API_Interface {
             .responseJSON { response in
                 switch response.result {
                 case .Success:
-                    print("[\(#function)] Validation Successful")
-                    print("[\(#function)] Response:\n\(response)")
+                    DataHandler.sharedInstance.newData(response.data!)
                 case .Failure(let error):
-                    print("[\(#function)] Error: \(error)")
+                    DLog("Error: \(error)")
                 }
         }
     }
