@@ -26,10 +26,16 @@ class SearchResultCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.resizeLabel()
+        self.sizeObjects()
     }
     
-    func setupView () {
+    /*
+     * setupView()
+     *
+     * Set up objects in the cell. 
+     * Seperate from sizeObjects() so it can be called from initialisers
+     */
+    func setupView() {
         self.backgroundColor = UIColor.blueColor()
         detailLabel = UILabel()
         detailLabel.text = "Auction Alert"
@@ -39,7 +45,13 @@ class SearchResultCell: UITableViewCell {
         self.addSubview(detailLabel!)
     }
     
-    func resizeLabel() {
+    /*
+     * sizeObjects()
+     *
+     * Change the size of objects in the cell
+     * These are in a seperate function so they can be called from layoutSubviews()
+     */
+    func sizeObjects() {
         let detailLabelFrame: CGRect = CGRect(x: margin,
                                               y: margin,
                                               width: self.bounds.size.width - 2*margin,
