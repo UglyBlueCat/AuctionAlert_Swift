@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     var objectEntry: UITextField!
     var searchButton: UIButton!
     var resultsTable: UITableView!
+    var activityIndicator: UIActivityIndicatorView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,6 +97,16 @@ class ViewController: UIViewController {
         resultsTable.registerClass(SearchResultCell.self, forCellReuseIdentifier: "Cell")
         view.addSubview(resultsTable!)
         
+        let activityIndicatorFrame: CGRect = CGRect(x: (view.bounds.size.width - standardControlHeight)/2,
+                                                    y: (view.bounds.size.height - standardControlHeight)/2,
+                                                    width: standardControlHeight,
+                                                    height: standardControlHeight)
+        activityIndicator = UIActivityIndicatorView(frame: activityIndicatorFrame)
+        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
+            activityIndicator.activityIndicatorViewStyle = .WhiteLarge
+        }
+        view.addSubview(activityIndicator)
+        
         // TODO: Remove temporary debugging code
         realmEntry.text = "Hellfire"
         objectEntry.text = "silk cloth"
@@ -111,6 +122,7 @@ class ViewController: UIViewController {
         let realm: String = realmEntry.text!
         let object: String = objectEntry.text!
         DLog("Searching for \(object) on \(realm)")
+        activityIndicator.startAnimating()
         API_Interface.searchAuction(realm, object: object)
     }
     
@@ -123,6 +135,7 @@ class ViewController: UIViewController {
     func newDataReceived() {
         DLog("Recieved: \(DataHandler.sharedInstance.searchResults.count) objects")
         resultsTable!.reloadData()
+        activityIndicator.stopAnimating()
     }
 }
 
