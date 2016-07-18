@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0010E6191D3BDE35002B4363 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010E6181D3BDE35002B4363 /* SearchResultCell.swift */; };
 		007CC7A01D37E6FC000E0A39 /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007CC79F1D37E6FC000E0A39 /* GlobalFunctions.swift */; };
 		00A115DD1D37A33A00C13962 /* DataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A115DC1D37A33A00C13962 /* DataHandler.swift */; };
 		00B192251D2D2894009A363E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B192241D2D2894009A363E /* AppDelegate.swift */; };
@@ -110,6 +111,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0010E6181D3BDE35002B4363 /* SearchResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		007CC79F1D37E6FC000E0A39 /* GlobalFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
 		00A115DC1D37A33A00C13962 /* DataHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataHandler.swift; sourceTree = "<group>"; };
 		00B192211D2D2894009A363E /* AuctionAlert.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AuctionAlert.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -190,6 +192,7 @@
 				00B1D1BF1D35519F00CB145D /* API_Interface.swift */,
 				00A115DC1D37A33A00C13962 /* DataHandler.swift */,
 				007CC79F1D37E6FC000E0A39 /* GlobalFunctions.swift */,
+				0010E6181D3BDE35002B4363 /* SearchResultCell.swift */,
 			);
 			path = AuctionAlert_Swift;
 			sourceTree = "<group>";
@@ -418,6 +421,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0010E6191D3BDE35002B4363 /* SearchResultCell.swift in Sources */,
 				00B1D1C01D35519F00CB145D /* API_Interface.swift in Sources */,
 				00B1922D1D2D2894009A363E /* AuctionAlert_Swift.xcdatamodeld in Sources */,
 				007CC7A01D37E6FC000E0A39 /* GlobalFunctions.swift in Sources */,

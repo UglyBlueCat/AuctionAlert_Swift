@@ -37,7 +37,7 @@ class ViewController: UIViewController {
      * Set up the view
      */
     func setupView() {
-        self.view.backgroundColor = UIColor(red: 123/256, green: 31/256, blue: 162/256, alpha: 1)
+        view.backgroundColor = UIColor(red: 123/256, green: 31/256, blue: 162/256, alpha: 1)
         addObjects()
     }
     
@@ -49,49 +49,52 @@ class ViewController: UIViewController {
     func addObjects() {
         let titleLabelFrame: CGRect = CGRect(x: margin,
                                              y: topMargin,
-                                             width: self.view.bounds.size.width - 2*margin,
+                                             width: view.bounds.size.width - 2*margin,
                                              height: standardControlHeight)
         titleLabel = UILabel(frame: titleLabelFrame)
         titleLabel.text = "Auction Alert"
         titleLabel.textColor = UIColor.whiteColor()
         titleLabel.textAlignment = .Center
-        self.view.addSubview(titleLabel)
+        view.addSubview(titleLabel!)
         
         let realmEntryFrame: CGRect = CGRect(x: margin,
                                              y: CGRectGetMaxY(titleLabelFrame) + margin,
-                                             width: self.view.bounds.size.width - 2*margin,
+                                             width: view.bounds.size.width - 2*margin,
                                              height: standardControlHeight)
         realmEntry = UITextField(frame: realmEntryFrame)
         realmEntry.placeholder = "Realm"
         realmEntry.textColor = UIColor.whiteColor()
-        self.view.addSubview(realmEntry)
+        view.addSubview(realmEntry!)
         
         let objectEntryFrame: CGRect = CGRect(x: margin,
                                               y: CGRectGetMaxY(realmEntryFrame) + margin,
-                                              width: self.view.bounds.size.width - 2*margin,
+                                              width: view.bounds.size.width - 2*margin,
                                               height: standardControlHeight)
         objectEntry = UITextField(frame: objectEntryFrame)
         objectEntry.placeholder = "Object"
         objectEntry.textColor = UIColor.whiteColor()
-        self.view.addSubview(objectEntry)
+        view.addSubview(objectEntry!)
         
-        let searchButtonFrame: CGRect = CGRect(x: (self.view.bounds.size.width - standardControlWidth) / 2,
-                                               y: self.view.bounds.size.height - margin - standardControlHeight,
+        let searchButtonFrame: CGRect = CGRect(x: (view.bounds.size.width - standardControlWidth) / 2,
+                                               y: view.bounds.size.height - margin - standardControlHeight,
                                                width: standardControlWidth,
                                                height: standardControlHeight)
         searchButton = UIButton(frame: searchButtonFrame)
         searchButton.setTitle("Search", forState: .Normal)
         searchButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         searchButton.addTarget(self, action: #selector(searchButtonTapped), forControlEvents: .TouchUpInside)
-        self.view.addSubview(searchButton)
+        view.addSubview(searchButton!)
         
         let resultsTableFrame: CGRect = CGRect(x: margin,
                                                y: CGRectGetMaxY(objectEntryFrame) + margin,
-                                               width: self.view.bounds.size.width - 2*margin,
+                                               width: view.bounds.size.width - 2*margin,
                                                height: CGRectGetMinY(searchButtonFrame) - CGRectGetMaxY(objectEntryFrame) - 2*margin)
         resultsTable = UITableView(frame: resultsTableFrame)
         resultsTable.backgroundColor = UIColor.init(colorLiteralRed: 1.0, green: 0, blue: 1.0, alpha: 1)
-        self.view.addSubview(resultsTable)
+        resultsTable.dataSource = self
+        resultsTable.delegate = self
+        resultsTable.registerClass(SearchResultCell.self, forCellReuseIdentifier: "Cell")
+        view.addSubview(resultsTable!)
         
         // TODO: Remove temporary debugging code
         realmEntry.text = "Hellfire"
@@ -118,7 +121,23 @@ class ViewController: UIViewController {
      * Reloads the table
      */
     func newDataReceived() {
-        DLog("Data:\n\(DataHandler.sharedInstance.searchResults)")
-        resultsTable.reloadData()
+        DLog("Recieved: \(DataHandler.sharedInstance.searchResults.count) objects")
+        resultsTable!.reloadData()
     }
+}
+
+extension ViewController: UITableViewDataSource {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return DataHandler.sharedInstance.searchResults.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell:SearchResultCell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! SearchResultCell
+        let singleResult: Dictionary<String, AnyObject> = DataHandler.sharedInstance.searchResults[indexPath.row]
+        cell.detailLabel!.text = "\(singleResult["quantity"]) \(singleResult["owner"]!) bid \(singleResult["bid"]!) buyout \(singleResult["buyout"]!)"
+        return cell
+    }
+}
+
+extension ViewController: UITableViewDelegate {
 }
