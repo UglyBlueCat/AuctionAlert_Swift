@@ -105,6 +105,7 @@ class ViewController: UIViewController {
         resultsTable.backgroundColor = UIColor.init(colorLiteralRed: 1.0, green: 0, blue: 1.0, alpha: 1)
         resultsTable.dataSource = self
         resultsTable.delegate = self
+        resultsTable.rowHeight = 60
         resultsTable.registerClass(SearchResultCell.self, forCellReuseIdentifier: "Cell")
         view.addSubview(resultsTable!)
         
@@ -172,7 +173,9 @@ extension ViewController: UITableViewDataSource {
         let (buyoutGold, buyoutSilver, buyoutCopper) = ConvertMoney(buyout)
         let buyoutString = "\(buyoutGold)g \(buyoutSilver)s \(buyoutCopper)c"
         
-        cell.detailLabel!.text = "Stack size:\(quantity) Seller:\(owner) Current bid: \(bidString) Buyout: \(buyoutString)"
+        cell.detailLabel!.text = "Stack size:\(quantity) Seller:\(owner)"
+        cell.bidLabel!.text = "Current bid: \(bidString)"
+        cell.buyoutLabel!.text = "Buyout: \(buyoutString)"
         return cell
     }
 }
