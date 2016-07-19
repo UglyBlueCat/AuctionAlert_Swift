@@ -19,8 +19,8 @@ class API_Interface {
      * @param: realm:   String - The realm to search in
      * @param: object:  String - The object to search for
      */
-    class func searchAuction (realm: String, object: String) {
-        let params: Dictionary = ["command": "search", "realm": realm, "object_name": object]
+    class func searchAuction (realm: String, object: String, price: String) {
+        let params: Dictionary = ["command": "search", "realm": realm, "object_name": object, "price": price]
         self.getRequest(params)
     }
     

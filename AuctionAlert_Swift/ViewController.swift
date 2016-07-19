@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     var titleLabel: UILabel!
     var realmEntry: UITextField!
     var objectEntry: UITextField!
+    var priceEntry: UITextField!
     var searchButton: UIButton!
     var resultsTable: UITableView!
     var activityIndicator: UIActivityIndicatorView!
@@ -75,6 +76,16 @@ class ViewController: UIViewController {
         objectEntry.placeholder = "Object"
         objectEntry.textColor = UIColor.whiteColor()
         view.addSubview(objectEntry!)
+        view.addSubview(realmEntry!)
+        
+        let priceEntryFrame: CGRect = CGRect(x: margin,
+                                              y: CGRectGetMaxY(objectEntryFrame) + margin,
+                                              width: view.bounds.size.width - 2*margin,
+                                              height: standardControlHeight)
+        priceEntry = UITextField(frame: priceEntryFrame)
+        priceEntry.placeholder = "Object"
+        priceEntry.textColor = UIColor.whiteColor()
+        view.addSubview(priceEntry!)
         
         let searchButtonFrame: CGRect = CGRect(x: (view.bounds.size.width - standardControlWidth) / 2,
                                                y: view.bounds.size.height - margin - standardControlHeight,
@@ -87,9 +98,9 @@ class ViewController: UIViewController {
         view.addSubview(searchButton!)
         
         let resultsTableFrame: CGRect = CGRect(x: margin,
-                                               y: CGRectGetMaxY(objectEntryFrame) + margin,
+                                               y: CGRectGetMaxY(priceEntryFrame) + margin,
                                                width: view.bounds.size.width - 2*margin,
-                                               height: CGRectGetMinY(searchButtonFrame) - CGRectGetMaxY(objectEntryFrame) - 2*margin)
+                                               height: CGRectGetMinY(searchButtonFrame) - CGRectGetMaxY(priceEntryFrame) - 2*margin)
         resultsTable = UITableView(frame: resultsTableFrame)
         resultsTable.backgroundColor = UIColor.init(colorLiteralRed: 1.0, green: 0, blue: 1.0, alpha: 1)
         resultsTable.dataSource = self
@@ -110,6 +121,7 @@ class ViewController: UIViewController {
         // TODO: Remove temporary debugging code
         realmEntry.text = "Hellfire"
         objectEntry.text = "silk cloth"
+        priceEntry.text = "10"
     }
     
     /*
@@ -121,9 +133,10 @@ class ViewController: UIViewController {
     func searchButtonTapped() {
         let realm: String = realmEntry.text!
         let object: String = objectEntry.text!
-        DLog("Searching for \(object) on \(realm)")
+        let price: String = priceEntry.text!
+        DLog("Searching for \(object) on \(realm) with price \(price)")
         activityIndicator.startAnimating()
-        API_Interface.searchAuction(realm, object: object)
+        API_Interface.searchAuction(realm, object: object, price: price)
     }
     
     /*
@@ -147,7 +160,7 @@ extension ViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell:SearchResultCell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! SearchResultCell
         let singleResult: Dictionary<String, AnyObject> = DataHandler.sharedInstance.searchResults[indexPath.row]
-        cell.detailLabel!.text = "\(singleResult["quantity"]) \(singleResult["owner"]!) bid \(singleResult["bid"]!) buyout \(singleResult["buyout"]!)"
+        cell.detailLabel!.text = "\(singleResult["quantity"]!) \(singleResult["owner"]!) bid \(singleResult["bid"]!) buyout \(singleResult["buyout"]!)"
         return cell
     }
 }
