@@ -24,3 +24,10 @@ func DLog(msg: String, function: String = #function, file: String = #file, line:
     let className:String! = url.lastPathComponent == nil ? file : url.lastPathComponent!
     print("[\(className) \(function)](\(line)) \(msg)")
 }
+
+func ConvertMoney(allCopper: Int) -> (gold: Int, silver: Int, copper: Int) {
+    let gold : Int = Int(allCopper/10000)
+    let silver : Int = Int((allCopper - gold*10000)/100)
+    let copper : Int = allCopper - gold*10000 - silver*100
+    return (gold, silver, copper)
+}

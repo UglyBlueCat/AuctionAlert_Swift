@@ -83,7 +83,7 @@ class ViewController: UIViewController {
                                               width: view.bounds.size.width - 2*margin,
                                               height: standardControlHeight)
         priceEntry = UITextField(frame: priceEntryFrame)
-        priceEntry.placeholder = "Object"
+        priceEntry.placeholder = "Maximum price (gold each)"
         priceEntry.textColor = UIColor.whiteColor()
         view.addSubview(priceEntry!)
         
@@ -134,7 +134,7 @@ class ViewController: UIViewController {
         let realm: String = realmEntry.text!
         let object: String = objectEntry.text!
         let price: String = priceEntry.text!
-        DLog("Searching for \(object) on \(realm) with price \(price)")
+        DLog("Searching for \(object) on \(realm) with a maximum price of \(price) gold each")
         activityIndicator.startAnimating()
         API_Interface.searchAuction(realm, object: object, price: price)
     }
@@ -160,7 +160,19 @@ extension ViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell:SearchResultCell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! SearchResultCell
         let singleResult: Dictionary<String, AnyObject> = DataHandler.sharedInstance.searchResults[indexPath.row]
-        cell.detailLabel!.text = "\(singleResult["quantity"]!) \(singleResult["owner"]!) bid \(singleResult["bid"]!) buyout \(singleResult["buyout"]!)"
+        
+        let quantity : Int = singleResult["quantity"]! as! Int
+        let owner : String = singleResult["owner"]! as! String
+        
+        let bid : Int = singleResult["bid"]! as! Int
+        let (bidGold, bidSilver, bidCopper) = ConvertMoney(bid)
+        let bidString = "\(bidGold)g \(bidSilver)s \(bidCopper)c"
+        
+        let buyout : Int = singleResult["buyout"]! as! Int
+        let (buyoutGold, buyoutSilver, buyoutCopper) = ConvertMoney(buyout)
+        let buyoutString = "\(buyoutGold)g \(buyoutSilver)s \(buyoutCopper)c"
+        
+        cell.detailLabel!.text = "Stack size:\(quantity) Seller:\(owner) Current bid: \(bidString) Buyout: \(buyoutString)"
         return cell
     }
 }
