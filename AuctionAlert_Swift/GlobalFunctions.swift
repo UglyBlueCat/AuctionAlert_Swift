@@ -14,10 +14,10 @@ import Foundation
  * Prints a message to the console prefixed with filename, function & line number
  * A replacement for __PRETTY_FUNCTION__
  *
- * @param: msg:         String  - The message to print
- * @param: function:    String  - defaults to #function
- * @param: file:        String  - Defaults to #file
- * @param: line:        Int     - Defaults to #line
+ * @param: msg:      String  - The message to print
+ * @param: function: String  - Defaults to #function
+ * @param: file:     String  - Defaults to #file
+ * @param: line:     Int     - Defaults to #line
  */
 func DLog(msg: String, function: String = #function, file: String = #file, line: Int = #line) {
     let url = NSURL(fileURLWithPath: file)
@@ -25,6 +25,16 @@ func DLog(msg: String, function: String = #function, file: String = #file, line:
     print("[\(className) \(function)](\(line)) \(msg)")
 }
 
+/*
+ * ConvertMoney
+ *
+ * Converts a monetary value into gold, silver & copper
+ *
+ * @param: allCopper: Int  - The monetary value to convert
+ * @return: gold:     Int  - The gold portion
+ * @return: silver:   Int  - The silver portion
+ * @return: copper:   Int  - The copper portion
+ */
 func ConvertMoney(allCopper: Int) -> (gold: Int, silver: Int, copper: Int) {
     let gold : Int = Int(allCopper/10000)
     let silver : Int = Int((allCopper - gold*10000)/100)
