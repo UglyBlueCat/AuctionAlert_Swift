@@ -28,6 +28,11 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        positionObjectsWithinSize(size)
+        resultsTable.reloadData()
+    }
+    
     /*
      * setupView()
      *
@@ -36,7 +41,7 @@ class ViewController: UIViewController {
     func setupView() {
         view.backgroundColor = primaryColor
         addObjects()
-        sizeObjects()
+        positionObjectsWithinSize(view.bounds.size)
     }
     
     /*
@@ -99,13 +104,13 @@ class ViewController: UIViewController {
      *
      * Sets the size of objects separately so this function can be called from different places
      */
-    func sizeObjects() {
+    func positionObjectsWithinSize(size: CGSize) {
         
         let topMargin: CGFloat = 20.0
         let standardControlWidth: CGFloat = 200.0
         let standardControlHeight: CGFloat = 30.0
-        let viewHeight : CGFloat = view.bounds.size.height
-        let viewWidth : CGFloat = view.bounds.size.width
+        let viewHeight : CGFloat = size.height
+        let viewWidth : CGFloat = size.width
         let margin: CGFloat = (viewWidth + viewHeight)/100
         
         let titleLabelFrame: CGRect = CGRect(x: margin,
