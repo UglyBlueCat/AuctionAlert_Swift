@@ -11,15 +11,14 @@ import UIKit
 class SearchResultCell: UITableViewCell {
     
     let margin: CGFloat = 2.0
-    let priceLabelWidth: CGFloat = 200.0
     
     var iconImage: UIImageView!
-    var detailLabel: UILabel!
-    var bidLabel: UILabel!
-    var buyoutLabel: UILabel!
+    var detailLabel: AALabel!
+    var bidLabel: AALabel!
+    var buyoutLabel: AALabel!
 
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
         self.setupView()
     }
     
@@ -40,32 +39,32 @@ class SearchResultCell: UITableViewCell {
      * Seperate from sizeObjects() so it can be called from initialisers
      */
     func setupView() {
-        self.backgroundColor = UIColor.blueColor()
+        self.backgroundColor = UIColor.clearColor()
         
         iconImage = UIImageView()
-        iconImage.backgroundColor = UIColor.blackColor()
+        iconImage.backgroundColor = lightPrimaryColor
         self.addSubview(iconImage!)
         
-        detailLabel = UILabel()
-        detailLabel.text = "Auction Alert"
-        detailLabel.backgroundColor = UIColor.blackColor()
-        detailLabel.textColor = UIColor.whiteColor()
-        detailLabel.textAlignment = .Center
+        detailLabel = AALabel()
+        detailLabel.numberOfLines = 2
         self.addSubview(detailLabel!)
         
-        bidLabel = UILabel()
-        bidLabel.text = "Auction Alert"
-        bidLabel.backgroundColor = UIColor.blackColor()
-        bidLabel.textColor = UIColor.whiteColor()
-        bidLabel.textAlignment = .Center
+        bidLabel = AALabel()
+        bidLabel.textColor = secondaryTextColor
         self.addSubview(bidLabel!)
         
-        buyoutLabel = UILabel()
-        buyoutLabel.text = "Auction Alert"
-        buyoutLabel.backgroundColor = UIColor.blackColor()
-        buyoutLabel.textColor = UIColor.whiteColor()
-        buyoutLabel.textAlignment = .Center
+        buyoutLabel = AALabel()
+        buyoutLabel.textColor = secondaryTextColor
         self.addSubview(buyoutLabel!)
+        
+        if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
+            let currentFontSize: CGFloat = bidLabel.font.pointSize
+            let currentFont: UIFont = bidLabel.font
+            bidLabel.font = currentFont.fontWithSize(currentFontSize/2)
+            buyoutLabel.font = currentFont.fontWithSize(currentFontSize/2)
+            bidLabel.numberOfLines = 2
+            buyoutLabel.numberOfLines = 2
+        }
     }
     
     /*
@@ -75,29 +74,33 @@ class SearchResultCell: UITableViewCell {
      * These are in a seperate function so they can be called from layoutSubviews()
      */
     func sizeObjects() {
-        let iconWidth : CGFloat = self.bounds.size.height - 2*margin
+        let cellHeight : CGFloat = bounds.size.height
+        let cellWidth : CGFloat = bounds.size.width
+        let iconWidth : CGFloat = cellHeight - 2*margin
+        let priceLabelWidth: CGFloat = 0.2*cellWidth
+        
         let iconImageFrame: CGRect = CGRect(x: margin,
                                             y: margin,
                                             width: iconWidth,
                                             height: iconWidth)
         iconImage.frame = iconImageFrame
         
-        let bidLabelFrame: CGRect = CGRect(x: self.bounds.size.width - (priceLabelWidth + margin),
+        let bidLabelFrame: CGRect = CGRect(x: cellWidth - (priceLabelWidth + margin),
                                            y: margin,
                                            width: priceLabelWidth,
-                                           height: self.bounds.size.height/2 - 1.5*margin)
+                                           height: cellHeight/2 - 1.5*margin)
         bidLabel.frame = bidLabelFrame
         
-        let buyoutLabelFrame: CGRect = CGRect(x: self.bounds.size.width - (priceLabelWidth + margin),
-                                              y: self.bounds.size.height/2 + 0.5*margin,
+        let buyoutLabelFrame: CGRect = CGRect(x: cellWidth - (priceLabelWidth + margin),
+                                              y: cellHeight/2 + 0.5*margin,
                                               width: priceLabelWidth,
-                                              height: self.bounds.size.height/2 - 1.5*margin)
+                                              height: cellHeight/2 - 1.5*margin)
         buyoutLabel.frame = buyoutLabelFrame
         
         let detailLabelFrame: CGRect = CGRect(x: iconWidth + 2*margin,
                                               y: margin,
-                                              width: self.bounds.size.width - (priceLabelWidth + iconWidth + 4*margin),
-                                              height: self.bounds.size.height - 2*margin)
+                                              width: cellWidth - (priceLabelWidth + iconWidth + 4*margin),
+                                              height: cellHeight - 2*margin)
         detailLabel.frame = detailLabelFrame
     }
 }

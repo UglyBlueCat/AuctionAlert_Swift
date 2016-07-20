@@ -21,6 +21,7 @@
 		00B1D1BA1D35501200CB145D /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B1D1AD1D354EF600CB145D /* Alamofire.framework */; };
 		00B1D1BB1D35501200CB145D /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 00B1D1AD1D354EF600CB145D /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		00B1D1C01D35519F00CB145D /* API_Interface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B1D1BF1D35519F00CB145D /* API_Interface.swift */; };
+		00DCD6861D3F763B0008543B /* AALabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00DCD6851D3F763B0008543B /* AALabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,6 +131,7 @@
 		00B192491D2D2894009A363E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00B1D1A21D354EF600CB145D /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		00B1D1BF1D35519F00CB145D /* API_Interface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API_Interface.swift; sourceTree = "<group>"; };
+		00DCD6851D3F763B0008543B /* AALabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AALabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +195,7 @@
 				00A115DC1D37A33A00C13962 /* DataHandler.swift */,
 				007CC79F1D37E6FC000E0A39 /* GlobalFunctions.swift */,
 				0010E6181D3BDE35002B4363 /* SearchResultCell.swift */,
+				00DCD6851D3F763B0008543B /* AALabel.swift */,
 			);
 			path = AuctionAlert_Swift;
 			sourceTree = "<group>";
@@ -423,6 +426,7 @@
 			files = (
 				0010E6191D3BDE35002B4363 /* SearchResultCell.swift in Sources */,
 				00B1D1C01D35519F00CB145D /* API_Interface.swift in Sources */,
+				00DCD6861D3F763B0008543B /* AALabel.swift in Sources */,
 				00B1922D1D2D2894009A363E /* AuctionAlert_Swift.xcdatamodeld in Sources */,
 				007CC7A01D37E6FC000E0A39 /* GlobalFunctions.swift in Sources */,
 				00B192271D2D2894009A363E /* ViewController.swift in Sources */,

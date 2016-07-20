@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 /*
  * DLog
@@ -40,4 +41,58 @@ func ConvertMoney(allCopper: Int) -> (gold: Int, silver: Int, copper: Int) {
     let silver : Int = Int((allCopper - gold*10000)/100)
     let copper : Int = allCopper - gold*10000 - silver*100
     return (gold, silver, copper)
+}
+
+/*
+ * Create colour from hex string.
+ * Taken from http://stackoverflow.com/questions/24263007/how-to-use-hex-colour-values-in-swift-ios
+ */
+extension UIColor {
+    convenience init(hexString: String) {
+        let hex = hexString.stringByTrimmingCharactersInSet(NSCharacterSet.alphanumericCharacterSet().invertedSet)
+        var int = UInt32()
+        NSScanner(string: hex).scanHexInt(&int)
+        let a, r, g, b: UInt32
+        switch hex.characters.count {
+        case 3: // RGB (12-bit)
+            (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
+        case 6: // RGB (24-bit)
+            (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
+        case 8: // ARGB (32-bit)
+            (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
+        default:
+            (a, r, g, b) = (1, 1, 1, 0)
+        }
+        self.init(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a) / 255)
+    }
+}
+
+/*
+ * Colours chosen using http://www.materialpalette.com/purple/cyan
+ */
+let darkPrimaryColor = UIColor(hexString: "#512DA8")
+let primaryColor = UIColor(hexString: "#673AB7")
+let lightPrimaryColor = UIColor(hexString: "#D1C4E9")
+let textIconColor = UIColor(hexString: "#FFFFFF")
+let accentColor = UIColor(hexString: "#536DFE")
+let primaryTextColor = UIColor(hexString: "#212121")
+let secondaryTextColor = UIColor(hexString: "#727272")
+let dividerColor = UIColor(hexString: "#B6B6B6")
+
+/*
+ * Create image from colour
+ * Taken from http://stackoverflow.com/questions/26542035/create-uiimage-with-solid-color-in-swift
+ */
+public extension UIImage {
+    public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {
+        let rect = CGRect(origin: .zero, size: size)
+        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
+        color.setFill()
+        UIRectFill(rect)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        guard let cgImage = image.CGImage else { return nil }
+        self.init(CGImage: cgImage)
+    }
 }

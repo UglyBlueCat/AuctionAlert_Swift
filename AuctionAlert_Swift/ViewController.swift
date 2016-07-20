@@ -10,12 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    let topMargin: CGFloat = 20.0
-    let margin: CGFloat = 20.0
-    let standardControlWidth: CGFloat = 200.0
-    let standardControlHeight: CGFloat = 30.0
-    
-    var titleLabel: UILabel!
+    var titleLabel: AALabel!
     var realmEntry: UITextField!
     var objectEntry: UITextField!
     var priceEntry: UITextField!
@@ -39,8 +34,9 @@ class ViewController: UIViewController {
      * Set up the view
      */
     func setupView() {
-        view.backgroundColor = UIColor(red: 123/256, green: 31/256, blue: 162/256, alpha: 1)
+        view.backgroundColor = primaryColor
         addObjects()
+        sizeObjects()
     }
     
     /*
@@ -49,71 +45,44 @@ class ViewController: UIViewController {
      * Add objects to the view
      */
     func addObjects() {
-        let titleLabelFrame: CGRect = CGRect(x: margin,
-                                             y: topMargin,
-                                             width: view.bounds.size.width - 2*margin,
-                                             height: standardControlHeight)
-        titleLabel = UILabel(frame: titleLabelFrame)
-        titleLabel.text = "Auction Alert"
-        titleLabel.textColor = UIColor.whiteColor()
-        titleLabel.textAlignment = .Center
+        titleLabel = AALabel()
+        titleLabel.backgroundColor = UIColor.clearColor()
+        titleLabel.textColor = textIconColor
         view.addSubview(titleLabel!)
         
-        let realmEntryFrame: CGRect = CGRect(x: margin,
-                                             y: CGRectGetMaxY(titleLabelFrame) + margin,
-                                             width: view.bounds.size.width - 2*margin,
-                                             height: standardControlHeight)
-        realmEntry = UITextField(frame: realmEntryFrame)
+        realmEntry = UITextField()
         realmEntry.placeholder = "Realm"
-        realmEntry.textColor = UIColor.whiteColor()
+        realmEntry.textColor = textIconColor
         view.addSubview(realmEntry!)
         
-        let objectEntryFrame: CGRect = CGRect(x: margin,
-                                              y: CGRectGetMaxY(realmEntryFrame) + margin,
-                                              width: view.bounds.size.width - 2*margin,
-                                              height: standardControlHeight)
-        objectEntry = UITextField(frame: objectEntryFrame)
+        objectEntry = UITextField()
         objectEntry.placeholder = "Object"
-        objectEntry.textColor = UIColor.whiteColor()
+        objectEntry.textColor = textIconColor
         view.addSubview(objectEntry!)
-        view.addSubview(realmEntry!)
         
-        let priceEntryFrame: CGRect = CGRect(x: margin,
-                                              y: CGRectGetMaxY(objectEntryFrame) + margin,
-                                              width: view.bounds.size.width - 2*margin,
-                                              height: standardControlHeight)
-        priceEntry = UITextField(frame: priceEntryFrame)
+        priceEntry = UITextField()
         priceEntry.placeholder = "Maximum price (gold each)"
-        priceEntry.textColor = UIColor.whiteColor()
+        priceEntry.textColor = textIconColor
         view.addSubview(priceEntry!)
         
-        let searchButtonFrame: CGRect = CGRect(x: (view.bounds.size.width - standardControlWidth) / 2,
-                                               y: view.bounds.size.height - margin - standardControlHeight,
-                                               width: standardControlWidth,
-                                               height: standardControlHeight)
-        searchButton = UIButton(frame: searchButtonFrame)
+        searchButton = UIButton()
         searchButton.setTitle("Search", forState: .Normal)
-        searchButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        searchButton.setTitleColor(textIconColor, forState: .Normal)
+        searchButton.setBackgroundImage(UIImage(color: accentColor), forState: .Normal)
         searchButton.addTarget(self, action: #selector(searchButtonTapped), forControlEvents: .TouchUpInside)
         view.addSubview(searchButton!)
         
-        let resultsTableFrame: CGRect = CGRect(x: margin,
-                                               y: CGRectGetMaxY(priceEntryFrame) + margin,
-                                               width: view.bounds.size.width - 2*margin,
-                                               height: CGRectGetMinY(searchButtonFrame) - CGRectGetMaxY(priceEntryFrame) - 2*margin)
-        resultsTable = UITableView(frame: resultsTableFrame)
-        resultsTable.backgroundColor = UIColor.init(colorLiteralRed: 1.0, green: 0, blue: 1.0, alpha: 1)
+        resultsTable = UITableView()
+        resultsTable.backgroundColor = UIColor.clearColor()
+        resultsTable.separatorStyle = .None
+        
         resultsTable.dataSource = self
         resultsTable.delegate = self
         resultsTable.rowHeight = 60
         resultsTable.registerClass(SearchResultCell.self, forCellReuseIdentifier: "Cell")
         view.addSubview(resultsTable!)
         
-        let activityIndicatorFrame: CGRect = CGRect(x: (view.bounds.size.width - standardControlHeight)/2,
-                                                    y: (view.bounds.size.height - standardControlHeight)/2,
-                                                    width: standardControlHeight,
-                                                    height: standardControlHeight)
-        activityIndicator = UIActivityIndicatorView(frame: activityIndicatorFrame)
+        activityIndicator = UIActivityIndicatorView()
         if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
             activityIndicator.activityIndicatorViewStyle = .WhiteLarge
         }
@@ -123,6 +92,65 @@ class ViewController: UIViewController {
         realmEntry.text = "Hellfire"
         objectEntry.text = "silk cloth"
         priceEntry.text = "10"
+    }
+    
+    /*
+     * sizeObjects
+     *
+     * Sets the size of objects separately so this function can be called from different places
+     */
+    func sizeObjects() {
+        
+        let topMargin: CGFloat = 20.0
+        let standardControlWidth: CGFloat = 200.0
+        let standardControlHeight: CGFloat = 30.0
+        let viewHeight : CGFloat = view.bounds.size.height
+        let viewWidth : CGFloat = view.bounds.size.width
+        let margin: CGFloat = (viewWidth + viewHeight)/100
+        
+        let titleLabelFrame: CGRect = CGRect(x: margin,
+                                             y: topMargin,
+                                             width: viewWidth - 2*margin,
+                                             height: standardControlHeight)
+        titleLabel.frame = titleLabelFrame
+        
+        let realmEntryFrame: CGRect = CGRect(x: margin,
+                                             y: CGRectGetMaxY(titleLabelFrame) + margin,
+                                             width: viewWidth - 2*margin,
+                                             height: standardControlHeight)
+
+        realmEntry.frame = realmEntryFrame
+        
+        let objectEntryFrame: CGRect = CGRect(x: margin,
+                                              y: CGRectGetMaxY(realmEntryFrame) + margin,
+                                              width: viewWidth - 2*margin,
+                                              height: standardControlHeight)
+        objectEntry.frame = objectEntryFrame
+        
+        let priceEntryFrame: CGRect = CGRect(x: margin,
+                                             y: CGRectGetMaxY(objectEntryFrame) + margin,
+                                             width: viewWidth - 2*margin,
+                                             height: standardControlHeight)
+        priceEntry.frame = priceEntryFrame
+        
+        
+        let searchButtonFrame: CGRect = CGRect(x: (viewWidth - standardControlWidth) / 2,
+                                               y: viewHeight - margin - standardControlHeight,
+                                               width: standardControlWidth,
+                                               height: standardControlHeight)
+        searchButton.frame = searchButtonFrame
+        
+        let resultsTableFrame: CGRect = CGRect(x: margin,
+                                               y: CGRectGetMaxY(priceEntryFrame) + margin,
+                                               width: viewWidth - 2*margin,
+                                               height: CGRectGetMinY(searchButtonFrame) - CGRectGetMaxY(priceEntryFrame) - 2*margin)
+        resultsTable.frame = resultsTableFrame
+        
+        let activityIndicatorFrame: CGRect = CGRect(x: (viewWidth - standardControlHeight)/2,
+                                                    y: (viewHeight - standardControlHeight)/2,
+                                                    width: standardControlHeight,
+                                                    height: standardControlHeight)
+        activityIndicator.frame = activityIndicatorFrame
     }
     
     /*
