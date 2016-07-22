@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+let idForVendor: String? = UIDevice.currentDevice().identifierForVendor?.UUIDString
 let auctionAlertURL: String = "http://uglybluecat.com/AuctionAlert.php"
 
 /*

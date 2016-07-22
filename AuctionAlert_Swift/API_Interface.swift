@@ -25,6 +25,20 @@ class API_Interface {
     }
     
     /*
+     * saveSearch
+     *
+     * Saves a search for an object in a realm
+     * This will result in a push notification if the object is found by the server
+     *
+     * @param: realm:   String - The realm to search in
+     * @param: object:  String - The object to search for
+     */
+    class func saveSearch (realm: String, object: String, price: String) {
+        let params: Dictionary = ["command": "save", "realm": realm, "object_name": object, "price": price]
+        self.postRequest(params, urlString: auctionAlertURL)
+    }
+    
+    /*
      * getRequest
      *
      * Calls a request with the GET method
@@ -36,6 +50,17 @@ class API_Interface {
     }
     
     /*
+     * postRequest
+     *
+     * Calls a request with the POST method
+     *
+     * @param: params: Dictionary<String, String> - The parameters for the POST request
+     */
+    class func postRequest (params: Dictionary<String, String>, urlString: String) {
+        self.makeRequest(.POST, params: params, urlString: urlString)
+    }
+    
+    /*
      * makeRequest
      *
      * Makes an HTTP request with the provided parameterd
@@ -44,8 +69,15 @@ class API_Interface {
      * @param: params: Dictionary<String, String>   - The parameters for the request
      */
     class func makeRequest (method: Alamofire.Method, params: Dictionary<String, String>, urlString: String) {
+        var localParams = params
+        if idForVendor != nil {
+            localParams.updateValue(idForVendor!, forKey: "idforvendor")
+        } else {
+            DLog("No ID for Vendor")
+            return
+        }
         
-        Alamofire.request(method, urlString, parameters: params)
+        Alamofire.request(method, urlString, parameters: localParams)
             .validate()
             .progress({ (read, total, expected) in
                 DLog("read: \(read) total: \(total) expected: \(expected)")

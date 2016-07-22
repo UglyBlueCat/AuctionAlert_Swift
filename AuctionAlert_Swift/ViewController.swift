@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     var objectEntry: UITextField!
     var priceEntry: UITextField!
     var searchButton: UIButton!
+    var saveButton: UIButton!
     var resultsTable: UITableView!
     var activityIndicator: UIActivityIndicatorView!
 
@@ -77,6 +78,13 @@ class ViewController: UIViewController {
         searchButton.addTarget(self, action: #selector(searchButtonTapped), forControlEvents: .TouchUpInside)
         view.addSubview(searchButton!)
         
+        saveButton = UIButton()
+        saveButton.setTitle("Save", forState: .Normal)
+        saveButton.setTitleColor(textIconColor, forState: .Normal)
+        saveButton.setBackgroundImage(UIImage(color: accentColor), forState: .Normal)
+        saveButton.addTarget(self, action: #selector(saveButtonTapped), forControlEvents: .TouchUpInside)
+        view.addSubview(saveButton!)
+        
         resultsTable = UITableView()
         resultsTable.backgroundColor = UIColor.clearColor()
         resultsTable.separatorStyle = .None
@@ -112,6 +120,8 @@ class ViewController: UIViewController {
         let viewHeight : CGFloat = size.height
         let viewWidth : CGFloat = size.width
         let margin: CGFloat = (viewWidth + viewHeight)/100
+        let numButtons: CGFloat = 2.0
+        let buttonGap = (viewWidth - numButtons*standardControlWidth)/(numButtons + 1)
         
         let titleLabelFrame: CGRect = CGRect(x: margin,
                                              y: topMargin,
@@ -138,12 +148,17 @@ class ViewController: UIViewController {
                                              height: standardControlHeight)
         priceEntry.frame = priceEntryFrame
         
-        
-        let searchButtonFrame: CGRect = CGRect(x: (viewWidth - standardControlWidth) / 2,
+        let searchButtonFrame: CGRect = CGRect(x: buttonGap,
                                                y: viewHeight - margin - standardControlHeight,
                                                width: standardControlWidth,
                                                height: standardControlHeight)
         searchButton.frame = searchButtonFrame
+        
+        let saveButtonFrame: CGRect = CGRect(x: 2*buttonGap + standardControlWidth,
+                                               y: viewHeight - margin - standardControlHeight,
+                                               width: standardControlWidth,
+                                               height: standardControlHeight)
+        saveButton.frame = saveButtonFrame
         
         let resultsTableFrame: CGRect = CGRect(x: margin,
                                                y: CGRectGetMaxY(priceEntryFrame) + margin,
@@ -171,6 +186,20 @@ class ViewController: UIViewController {
         DLog("Searching for \(object) on \(realm) with a maximum price of \(price) gold each")
         activityIndicator.startAnimating()
         API_Interface.searchAuction(realm, object: object, price: price)
+    }
+    
+    /*
+     * saveButtonTapped()
+     *
+     * Respond to the tapping of the save button
+     * Initiates the saving of a search with parameters entered
+     */
+    func saveButtonTapped() {
+        let realm: String = realmEntry.text!
+        let object: String = objectEntry.text!
+        let price: String = priceEntry.text!
+        DLog("Saving search for \(object) on \(realm) with a maximum price of \(price) gold each")
+        API_Interface.saveSearch(realm, object: object, price: price)
     }
     
     /*
