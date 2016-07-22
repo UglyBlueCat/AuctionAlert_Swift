@@ -21,7 +21,7 @@ class API_Interface {
      */
     class func searchAuction (realm: String, object: String, price: String) {
         let params: Dictionary = ["command": "search", "realm": realm, "object_name": object, "price": price]
-        self.getRequest(params)
+        self.getRequest(params, urlString: auctionAlertURL)
     }
     
     /*
@@ -31,8 +31,8 @@ class API_Interface {
      *
      * @param: params: Dictionary<String, String> - The parameters for the GET request
      */
-    class func getRequest (params: Dictionary<String, String>) {
-        self.makeRequest(.GET, params: params)
+    class func getRequest (params: Dictionary<String, String>, urlString: String) {
+        self.makeRequest(.GET, params: params, urlString: urlString)
     }
     
     /*
@@ -43,10 +43,9 @@ class API_Interface {
      * @param: method: Alamofire.Method             - The method for the request
      * @param: params: Dictionary<String, String>   - The parameters for the request
      */
-    class func makeRequest (method: Alamofire.Method, params: Dictionary<String, String>) {
-        let baseURL: String = "http://uglybluecat.com/AuctionAlert.php"
+    class func makeRequest (method: Alamofire.Method, params: Dictionary<String, String>, urlString: String) {
         
-        Alamofire.request(method, baseURL, parameters: params)
+        Alamofire.request(method, urlString, parameters: params)
             .validate()
             .progress({ (read, total, expected) in
                 DLog("read: \(read) total: \(total) expected: \(expected)")

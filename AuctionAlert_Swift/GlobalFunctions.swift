@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 
+let auctionAlertURL: String = "http://uglybluecat.com/AuctionAlert.php"
+
 /*
  * DLog
  *
