@@ -71,6 +71,9 @@ class DataHandler {
                 DLog("Cannot extract a value for \"\(elementName)\"")
             }
         }
+        if result.count < 1 {
+            DLog("No values extracted from object:\n\(object)")
+        }
         return result
     }
 }

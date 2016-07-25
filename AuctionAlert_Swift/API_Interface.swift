@@ -63,7 +63,7 @@ class API_Interface {
     /*
      * makeRequest
      *
-     * Makes an HTTP request with the provided parameterd
+     * Makes an HTTP request with the provided parameters
      *
      * @param: method: Alamofire.Method             - The method for the request
      * @param: params: Dictionary<String, String>   - The parameters for the request

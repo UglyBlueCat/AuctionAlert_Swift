@@ -26,8 +26,8 @@ class AALabel: UILabel {
      */
     func setupStandards() {
         text = "Auction Alert"
-        backgroundColor = textIconColor
-        textColor = primaryTextColor
+        backgroundColor = UIColor.clearColor()
+        textColor = textIconColor
         textAlignment = .Center
         adjustsFontSizeToFitWidth = true
         allowsDefaultTighteningForTruncation = true

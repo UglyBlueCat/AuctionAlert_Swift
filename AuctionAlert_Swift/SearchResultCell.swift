@@ -10,7 +10,7 @@ import UIKit
 
 class SearchResultCell: UITableViewCell {
     
-    let margin: CGFloat = 2.0
+    let margin: CGFloat = 0.0
     
     var iconImage: UIImageView!
     var detailLabel: AALabel!
@@ -42,7 +42,7 @@ class SearchResultCell: UITableViewCell {
         self.backgroundColor = UIColor.clearColor()
         
         iconImage = UIImageView()
-        iconImage.backgroundColor = lightPrimaryColor
+        iconImage.backgroundColor = UIColor.clearColor()
         self.addSubview(iconImage!)
         
         detailLabel = AALabel()
@@ -50,11 +50,11 @@ class SearchResultCell: UITableViewCell {
         self.addSubview(detailLabel!)
         
         bidLabel = AALabel()
-        bidLabel.textColor = secondaryTextColor
+        bidLabel.textColor = textIconColor
         self.addSubview(bidLabel!)
         
         buyoutLabel = AALabel()
-        buyoutLabel.textColor = secondaryTextColor
+        buyoutLabel.textColor = textIconColor
         self.addSubview(buyoutLabel!)
         
         if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
