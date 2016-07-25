@@ -83,12 +83,33 @@ class API_Interface {
                 DLog("read: \(read) total: \(total) expected: \(expected)")
             })
             .responseJSON { response in
+                DLog("response:\n\(response)")
                 switch response.result {
                 case .Success:
-                    DataHandler.sharedInstance.newData(response.data!)
+                    handleResponse(response.response!)
+                    if response.data != nil {
+                        DataHandler.sharedInstance.newData(response.data!)
+                    }
                 case .Failure(let error):
-                    DLog("Error: \(error)")
+                    let errorMessage: String = error.userInfo["NSDebugDescription"]! as! String
+                    DLog("Status Code \(response.response!.statusCode): Error: \(errorMessage)")
                 }
+        }
+    }
+    
+    /*
+     * handleResponse
+     *
+     * performs actions based on response code
+     *
+     * @param: response: NSHTTPURLResponse - The response from the request
+     */
+    class func handleResponse (response: NSHTTPURLResponse) {
+        switch response.statusCode {
+        case 500:
+            DLog("Status Code 500: Server Error")
+        default:
+            DLog("Status Code \(response.statusCode)")
         }
     }
 }
