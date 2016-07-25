@@ -91,7 +91,7 @@ class ViewController: UIViewController {
         
         resultsTable.dataSource = self
         resultsTable.delegate = self
-        resultsTable.rowHeight = 60
+        resultsTable.rowHeight = 56
         resultsTable.registerClass(SearchResultCell.self, forCellReuseIdentifier: "Cell")
         view.addSubview(resultsTable!)
         
@@ -235,9 +235,9 @@ extension ViewController: UITableViewDataSource {
         let (buyoutGold, buyoutSilver, buyoutCopper) = ConvertMoney(buyout)
         let buyoutString = "\(buyoutGold)g \(buyoutSilver)s \(buyoutCopper)c"
         
-        cell.detailLabel!.text = "Stack size:\(quantity) Seller:\(owner)"
-        cell.bidLabel!.text = "Current bid: \(bidString)"
-        cell.buyoutLabel!.text = "Buyout: \(buyoutString)"
+        cell.detailLabel!.text = "Stack size: \(quantity) Seller:\(owner)"
+        cell.bidLabel!.text = "Current bid:\n\(bidString)"
+        cell.buyoutLabel!.text = "Buyout:\n\(buyoutString)"
         return cell
     }
 }
