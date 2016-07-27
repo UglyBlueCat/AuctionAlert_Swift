@@ -72,13 +72,12 @@ class DataHandler {
             } else if let itemInt = object[elementName] as? Int {
                 result.updateValue(itemInt, forKey: elementName)
             } else {
-                DLog("Cannot extract a value for \"\(elementName)\"")
+                // Assume element doesn't exist
             }
         }
         if result.count < 1 {
             DLog("No values extracted from object:\n\(object)")
         }
-        DLog("result: \(result)")
         return result
     }
 }

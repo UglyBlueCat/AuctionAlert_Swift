@@ -120,7 +120,6 @@ class API_Interface {
                 DLog("read: \(read) total: \(total) expected: \(expected)")
             })
             .responseJSON { response in
-                DLog("response:\n\(response)")
                 switch response.result {
                 case .Success:
                     if response.data != nil {

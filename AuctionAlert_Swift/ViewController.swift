@@ -297,7 +297,6 @@ extension ViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let singleResult: Dictionary<String, AnyObject> = DataHandler.sharedInstance.searchResults[indexPath.row]
-        DLog("singleResult: \(singleResult)")
         
         if singleResult["quantity"] != nil {
             let cell:SearchResultCell = tableView.dequeueReusableCellWithIdentifier("SearchResultCell", forIndexPath: indexPath) as! SearchResultCell
@@ -329,7 +328,6 @@ extension ViewController: UITableViewDataSource {
             let realm : String = singleResult["realm"]! as! String
             let object : String = singleResult["object"]! as! String
             let price : Int = singleResult["price"]! as! Int
-            DLog("price: \(price)")
             let (priceGold, priceSilver, priceCopper) = ConvertMoney(price*10000)
             let priceString = "\(priceGold)g \(priceSilver)s \(priceCopper)c"
             
