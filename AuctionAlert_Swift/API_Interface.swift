@@ -18,10 +18,11 @@ class API_Interface {
      *
      * @param: realm:   String - The realm to search in
      * @param: object:  String - The object to search for
+     * @param: price:   String - The maximum price
      */
     class func searchAuction (realm: String, object: String, price: String) {
         let params: Dictionary = ["command": "search", "realm": realm, "object_name": object, "price": price]
-        self.getRequest(params, urlString: auctionAlertURL)
+        getRequest(params, urlString: auctionAlertURL)
     }
     
     /*
@@ -32,10 +33,35 @@ class API_Interface {
      *
      * @param: realm:   String - The realm to search in
      * @param: object:  String - The object to search for
+     * @param: price:   String - The maximum price
      */
     class func saveSearch (realm: String, object: String, price: String) {
         let params: Dictionary = ["command": "save", "realm": realm, "object_name": object, "price": price]
-        self.postRequest(params, urlString: auctionAlertURL)
+        postRequest(params, urlString: auctionAlertURL)
+    }
+    
+    /*
+     * listAuctions
+     *
+     * Initiates an API call to retrieve all saved searches
+     */
+    class func listAuctions () {
+        let params: Dictionary = ["command": "fetch"]
+        getRequest(params, urlString: auctionAlertURL)
+    }
+    
+    /*
+     * deleteAuction
+     *
+     * Initiates an API call to delete a saved search
+     *
+     * @param: realm:   String - The realm to search in
+     * @param: object:  String - The object to search for
+     * @param: price:   String - The maximum price
+     */
+    class func deleteAuction (realm: String, object: String, price: String) {
+        let params: Dictionary = ["command": "delete", "realm": realm, "object_name": object, "price": price]
+        deleteRequest(params, urlString: auctionAlertURL)
     }
     
     /*
@@ -46,7 +72,7 @@ class API_Interface {
      * @param: params: Dictionary<String, String> - The parameters for the GET request
      */
     class func getRequest (params: Dictionary<String, String>, urlString: String) {
-        self.makeRequest(.GET, params: params, urlString: urlString)
+        makeRequest(.GET, params: params, urlString: urlString)
     }
     
     /*
@@ -57,7 +83,18 @@ class API_Interface {
      * @param: params: Dictionary<String, String> - The parameters for the POST request
      */
     class func postRequest (params: Dictionary<String, String>, urlString: String) {
-        self.makeRequest(.POST, params: params, urlString: urlString)
+        makeRequest(.POST, params: params, urlString: urlString)
+    }
+    
+    /*
+     * deleteRequest
+     *
+     * Calls a request with the DELETE method
+     *
+     * @param: params: Dictionary<String, String> - The parameters for the DELETE request
+     */
+    class func deleteRequest (params: Dictionary<String, String>, urlString: String) {
+        makeRequest(.DELETE, params: params, urlString: urlString)
     }
     
     /*
@@ -78,7 +115,7 @@ class API_Interface {
         }
         
         Alamofire.request(method, urlString, parameters: localParams)
-            .validate()
+            .validate(statusCode: 200..<600)
             .progress({ (read, total, expected) in
                 DLog("read: \(read) total: \(total) expected: \(expected)")
             })
@@ -86,13 +123,12 @@ class API_Interface {
                 DLog("response:\n\(response)")
                 switch response.result {
                 case .Success:
-                    handleResponse(response.response!)
                     if response.data != nil {
                         DataHandler.sharedInstance.newData(response.data!)
                     }
+                    handleResponse(response.response!)
                 case .Failure(let error):
-                    let errorMessage: String = error.userInfo["NSDebugDescription"]! as! String
-                    DLog("Status Code \(response.response!.statusCode): Error: \(errorMessage)")
+                    DLog("Status Code \(response.response!.statusCode): Error: \(error.localizedDescription)")
                 }
         }
     }
@@ -106,6 +142,8 @@ class API_Interface {
      */
     class func handleResponse (response: NSHTTPURLResponse) {
         switch response.statusCode {
+        case 200:
+            return
         case 500:
             DLog("Status Code 500: Server Error")
         default:

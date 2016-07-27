@@ -40,14 +40,18 @@ class DataHandler {
      */
     func populateResults (jsonData: AnyObject) {
         if let resultData = jsonData as? NSArray {
+            searchResults.removeAll()
             for object in resultData {
-                let result: [String: AnyObject] = self.extractValuesFromJSON(object, values: ["item", "owner", "buyout", "bid", "quantity"])
+                let result: [String: AnyObject] = self.extractValuesFromJSON(object, values: ["item", "owner", "buyout", "bid", "quantity", "message", "code", "locale", "object", "price", "realm"])
                 searchResults.append(result)
             }
+            NSNotificationCenter.defaultCenter().postNotificationName("kDataReceived", object: self)
+        } else if let message = jsonData["message"] as? String {
+            presentAlert(message)
+            NSNotificationCenter.defaultCenter().postNotificationName("kMessageReceived", object: self)
         } else {
             DLog("Cannot convert data into array")
         }
-        NSNotificationCenter.defaultCenter().postNotificationName("kDataRecieved", object: self)
     }
     
     /*
@@ -74,6 +78,7 @@ class DataHandler {
         if result.count < 1 {
             DLog("No values extracted from object:\n\(object)")
         }
+        DLog("result: \(result)")
         return result
     }
 }
