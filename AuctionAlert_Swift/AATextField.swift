@@ -1,14 +1,14 @@
 //
-//  AALabel.swift
+//  AATextField.swift
 //  AuctionAlert_Swift
 //
-//  Created by Robin Spinks on 20/07/2016.
+//  Created by Robin Spinks on 28/07/2016.
 //  Copyright © 2016 UglyBlueCat. All rights reserved.
 //
 
 import UIKit
 
-class AALabel: UILabel {
+class AATextField: UITextField {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupStandards()
@@ -19,22 +19,17 @@ class AALabel: UILabel {
         setupStandards()
     }
     
-    convenience init(textStr: String) {
+    convenience init(placeHolder: String) {
         self.init()
-        text = textStr
+        placeholder = placeHolder
     }
     
     /*
      * setupStandards
      *
-     * Sets up label attributes considered standard or default for this application
+     * Sets up attributes considered standard or default for this application
      */
     func setupStandards() {
-        backgroundColor = UIColor.clearColor()
         textColor = primaryTextColor
-        textAlignment = .Center
-        adjustsFontSizeToFitWidth = true
-        allowsDefaultTighteningForTruncation = true
-        minimumScaleFactor = 0.5
     }
 }

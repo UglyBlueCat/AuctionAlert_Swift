@@ -11,15 +11,16 @@ import UIKit
 class ViewController: UIViewController {
     
     var titleLabel: AALabel!
-    var realmEntry: UITextField!
-    var objectEntry: UITextField!
-    var priceEntry: UITextField!
-    var searchButton: UIButton!
-    var saveButton: UIButton!
-    var listButton: UIButton!
-    var deleteButton: UIButton!
+    var realmEntry: AATextField!
+    var objectEntry: AATextField!
+    var priceEntry: AATextField!
+    var searchButton: AAButton!
+    var saveButton: AAButton!
+    var listButton: AAButton!
+    var deleteButton: AAButton!
     var resultsTable: UITableView!
     var activityIndicator: UIActivityIndicatorView!
+    var settingsButton: AAButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,58 +55,34 @@ class ViewController: UIViewController {
      * Add objects to the view
      */
     func addObjects() {
-        titleLabel = AALabel()
-        titleLabel.backgroundColor = UIColor.clearColor()
-        titleLabel.textColor = textIconColor
+        titleLabel = AALabel(textStr: "Auction Alert")
         view.addSubview(titleLabel!)
         
-        realmEntry = UITextField()
-        realmEntry.placeholder = "Realm"
-        realmEntry.textColor = textIconColor
+        realmEntry = AATextField(placeHolder: "Realm")
+        realmEntry.text = userDefaults.stringForKey("kRealm")
         view.addSubview(realmEntry!)
         
-        objectEntry = UITextField()
-        objectEntry.placeholder = "Object"
-        objectEntry.textColor = textIconColor
+        objectEntry = AATextField(placeHolder: "Object")
         view.addSubview(objectEntry!)
         
-        priceEntry = UITextField()
-        priceEntry.placeholder = "Maximum price (gold each)"
-        priceEntry.textColor = textIconColor
+        priceEntry = AATextField(placeHolder: "Maximum price (gold each)")
         view.addSubview(priceEntry!)
         
-        searchButton = UIButton()
-        searchButton.setTitle("Search", forState: .Normal)
-        searchButton.setTitleColor(textIconColor, forState: .Normal)
-        searchButton.setBackgroundImage(UIImage(color: accentColor), forState: .Normal)
-        searchButton.addTarget(self, action: #selector(searchButtonTapped), forControlEvents: .TouchUpInside)
+        searchButton = AAButton(title: "Search", handler: self, selector: #selector(searchButtonTapped))
         view.addSubview(searchButton!)
         
-        saveButton = UIButton()
-        saveButton.setTitle("Save", forState: .Normal)
-        saveButton.setTitleColor(textIconColor, forState: .Normal)
-        saveButton.setBackgroundImage(UIImage(color: accentColor), forState: .Normal)
-        saveButton.addTarget(self, action: #selector(saveButtonTapped), forControlEvents: .TouchUpInside)
+        saveButton = AAButton(title: "Save", handler: self, selector: #selector(saveButtonTapped))
         view.addSubview(saveButton!)
         
-        listButton = UIButton()
-        listButton.setTitle("List", forState: .Normal)
-        listButton.setTitleColor(textIconColor, forState: .Normal)
-        listButton.setBackgroundImage(UIImage(color: accentColor), forState: .Normal)
-        listButton.addTarget(self, action: #selector(listButtonTapped), forControlEvents: .TouchUpInside)
+        listButton = AAButton(title: "List", handler: self, selector: #selector(listButtonTapped))
         view.addSubview(listButton!)
         
-        deleteButton = UIButton()
-        deleteButton.setTitle("Delete", forState: .Normal)
-        deleteButton.setTitleColor(textIconColor, forState: .Normal)
-        deleteButton.setBackgroundImage(UIImage(color: accentColor), forState: .Normal)
-        deleteButton.addTarget(self, action: #selector(deleteButtonTapped), forControlEvents: .TouchUpInside)
+        deleteButton = AAButton(title: "Delete", handler: self, selector: #selector(deleteButtonTapped))
         view.addSubview(deleteButton!)
         
         resultsTable = UITableView()
         resultsTable.backgroundColor = UIColor.clearColor()
         resultsTable.separatorStyle = .None
-        
         resultsTable.dataSource = self
         resultsTable.delegate = self
         resultsTable.rowHeight = 56
@@ -120,8 +97,11 @@ class ViewController: UIViewController {
         }
         view.addSubview(activityIndicator)
         
+        settingsButton = AAButton(title: "", handler: self, selector: #selector(settingsButtonTapped))
+        settingsButton.setBackgroundImage(UIImage(named: "settings_icon"), forState: .Normal)
+        view.addSubview(settingsButton)
+        
         // TODO: Remove temporary debugging code
-        realmEntry.text = "Hellfire"
         objectEntry.text = "silk cloth"
         priceEntry.text = "10"
     }
@@ -140,9 +120,10 @@ class ViewController: UIViewController {
         let viewWidth : CGFloat = size.width
         let margin: CGFloat = (viewWidth + viewHeight)/100
         let numButtons: CGFloat = 4.0
+        let settingsButtonWidth: CGFloat = standardControlHeight
         
         var buttonWidth : CGFloat
-        if standardControlWidth*numButtons > viewWidth {
+        if standardControlWidth*numButtons > viewWidth - (numButtons + 1)*margin {
             buttonWidth = (viewWidth - (numButtons + 1)*margin)/numButtons
         } else {
             buttonWidth = standardControlWidth
@@ -150,9 +131,15 @@ class ViewController: UIViewController {
         
         let buttonGap = (viewWidth - numButtons*buttonWidth)/(numButtons + 1)
         
-        let titleLabelFrame: CGRect = CGRect(x: margin,
+        let settingsButtonFrame: CGRect = CGRect(x: viewWidth - (settingsButtonWidth + margin),
+                                                 y: topMargin,
+                                                 width: settingsButtonWidth,
+                                                 height: settingsButtonWidth)
+        settingsButton.frame = settingsButtonFrame
+        
+        let titleLabelFrame: CGRect = CGRect(x: margin + settingsButtonWidth,
                                              y: topMargin,
-                                             width: viewWidth - 2*margin,
+                                             width: viewWidth - (4*margin + 2*settingsButtonWidth),
                                              height: standardControlHeight)
         titleLabel.frame = titleLabelFrame
         
@@ -266,6 +253,18 @@ class ViewController: UIViewController {
         DLog("Deleting search for \(object) on \(realm) with a maximum price of \(price) gold each")
         activityIndicator.startAnimating()
         API_Interface.deleteAuction(realm, object: object, price: price)
+    }
+    
+    /*
+     * deleteButtonTapped()
+     *
+     * Respond to the tapping of the delete button
+     * Initiates the deletion of the selected search
+     */
+    func settingsButtonTapped() {
+        DLog("")
+        let settingsVC : SettingsVC = SettingsVC()
+        presentViewController(settingsVC, animated: true, completion: nil)
     }
     
     /*

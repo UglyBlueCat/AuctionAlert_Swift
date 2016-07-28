@@ -50,11 +50,9 @@ class SearchResultCell: UITableViewCell {
         self.addSubview(detailLabel!)
         
         bidLabel = AALabel()
-        bidLabel.textColor = textIconColor
         self.addSubview(bidLabel!)
         
         buyoutLabel = AALabel()
-        buyoutLabel.textColor = textIconColor
         self.addSubview(buyoutLabel!)
         
         if UIDevice.currentDevice().userInterfaceIdiom == .Phone {

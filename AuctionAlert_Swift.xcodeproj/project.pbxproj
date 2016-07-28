@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0010E6191D3BDE35002B4363 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010E6181D3BDE35002B4363 /* SearchResultCell.swift */; };
+		0055C8C31D4A62A6009CCFF3 /* AASegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0055C8C21D4A62A6009CCFF3 /* AASegmentedControl.swift */; };
 		0076B4B91D47D04400BE0EBD /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0076B4A51D47CE9800BE0EBD /* Alamofire.framework */; };
 		0076B4BA1D47D04400BE0EBD /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0076B4A51D47CE9800BE0EBD /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0076B4BF1D47DE6400BE0EBD /* SearchListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0076B4BE1D47DE6400BE0EBD /* SearchListCell.swift */; };
@@ -23,6 +24,10 @@
 		00B192481D2D2894009A363E /* AuctionAlert_SwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B192471D2D2894009A363E /* AuctionAlert_SwiftUITests.swift */; };
 		00B1D1C01D35519F00CB145D /* API_Interface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B1D1BF1D35519F00CB145D /* API_Interface.swift */; };
 		00B96DCC1D4931FD004E8ED5 /* goblin_rogue.png in Resources */ = {isa = PBXBuildFile; fileRef = 00B96DCB1D4931FD004E8ED5 /* goblin_rogue.png */; };
+		00B96DCE1D493343004E8ED5 /* settings_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 00B96DCD1D493343004E8ED5 /* settings_icon.png */; };
+		00C2D8701D4A00CF00BFF253 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C2D86F1D4A00CF00BFF253 /* SettingsVC.swift */; };
+		00C2D8751D4A04D200BFF253 /* AAButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C2D8741D4A04D200BFF253 /* AAButton.swift */; };
+		00C2D8771D4A0F4D00BFF253 /* AATextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C2D8761D4A0F4D00BFF253 /* AATextField.swift */; };
 		00DCD6861D3F763B0008543B /* AALabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00DCD6851D3F763B0008543B /* AALabel.swift */; };
 /* End PBXBuildFile section */
 
@@ -122,6 +127,7 @@
 
 /* Begin PBXFileReference section */
 		0010E6181D3BDE35002B4363 /* SearchResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
+		0055C8C21D4A62A6009CCFF3 /* AASegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AASegmentedControl.swift; sourceTree = "<group>"; };
 		0076B4BE1D47DE6400BE0EBD /* SearchListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchListCell.swift; sourceTree = "<group>"; };
 		007CC79F1D37E6FC000E0A39 /* GlobalFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
 		00A115DC1D37A33A00C13962 /* DataHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataHandler.swift; sourceTree = "<group>"; };
@@ -142,6 +148,10 @@
 		00B1D1A21D354EF600CB145D /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		00B1D1BF1D35519F00CB145D /* API_Interface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API_Interface.swift; sourceTree = "<group>"; };
 		00B96DCB1D4931FD004E8ED5 /* goblin_rogue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = goblin_rogue.png; path = Images/goblin_rogue.png; sourceTree = SOURCE_ROOT; };
+		00B96DCD1D493343004E8ED5 /* settings_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = settings_icon.png; path = Images/settings_icon.png; sourceTree = SOURCE_ROOT; };
+		00C2D86F1D4A00CF00BFF253 /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		00C2D8741D4A04D200BFF253 /* AAButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AAButton.swift; sourceTree = "<group>"; };
+		00C2D8761D4A0F4D00BFF253 /* AATextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AATextField.swift; sourceTree = "<group>"; };
 		00DCD6851D3F763B0008543B /* AALabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AALabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -209,19 +219,10 @@
 		00B192231D2D2894009A363E /* AuctionAlert_Swift */ = {
 			isa = PBXGroup;
 			children = (
-				00B192241D2D2894009A363E /* AppDelegate.swift */,
-				00B192261D2D2894009A363E /* ViewController.swift */,
-				00B192281D2D2894009A363E /* Main.storyboard */,
-				00B1922E1D2D2894009A363E /* Assets.xcassets */,
-				00B192301D2D2894009A363E /* LaunchScreen.storyboard */,
-				00B192331D2D2894009A363E /* Info.plist */,
-				00B1922B1D2D2894009A363E /* AuctionAlert_Swift.xcdatamodeld */,
-				00B1D1BF1D35519F00CB145D /* API_Interface.swift */,
-				00A115DC1D37A33A00C13962 /* DataHandler.swift */,
-				007CC79F1D37E6FC000E0A39 /* GlobalFunctions.swift */,
-				0010E6181D3BDE35002B4363 /* SearchResultCell.swift */,
-				00DCD6851D3F763B0008543B /* AALabel.swift */,
-				0076B4BE1D47DE6400BE0EBD /* SearchListCell.swift */,
+				00C2D86E1D4A007200BFF253 /* Core */,
+				00C2D86D1D4A004D00BFF253 /* UI */,
+				00C2D8661D49FFFB00BFF253 /* Other resources */,
+				00B96DBD1D492F33004E8ED5 /* Images */,
 			);
 			path = AuctionAlert_Swift;
 			sourceTree = "<group>";
@@ -242,6 +243,77 @@
 				00B192491D2D2894009A363E /* Info.plist */,
 			);
 			path = AuctionAlert_SwiftUITests;
+			sourceTree = "<group>";
+		};
+		00B96DBD1D492F33004E8ED5 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				00B96DCD1D493343004E8ED5 /* settings_icon.png */,
+				00B96DCB1D4931FD004E8ED5 /* goblin_rogue.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		00C2D8661D49FFFB00BFF253 /* Other resources */ = {
+			isa = PBXGroup;
+			children = (
+				00B192281D2D2894009A363E /* Main.storyboard */,
+				00B1922E1D2D2894009A363E /* Assets.xcassets */,
+				00B192301D2D2894009A363E /* LaunchScreen.storyboard */,
+				00B192331D2D2894009A363E /* Info.plist */,
+				00B1922B1D2D2894009A363E /* AuctionAlert_Swift.xcdatamodeld */,
+			);
+			name = "Other resources";
+			sourceTree = "<group>";
+		};
+		00C2D86D1D4A004D00BFF253 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				00C2D8711D4A048A00BFF253 /* ViewControllers */,
+				00C2D8721D4A049900BFF253 /* Cells */,
+				00C2D8731D4A04B200BFF253 /* Controls */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		00C2D86E1D4A007200BFF253 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				00B192241D2D2894009A363E /* AppDelegate.swift */,
+				00B1D1BF1D35519F00CB145D /* API_Interface.swift */,
+				00A115DC1D37A33A00C13962 /* DataHandler.swift */,
+				007CC79F1D37E6FC000E0A39 /* GlobalFunctions.swift */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+		00C2D8711D4A048A00BFF253 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				00B192261D2D2894009A363E /* ViewController.swift */,
+				00C2D86F1D4A00CF00BFF253 /* SettingsVC.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		00C2D8721D4A049900BFF253 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				0010E6181D3BDE35002B4363 /* SearchResultCell.swift */,
+				0076B4BE1D47DE6400BE0EBD /* SearchListCell.swift */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
+		00C2D8731D4A04B200BFF253 /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				00DCD6851D3F763B0008543B /* AALabel.swift */,
+				00C2D8741D4A04D200BFF253 /* AAButton.swift */,
+				00C2D8761D4A0F4D00BFF253 /* AATextField.swift */,
+				0055C8C21D4A62A6009CCFF3 /* AASegmentedControl.swift */,
+			);
+			name = Controls;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -411,8 +483,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				00B192321D2D2894009A363E /* LaunchScreen.storyboard in Resources */,
+				00B96DCE1D493343004E8ED5 /* settings_icon.png in Resources */,
 				00B1922F1D2D2894009A363E /* Assets.xcassets in Resources */,
 				00B1922A1D2D2894009A363E /* Main.storyboard in Resources */,
+				00B96DCC1D4931FD004E8ED5 /* goblin_rogue.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,12 +514,16 @@
 				0010E6191D3BDE35002B4363 /* SearchResultCell.swift in Sources */,
 				0076B4BF1D47DE6400BE0EBD /* SearchListCell.swift in Sources */,
 				00B1D1C01D35519F00CB145D /* API_Interface.swift in Sources */,
+				00C2D8751D4A04D200BFF253 /* AAButton.swift in Sources */,
 				00DCD6861D3F763B0008543B /* AALabel.swift in Sources */,
 				00B1922D1D2D2894009A363E /* AuctionAlert_Swift.xcdatamodeld in Sources */,
 				007CC7A01D37E6FC000E0A39 /* GlobalFunctions.swift in Sources */,
+				00C2D8771D4A0F4D00BFF253 /* AATextField.swift in Sources */,
 				00B192271D2D2894009A363E /* ViewController.swift in Sources */,
 				00B192251D2D2894009A363E /* AppDelegate.swift in Sources */,
 				00A115DD1D37A33A00C13962 /* DataHandler.swift in Sources */,
+				00C2D8701D4A00CF00BFF253 /* SettingsVC.swift in Sources */,
+				0055C8C31D4A62A6009CCFF3 /* AASegmentedControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

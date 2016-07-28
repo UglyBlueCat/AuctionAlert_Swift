@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+let userDefaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
 let idForVendor: String? = UIDevice.currentDevice().identifierForVendor?.UUIDString
 let auctionAlertURL: String = "http://uglybluecat.com/AuctionAlert.php"
 
@@ -71,16 +72,14 @@ extension UIColor {
 }
 
 /*
- * Colours chosen using http://www.materialpalette.com/purple/cyan
+ * Colours
  */
-let darkPrimaryColor = UIColor(hexString: "#512DA8")
-let primaryColor = UIColor(hexString: "#673AB7")
-let lightPrimaryColor = UIColor(hexString: "#D1C4E9")
-let textIconColor = UIColor(hexString: "#FFFFFF")
-let accentColor = UIColor(hexString: "#536DFE")
-let primaryTextColor = UIColor(hexString: "#212121")
-let secondaryTextColor = UIColor(hexString: "#727272")
-let dividerColor = UIColor(hexString: "#B6B6B6")
+let primaryColor = UIColor(hexString: "#726036")
+let primaryTextColor = UIColor(hexString: "#AAACBF88")
+let accentColor = UIColor(hexString: "#40371A")
+let primaryAttentionColor = UIColor(hexString: "#8CF205")
+let secondaryAttentionColor = UIColor(hexString: "#96BF3C")
+let pinkColor = UIColor(hexString: "#FF00FF")
 
 /*
  * Create image from colour

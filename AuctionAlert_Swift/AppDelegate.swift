@@ -14,9 +14,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        setUserDefaults()
+
         return true
     }
 
@@ -107,5 +108,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
+    func setUserDefaults() {
+        if userDefaults.stringForKey("kRegion") == nil {
+            userDefaults.setValue("EU", forKey: "kRegion")
+        }
+        if userDefaults.stringForKey("kLanguage") == nil {
+            userDefaults.setValue("en", forKey: "kLanguage")
+        }
+        if userDefaults.stringForKey("kLocale") == nil {
+            userDefaults.setValue("en_GB", forKey: "kLocale")
+        }
+        if userDefaults.stringForKey("kRealm") == nil {
+            userDefaults.setValue("Hellfire", forKey: "kRealm")
+        }
+    }
 }
 
