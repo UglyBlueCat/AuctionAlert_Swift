@@ -109,6 +109,7 @@ class ViewController: UIViewController {
         resultsTable.dataSource = self
         resultsTable.delegate = self
         resultsTable.rowHeight = 56
+        resultsTable.backgroundView = UIImageView(image: UIImage(named: "goblin_rogue"))
         resultsTable.registerClass(SearchResultCell.self, forCellReuseIdentifier: "SearchResultCell")
         resultsTable.registerClass(SearchListCell.self, forCellReuseIdentifier: "SearchListCell")
         view.addSubview(resultsTable!)

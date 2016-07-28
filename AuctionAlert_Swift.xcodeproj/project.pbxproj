@@ -22,6 +22,7 @@
 		00B1923D1D2D2894009A363E /* AuctionAlert_SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B1923C1D2D2894009A363E /* AuctionAlert_SwiftTests.swift */; };
 		00B192481D2D2894009A363E /* AuctionAlert_SwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B192471D2D2894009A363E /* AuctionAlert_SwiftUITests.swift */; };
 		00B1D1C01D35519F00CB145D /* API_Interface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B1D1BF1D35519F00CB145D /* API_Interface.swift */; };
+		00B96DCC1D4931FD004E8ED5 /* goblin_rogue.png in Resources */ = {isa = PBXBuildFile; fileRef = 00B96DCB1D4931FD004E8ED5 /* goblin_rogue.png */; };
 		00DCD6861D3F763B0008543B /* AALabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00DCD6851D3F763B0008543B /* AALabel.swift */; };
 /* End PBXBuildFile section */
 
@@ -140,6 +141,7 @@
 		00B192491D2D2894009A363E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00B1D1A21D354EF600CB145D /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		00B1D1BF1D35519F00CB145D /* API_Interface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API_Interface.swift; sourceTree = "<group>"; };
+		00B96DCB1D4931FD004E8ED5 /* goblin_rogue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = goblin_rogue.png; path = Images/goblin_rogue.png; sourceTree = SOURCE_ROOT; };
 		00DCD6851D3F763B0008543B /* AALabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AALabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
