@@ -21,6 +21,7 @@ class ViewController: UIViewController {
     var resultsTable: UITableView!
     var activityIndicator: UIActivityIndicatorView!
     var settingsButton: AAButton!
+    let settingsVC : SettingsVC = SettingsVC()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +35,7 @@ class ViewController: UIViewController {
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         positionObjectsWithinSize(size)
         resultsTable.reloadData()
     }
@@ -131,72 +133,60 @@ class ViewController: UIViewController {
         
         let buttonGap = (viewWidth - numButtons*buttonWidth)/(numButtons + 1)
         
-        let settingsButtonFrame: CGRect = CGRect(x: viewWidth - (settingsButtonWidth + margin),
-                                                 y: topMargin,
-                                                 width: settingsButtonWidth,
-                                                 height: settingsButtonWidth)
-        settingsButton.frame = settingsButtonFrame
+        settingsButton.frame = CGRect(x: viewWidth - (settingsButtonWidth + margin),
+                                      y: topMargin,
+                                      width: settingsButtonWidth,
+                                      height: settingsButtonWidth)
         
-        let titleLabelFrame: CGRect = CGRect(x: margin + settingsButtonWidth,
-                                             y: topMargin,
-                                             width: viewWidth - (4*margin + 2*settingsButtonWidth),
-                                             height: standardControlHeight)
-        titleLabel.frame = titleLabelFrame
+        titleLabel.frame = CGRect(x: margin + settingsButtonWidth,
+                                  y: topMargin,
+                                  width: viewWidth - (4*margin + 2*settingsButtonWidth),
+                                  height: standardControlHeight)
         
-        let realmEntryFrame: CGRect = CGRect(x: margin,
-                                             y: CGRectGetMaxY(titleLabelFrame) + margin,
-                                             width: viewWidth - 2*margin,
-                                             height: standardControlHeight)
-
-        realmEntry.frame = realmEntryFrame
+        realmEntry.frame = CGRect(x: margin,
+                                  y: CGRectGetMaxY(titleLabel.frame) + margin,
+                                  width: viewWidth - 2*margin,
+                                  height: standardControlHeight)
         
-        let objectEntryFrame: CGRect = CGRect(x: margin,
-                                              y: CGRectGetMaxY(realmEntryFrame) + margin,
-                                              width: viewWidth - 2*margin,
-                                              height: standardControlHeight)
-        objectEntry.frame = objectEntryFrame
+        objectEntry.frame = CGRect(x: margin,
+                                   y: CGRectGetMaxY(realmEntry.frame) + margin,
+                                   width: viewWidth - 2*margin,
+                                   height: standardControlHeight)
         
-        let priceEntryFrame: CGRect = CGRect(x: margin,
-                                             y: CGRectGetMaxY(objectEntryFrame) + margin,
-                                             width: viewWidth - 2*margin,
-                                             height: standardControlHeight)
-        priceEntry.frame = priceEntryFrame
+        priceEntry.frame = CGRect(x: margin,
+                                  y: CGRectGetMaxY(objectEntry.frame) + margin,
+                                  width: viewWidth - 2*margin,
+                                  height: standardControlHeight)
         
-        let searchButtonFrame: CGRect = CGRect(x: buttonGap,
-                                               y: viewHeight - margin - standardControlHeight,
-                                               width: buttonWidth,
-                                               height: standardControlHeight)
-        searchButton.frame = searchButtonFrame
+        searchButton.frame = CGRect(x: buttonGap,
+                                    y: viewHeight - margin - standardControlHeight,
+                                    width: buttonWidth,
+                                    height: standardControlHeight)
         
-        let saveButtonFrame: CGRect = CGRect(x: 2*buttonGap + buttonWidth,
-                                               y: viewHeight - margin - standardControlHeight,
-                                               width: buttonWidth,
-                                               height: standardControlHeight)
-        saveButton.frame = saveButtonFrame
+        saveButton.frame = CGRect(x: 2*buttonGap + buttonWidth,
+                                  y: viewHeight - margin - standardControlHeight,
+                                  width: buttonWidth,
+                                  height: standardControlHeight)
         
-        let listButtonFrame: CGRect = CGRect(x: 3*buttonGap + 2*buttonWidth,
-                                               y: viewHeight - margin - standardControlHeight,
-                                               width: buttonWidth,
-                                               height: standardControlHeight)
-        listButton.frame = listButtonFrame
+        listButton.frame = CGRect(x: 3*buttonGap + 2*buttonWidth,
+                                  y: viewHeight - margin - standardControlHeight,
+                                  width: buttonWidth,
+                                  height: standardControlHeight)
         
-        let deleteButtonFrame: CGRect = CGRect(x: 4*buttonGap + 3*buttonWidth,
-                                               y: viewHeight - margin - standardControlHeight,
-                                               width: buttonWidth,
-                                               height: standardControlHeight)
-        deleteButton.frame = deleteButtonFrame
+        deleteButton.frame = CGRect(x: 4*buttonGap + 3*buttonWidth,
+                                    y: viewHeight - margin - standardControlHeight,
+                                    width: buttonWidth,
+                                    height: standardControlHeight)
         
-        let resultsTableFrame: CGRect = CGRect(x: margin,
-                                               y: CGRectGetMaxY(priceEntryFrame) + margin,
-                                               width: viewWidth - 2*margin,
-                                               height: CGRectGetMinY(searchButtonFrame) - CGRectGetMaxY(priceEntryFrame) - 2*margin)
-        resultsTable.frame = resultsTableFrame
+        resultsTable.frame = CGRect(x: margin,
+                                    y: CGRectGetMaxY(priceEntry.frame) + margin,
+                                    width: viewWidth - 2*margin,
+                                    height: CGRectGetMinY(searchButton.frame) - CGRectGetMaxY(priceEntry.frame) - 2*margin)
         
-        let activityIndicatorFrame: CGRect = CGRect(x: (viewWidth - standardControlHeight)/2,
-                                                    y: (viewHeight - standardControlHeight)/2,
-                                                    width: standardControlHeight,
-                                                    height: standardControlHeight)
-        activityIndicator.frame = activityIndicatorFrame
+        activityIndicator.frame = CGRect(x: (viewWidth - standardControlHeight)/2,
+                                         y: (viewHeight - standardControlHeight)/2,
+                                         width: standardControlHeight,
+                                         height: standardControlHeight)
     }
     
     /*
@@ -263,7 +253,6 @@ class ViewController: UIViewController {
      */
     func settingsButtonTapped() {
         DLog("")
-        let settingsVC : SettingsVC = SettingsVC()
         presentViewController(settingsVC, animated: true, completion: nil)
     }
     

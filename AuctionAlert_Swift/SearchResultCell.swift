@@ -77,28 +77,24 @@ class SearchResultCell: UITableViewCell {
         let iconWidth : CGFloat = cellHeight - 2*margin
         let priceLabelWidth: CGFloat = 0.2*cellWidth
         
-        let iconImageFrame: CGRect = CGRect(x: margin,
-                                            y: margin,
-                                            width: iconWidth,
-                                            height: iconWidth)
-        iconImage.frame = iconImageFrame
-        
-        let bidLabelFrame: CGRect = CGRect(x: cellWidth - (priceLabelWidth + margin),
-                                           y: margin,
-                                           width: priceLabelWidth,
-                                           height: cellHeight/2 - 1.5*margin)
-        bidLabel.frame = bidLabelFrame
-        
-        let buyoutLabelFrame: CGRect = CGRect(x: cellWidth - (priceLabelWidth + margin),
-                                              y: cellHeight/2 + 0.5*margin,
-                                              width: priceLabelWidth,
-                                              height: cellHeight/2 - 1.5*margin)
-        buyoutLabel.frame = buyoutLabelFrame
-        
-        let detailLabelFrame: CGRect = CGRect(x: iconWidth + 2*margin,
-                                              y: margin,
-                                              width: cellWidth - (priceLabelWidth + iconWidth + 4*margin),
-                                              height: cellHeight - 2*margin)
-        detailLabel.frame = detailLabelFrame
+        iconImage.frame = CGRect(x: margin,
+                                 y: margin,
+                                 width: iconWidth,
+                                 height: iconWidth)
+    
+        bidLabel.frame = CGRect(x: cellWidth - (priceLabelWidth + margin),
+                                y: margin,
+                                width: priceLabelWidth,
+                                height: cellHeight/2 - 1.5*margin)
+    
+        buyoutLabel.frame = CGRect(x: cellWidth - (priceLabelWidth + margin),
+                                   y: cellHeight/2 + 0.5*margin,
+                                   width: priceLabelWidth,
+                                   height: cellHeight/2 - 1.5*margin)
+    
+        detailLabel.frame = CGRect(x: iconWidth + 2*margin,
+                                   y: margin,
+                                   width: cellWidth - (priceLabelWidth + iconWidth + 4*margin),
+                                   height: cellHeight - 2*margin)
     }
 }

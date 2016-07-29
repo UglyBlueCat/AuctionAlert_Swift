@@ -30,6 +30,7 @@ class SettingsVC: UIViewController {
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         positionObjectsWithinSize(size)
     }
     
@@ -89,47 +90,40 @@ class SettingsVC: UIViewController {
         let viewWidth : CGFloat = size.width
         let margin: CGFloat = (viewWidth + viewHeight)/100
         
-        let doneButtonFrame: CGRect = CGRect(x: (viewWidth - standardControlWidth)/2,
-                                             y: viewHeight - standardControlHeight - margin,
-                                             width: standardControlWidth,
-                                             height: standardControlHeight)
-        doneButton.frame = doneButtonFrame
+        doneButton.frame = CGRect(x: (viewWidth - standardControlWidth)/2,
+                                  y: viewHeight - standardControlHeight - margin,
+                                  width: standardControlWidth,
+                                  height: standardControlHeight)
         
-        let regionLabelFrame: CGRect = CGRect(x: margin,
-                                             y: topMargin,
-                                             width: viewWidth - 2*margin,
-                                             height: standardControlHeight)
-        regionLabel.frame = regionLabelFrame
+        regionLabel.frame = CGRect(x: margin,
+                                   y: topMargin,
+                                   width: viewWidth - 2*margin,
+                                   height: standardControlHeight)
         
-        let regionControlFrame: CGRect = CGRect(x: margin,
-                                             y: CGRectGetMaxY(regionLabelFrame) + margin,
-                                             width: viewWidth - 2*margin,
-                                             height: standardControlHeight)
-        regionControl.frame = regionControlFrame
+        regionControl.frame = CGRect(x: margin,
+                                     y: CGRectGetMaxY(regionLabel.frame) + margin,
+                                     width: viewWidth - 2*margin,
+                                     height: standardControlHeight)
         
-        let localeLabelFrame: CGRect = CGRect(x: margin,
-                                             y: CGRectGetMaxY(regionControlFrame) + margin,
-                                             width: viewWidth - 2*margin,
-                                             height: standardControlHeight)
-        localeLabel.frame = localeLabelFrame
+        localeLabel.frame = CGRect(x: margin,
+                                   y: CGRectGetMaxY(regionControl.frame) + margin,
+                                   width: viewWidth - 2*margin,
+                                   height: standardControlHeight)
         
-        let languageControlFrame: CGRect = CGRect(x: margin,
-                                             y: CGRectGetMaxY(localeLabelFrame) + margin,
-                                             width: viewWidth - 2*margin,
-                                             height: standardControlHeight)
-        languageControl.frame = languageControlFrame
+        languageControl.frame = CGRect(x: margin,
+                                       y: CGRectGetMaxY(localeLabel.frame) + margin,
+                                       width: viewWidth - 2*margin,
+                                       height: standardControlHeight)
         
-        let realmLabelFrame: CGRect = CGRect(x: margin,
-                                             y: CGRectGetMaxY(languageControlFrame) + margin,
-                                             width: viewWidth - 2*margin,
-                                             height: standardControlHeight)
-        realmLabel.frame = realmLabelFrame
+        realmLabel.frame = CGRect(x: margin,
+                                  y: CGRectGetMaxY(languageControl.frame) + margin,
+                                  width: viewWidth - 2*margin,
+                                  height: standardControlHeight)
         
-        let realmSpinnerFrame: CGRect = CGRect(x: margin,
-                                             y: CGRectGetMaxY(realmLabelFrame) + margin,
-                                             width: viewWidth - 2*margin,
-                                             height: CGRectGetMinY(doneButtonFrame) - CGRectGetMaxY(realmLabelFrame) - 2*margin)
-        realmSpinner.frame = realmSpinnerFrame
+        realmSpinner.frame = CGRect(x: margin,
+                                    y: CGRectGetMaxY(realmLabel.frame) + margin,
+                                    width: viewWidth - 2*margin,
+                                    height: CGRectGetMinY(doneButton.frame) - CGRectGetMaxY(realmLabel.frame) - 2*margin)
     }
     
     /*

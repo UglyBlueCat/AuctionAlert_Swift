@@ -53,10 +53,9 @@ class SearchListCell: UITableViewCell {
         let cellHeight : CGFloat = bounds.size.height
         let cellWidth : CGFloat = bounds.size.width
         
-        let detailLabelFrame: CGRect = CGRect(x: margin,
-                                              y: margin,
-                                              width: cellWidth - 2*margin,
-                                              height: cellHeight - 2*margin)
-        detailLabel.frame = detailLabelFrame
+        detailLabel.frame = CGRect(x: margin,
+                                   y: margin,
+                                   width: cellWidth - 2*margin,
+                                   height: cellHeight - 2*margin)
     }
 }
