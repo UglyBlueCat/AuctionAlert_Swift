@@ -10,6 +10,7 @@ import Foundation
 
 class DataHandler {
     var searchResults: Array<Dictionary<String, AnyObject>> = Array()
+    var realmList: Array<String> = Array()
     
     static let sharedInstance = DataHandler()
     private init() {}
@@ -39,18 +40,28 @@ class DataHandler {
      * @param: jsonData: AnyObject
      */
     func populateResults (jsonData: AnyObject) {
-        if let resultData = jsonData as? NSArray {
+        if let resultData = jsonData as? NSDictionary { // It'll be realm data from battle.net
+            realmList.removeAll()
+            if let realmData = resultData["realms"] as? NSArray {
+                for object in realmData {
+                    if let realmName = object["name"] as? String {
+                        realmList.append(realmName)
+                    }
+                }
+            }
+            NSNotificationCenter.defaultCenter().postNotificationName("kRealmsReceived", object: self)
+        } else if let resultData = jsonData as? NSArray { // It'll be search results from the AuctionAlert API
             searchResults.removeAll()
             for object in resultData {
                 let result: [String: AnyObject] = self.extractValuesFromJSON(object, values: ["item", "owner", "buyout", "bid", "quantity", "message", "code", "locale", "object", "price", "realm"])
                 searchResults.append(result)
             }
             NSNotificationCenter.defaultCenter().postNotificationName("kDataReceived", object: self)
-        } else if let message = jsonData["message"] as? String {
+        } else if let message = jsonData["message"] as? String { // It'll be a response message from the AuctionAlert API
             presentAlert(message)
             NSNotificationCenter.defaultCenter().postNotificationName("kMessageReceived", object: self)
         } else {
-            DLog("Cannot convert data into array")
+            DLog("Cannot convert data")
         }
     }
     

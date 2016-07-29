@@ -9,6 +9,10 @@
 import Foundation
 import Alamofire
 
+let locale: String = userDefaults.stringForKey("kLocale")!
+let genericAAParams : Dictionary = ["locale": locale,
+                                    "idforvendor": idForVendor!]
+
 class API_Interface {
     
     /*
@@ -20,8 +24,14 @@ class API_Interface {
      * @param: object:  String - The object to search for
      * @param: price:   String - The maximum price
      */
-    class func searchAuction (realm: String, object: String, price: String) {
-        let params: Dictionary = ["command": "search", "realm": realm, "object_name": object, "price": price]
+    class func searchAuction (object: String, price: String) {
+        var params: Dictionary = ["command": "search",
+                                  "realm": userDefaults.stringForKey("kRealm")!,
+                                  "object_name": object,
+                                  "price": price]
+        for key in genericAAParams.keys {
+            params.updateValue(genericAAParams[key]!, forKey: key)
+        }
         getRequest(params, urlString: auctionAlertURL)
     }
     
@@ -35,8 +45,14 @@ class API_Interface {
      * @param: object:  String - The object to search for
      * @param: price:   String - The maximum price
      */
-    class func saveSearch (realm: String, object: String, price: String) {
-        let params: Dictionary = ["command": "save", "realm": realm, "object_name": object, "price": price]
+    class func saveSearch (object: String, price: String) {
+        var params: Dictionary = ["command": "save",
+                                  "realm": userDefaults.stringForKey("kRealm")!,
+                                  "object_name": object,
+                                  "price": price]
+        for key in genericAAParams.keys {
+            params.updateValue(genericAAParams[key]!, forKey: key)
+        }
         postRequest(params, urlString: auctionAlertURL)
     }
     
@@ -46,7 +62,10 @@ class API_Interface {
      * Initiates an API call to retrieve all saved searches
      */
     class func listAuctions () {
-        let params: Dictionary = ["command": "fetch"]
+        var params: Dictionary = ["command": "fetch"]
+        for key in genericAAParams.keys {
+            params.updateValue(genericAAParams[key]!, forKey: key)
+        }
         getRequest(params, urlString: auctionAlertURL)
     }
     
@@ -59,9 +78,29 @@ class API_Interface {
      * @param: object:  String - The object to search for
      * @param: price:   String - The maximum price
      */
-    class func deleteAuction (realm: String, object: String, price: String) {
-        let params: Dictionary = ["command": "delete", "realm": realm, "object_name": object, "price": price]
+    class func deleteAuction (object: String, price: String) {
+        var params: Dictionary = ["command": "delete",
+                                  "realm": userDefaults.stringForKey("kRealm")!,
+                                  "object_name": object,
+                                  "price": price]
+        for key in genericAAParams.keys {
+            params.updateValue(genericAAParams[key]!, forKey: key)
+        }
         deleteRequest(params, urlString: auctionAlertURL)
+    }
+    
+    /*
+     * fetchRealmData
+     *
+     * retrieves realm data from the battle.net server for the current region
+     */
+    class func fetchRealmData () {
+        let locale : String = userDefaults.stringForKey("kLocale")!
+        let region : String = userDefaults.stringForKey("kRegion")!
+        let params: Dictionary = ["locale": locale, "apikey": battleAPIKey]
+        let battleURL : String = "https://\(battleHost[region]!)/wow/realm/status"
+        DLog("battleURL: \(battleURL)")
+        getRequest(params, urlString: battleURL)
     }
     
     /*
@@ -106,15 +145,7 @@ class API_Interface {
      * @param: params: Dictionary<String, String>   - The parameters for the request
      */
     class func makeRequest (method: Alamofire.Method, params: Dictionary<String, String>, urlString: String) {
-        var localParams = params
-        if idForVendor != nil {
-            localParams.updateValue(idForVendor!, forKey: "idforvendor")
-        } else {
-            DLog("No ID for Vendor")
-            return
-        }
-        
-        Alamofire.request(method, urlString, parameters: localParams)
+        Alamofire.request(method, urlString, parameters: params)
             .validate(statusCode: 200..<600)
             .progress({ (read, total, expected) in
                 DLog("read: \(read) total: \(total) expected: \(expected)")

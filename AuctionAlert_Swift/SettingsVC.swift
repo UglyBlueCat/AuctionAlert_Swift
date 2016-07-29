@@ -23,6 +23,8 @@ class SettingsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(newRealmsReceived), name: "kRealmsReceived", object: nil)
+        API_Interface.fetchRealmData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -70,6 +72,9 @@ class SettingsVC: UIViewController {
         view.addSubview(realmLabel)
         
         realmSpinner = UIPickerView()
+        realmSpinner.delegate = self
+        realmSpinner.dataSource = self
+        realmSpinner.tintColor = primaryTextColor
         view.addSubview(realmSpinner)
         
         doneButton = AAButton(title: "Done", handler: self, selector: #selector(doneButtonTapped))
@@ -133,6 +138,9 @@ class SettingsVC: UIViewController {
      * Checks all settings are saved and removes the view
      */
     func doneButtonTapped() {
+        userDefaults.setValue(regions[regionControl.selectedSegmentIndex], forKey: "kRegion")
+        userDefaults.setValue(languages[languageControl.selectedSegmentIndex], forKey: "kLanguage")
+        userDefaults.setObject(DataHandler.sharedInstance.realmList[realmSpinner.selectedRowInComponent(0)], forKey: "kRealm")
         dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -251,5 +259,58 @@ class SettingsVC: UIViewController {
         default:
             DLog("No region selected")
         }
+        API_Interface.fetchRealmData()
+    }
+    
+    /*
+     * newRealmsReceived
+     *
+     * Responds to a new realms notification
+     * Reloads realms spinner with fresh data
+     */
+    func newRealmsReceived () {
+        DLog("")
+        realmSpinner.reloadAllComponents()
+        if let realm : String = userDefaults.stringForKey("kRealm") {
+            if let index : Int = DataHandler.sharedInstance.realmList.indexOf(realm) {
+                realmSpinner.selectRow(index, inComponent: 0, animated: true)
+            }
+        }
+    }
+}
+
+extension SettingsVC: UIPickerViewDelegate {
+    
+    func pickerView(pickerView: UIPickerView,
+                               titleForRow row: Int,
+                                           forComponent component: Int) -> String? {
+        var realm : String!
+        if DataHandler.sharedInstance.realmList.count > (row + 1) {
+            realm = DataHandler.sharedInstance.realmList[row]
+        }
+        return realm
+    }
+    
+    func pickerView(pickerView: UIPickerView,
+                               didSelectRow row: Int,
+                                            inComponent component: Int) {
+        var realm : String!
+        if DataHandler.sharedInstance.realmList.count > (row + 1) {
+            realm = DataHandler.sharedInstance.realmList[row]
+        }
+        userDefaults.setObject(realm, forKey: "kRealm")
+        DLog("realm: \(realm)")
+    }
+}
+
+extension SettingsVC: UIPickerViewDataSource {
+    
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(pickerView: UIPickerView,
+                      numberOfRowsInComponent component: Int) -> Int {
+        return DataHandler.sharedInstance.realmList.count - 1
     }
 }

@@ -12,6 +12,12 @@ import UIKit
 let userDefaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
 let idForVendor: String? = UIDevice.currentDevice().identifierForVendor?.UUIDString
 let auctionAlertURL: String = "http://uglybluecat.com/AuctionAlert.php"
+let battleHost : [String:String] = ["EU":"eu.api.battle.net",
+                                    "US":"us.api.battle.net",
+                                    "CN":"api.battlenet.com.cn",
+                                    "KR":"kr.api.battle.net",
+                                    "TW":"tw.api.battle.net"]
+let battleAPIKey : String = "h4gsxvxsaggw4azvg2pfmv7wuzvqarsc"
 
 /*
  * DLog

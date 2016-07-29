@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     
     var titleLabel: AALabel!
-    var realmEntry: AATextField!
+    var realmLabel: AALabel!
     var objectEntry: AATextField!
     var priceEntry: AATextField!
     var searchButton: AAButton!
@@ -21,13 +21,18 @@ class ViewController: UIViewController {
     var resultsTable: UITableView!
     var activityIndicator: UIActivityIndicatorView!
     var settingsButton: AAButton!
-    let settingsVC : SettingsVC = SettingsVC()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(newDataReceived), name: "kDataReceived", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(messageReceived), name: "kMessageReceived", object: nil)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        if let realm : String = userDefaults.stringForKey("kRealm") {
+            realmLabel.text = "Realm: \(realm)"
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -60,9 +65,9 @@ class ViewController: UIViewController {
         titleLabel = AALabel(textStr: "Auction Alert")
         view.addSubview(titleLabel!)
         
-        realmEntry = AATextField(placeHolder: "Realm")
-        realmEntry.text = userDefaults.stringForKey("kRealm")
-        view.addSubview(realmEntry!)
+        realmLabel = AALabel(textStr: "Realm: \(userDefaults.stringForKey("kRealm")!)")
+        realmLabel.textAlignment = .Left
+        view.addSubview(realmLabel!)
         
         objectEntry = AATextField(placeHolder: "Object")
         view.addSubview(objectEntry!)
@@ -101,6 +106,7 @@ class ViewController: UIViewController {
         
         settingsButton = AAButton(title: "", handler: self, selector: #selector(settingsButtonTapped))
         settingsButton.setBackgroundImage(UIImage(named: "settings_icon"), forState: .Normal)
+        settingsButton.tintColor = primaryTextColor
         view.addSubview(settingsButton)
         
         // TODO: Remove temporary debugging code
@@ -143,13 +149,13 @@ class ViewController: UIViewController {
                                   width: viewWidth - (4*margin + 2*settingsButtonWidth),
                                   height: standardControlHeight)
         
-        realmEntry.frame = CGRect(x: margin,
+        realmLabel.frame = CGRect(x: margin,
                                   y: CGRectGetMaxY(titleLabel.frame) + margin,
                                   width: viewWidth - 2*margin,
                                   height: standardControlHeight)
         
         objectEntry.frame = CGRect(x: margin,
-                                   y: CGRectGetMaxY(realmEntry.frame) + margin,
+                                   y: CGRectGetMaxY(realmLabel.frame) + margin,
                                    width: viewWidth - 2*margin,
                                    height: standardControlHeight)
         
@@ -196,12 +202,11 @@ class ViewController: UIViewController {
      * Initiates the download of new data with parameters entered
      */
     func searchButtonTapped() {
-        let realm: String = realmEntry.text!
         let object: String = objectEntry.text!
         let price: String = priceEntry.text!
-        DLog("Searching for \(object) on \(realm) with a maximum price of \(price) gold each")
+        DLog("Searching for \(object) on \(userDefaults.stringForKey("kRealm")!) with a maximum price of \(price) gold each")
         activityIndicator.startAnimating()
-        API_Interface.searchAuction(realm, object: object, price: price)
+        API_Interface.searchAuction(object, price: price)
     }
     
     /*
@@ -211,11 +216,10 @@ class ViewController: UIViewController {
      * Initiates the saving of a search with parameters entered
      */
     func saveButtonTapped() {
-        let realm: String = realmEntry.text!
         let object: String = objectEntry.text!
         let price: String = priceEntry.text!
-        DLog("Saving search for \(object) on \(realm) with a maximum price of \(price) gold each")
-        API_Interface.saveSearch(realm, object: object, price: price)
+        DLog("Saving search for \(object) on \(userDefaults.stringForKey("kRealm")!) with a maximum price of \(price) gold each")
+        API_Interface.saveSearch(object, price: price)
     }
     
     /*
@@ -237,12 +241,11 @@ class ViewController: UIViewController {
      * Initiates the deletion of the selected search
      */
     func deleteButtonTapped() {
-        let realm: String = realmEntry.text!
         let object: String = objectEntry.text!
         let price: String = priceEntry.text!
-        DLog("Deleting search for \(object) on \(realm) with a maximum price of \(price) gold each")
+        DLog("Deleting search for \(object) on \(userDefaults.stringForKey("kRealm")!) with a maximum price of \(price) gold each")
         activityIndicator.startAnimating()
-        API_Interface.deleteAuction(realm, object: object, price: price)
+        API_Interface.deleteAuction(object, price: price)
     }
     
     /*
@@ -253,6 +256,7 @@ class ViewController: UIViewController {
      */
     func settingsButtonTapped() {
         DLog("")
+        let settingsVC : SettingsVC = SettingsVC()
         presentViewController(settingsVC, animated: true, completion: nil)
     }
     
