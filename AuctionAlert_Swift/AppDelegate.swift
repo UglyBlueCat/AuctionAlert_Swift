@@ -13,10 +13,58 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    func setUserDefaults() {
+        if userDefaults.stringForKey(regionKey) == nil {
+            userDefaults.setValue("EU", forKey: regionKey)
+        }
+        if userDefaults.stringForKey(languageKey) == nil {
+            userDefaults.setValue("en", forKey: languageKey)
+        }
+        if userDefaults.stringForKey(localeKey) == nil {
+            userDefaults.setValue("en_GB", forKey: localeKey)
+        }
+        if userDefaults.stringForKey(realmKey) == nil {
+            userDefaults.setValue("Hellfire", forKey: realmKey)
+        }
+    }
+    
+    func registerForPushNotifications (application: UIApplication) {
+        DLog("")
+        let notificationSettings = UIUserNotificationSettings(forTypes: [.Badge, .Sound, .Alert], categories: nil)
+        application.registerUserNotificationSettings(notificationSettings)
+    }
+    
+    func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+        DLog("")
+        if notificationSettings.types != .None {
+            application.registerForRemoteNotifications()
+        }
+    }
+    
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        DLog("")
+        let tokenChars = UnsafePointer<CChar>(deviceToken.bytes)
+        var tokenString = ""
+        
+        for i in 0..<deviceToken.length {
+            tokenString += String(format: "%02.2hhx", arguments: [tokenChars[i]])
+        }
+        
+        userDefaults.setObject(tokenString, forKey: deviceKey)
+        DLog("Device token: \(tokenString)")
+    }
+    
+    func application(application: UIApplication, didFailtoRegisterForRemoteNotificationsWithError error: NSError) {
+        DLog("\(error.debugDescription)")
+    }
+    
+    // MARK: - Standard AppDelegate Methods
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         setUserDefaults()
+        registerForPushNotifications(application)
 
         return true
     }
@@ -105,21 +153,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
                 abort()
             }
-        }
-    }
-
-    func setUserDefaults() {
-        if userDefaults.stringForKey("kRegion") == nil {
-            userDefaults.setValue("EU", forKey: "kRegion")
-        }
-        if userDefaults.stringForKey("kLanguage") == nil {
-            userDefaults.setValue("en", forKey: "kLanguage")
-        }
-        if userDefaults.stringForKey("kLocale") == nil {
-            userDefaults.setValue("en_GB", forKey: "kLocale")
-        }
-        if userDefaults.stringForKey("kRealm") == nil {
-            userDefaults.setValue("Hellfire", forKey: "kRealm")
         }
     }
 }

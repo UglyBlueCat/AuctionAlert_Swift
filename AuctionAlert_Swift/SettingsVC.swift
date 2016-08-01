@@ -58,14 +58,14 @@ class SettingsVC: UIViewController {
         view.addSubview(regionLabel)
         
         regionControl = AASegmentedControl(items: regions, handler: self, selector: #selector(regionSegmentTapped))
-        regionControl.selectedSegmentIndex = regions.indexOf(userDefaults.stringForKey("kRegion")!)!
+        regionControl.selectedSegmentIndex = regions.indexOf(userDefaults.stringForKey(regionKey)!)!
         view.addSubview(regionControl)
         
         localeLabel = AALabel(textStr: "Language")
         view.addSubview(localeLabel)
         
         languageControl = AASegmentedControl(items: languages, handler: self, selector: #selector(languageSegmentTapped))
-        languageControl.selectedSegmentIndex = languages.indexOf(userDefaults.stringForKey("kLanguage")!)!
+        languageControl.selectedSegmentIndex = languages.indexOf(userDefaults.stringForKey(languageKey)!)!
         view.addSubview(languageControl)
         
         realmLabel = AALabel(textStr: "Realm")
@@ -138,9 +138,9 @@ class SettingsVC: UIViewController {
      * Checks all settings are saved and removes the view
      */
     func doneButtonTapped() {
-        userDefaults.setValue(regions[regionControl.selectedSegmentIndex], forKey: "kRegion")
-        userDefaults.setValue(languages[languageControl.selectedSegmentIndex], forKey: "kLanguage")
-        userDefaults.setObject(DataHandler.sharedInstance.realmList[realmSpinner.selectedRowInComponent(0)], forKey: "kRealm")
+        userDefaults.setValue(regions[regionControl.selectedSegmentIndex], forKey: regionKey)
+        userDefaults.setValue(languages[languageControl.selectedSegmentIndex], forKey: languageKey)
+        userDefaults.setObject(DataHandler.sharedInstance.realmList[realmSpinner.selectedRowInComponent(0)], forKey: realmKey)
         dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -150,7 +150,7 @@ class SettingsVC: UIViewController {
      * Respond to the tapping of a segment on the region segmented control
      */
     func regionSegmentTapped() {
-        userDefaults.setValue(regions[regionControl.selectedSegmentIndex], forKey: "kRegion")
+        userDefaults.setValue(regions[regionControl.selectedSegmentIndex], forKey: regionKey)
         setLanguages()
         setLocale()
     }
@@ -161,7 +161,7 @@ class SettingsVC: UIViewController {
      * Respond to the tapping of a segment on the language segmented control
      */
     func languageSegmentTapped() {
-        userDefaults.setValue(languages[languageControl.selectedSegmentIndex], forKey: "kLanguage")
+        userDefaults.setValue(languages[languageControl.selectedSegmentIndex], forKey: languageKey)
         setLocale()
     }
     
@@ -223,39 +223,39 @@ class SettingsVC: UIViewController {
         case 0:
             switch languageControl.selectedSegmentIndex {
             case 0:
-                userDefaults.setValue("en_GB", forKey: "kLocale")
+                userDefaults.setValue("en_GB", forKey: localeKey)
             case 1:
-                userDefaults.setValue("de_DE", forKey: "kLocale")
+                userDefaults.setValue("de_DE", forKey: localeKey)
             case 2:
-                userDefaults.setValue("es_ES", forKey: "kLocale")
+                userDefaults.setValue("es_ES", forKey: localeKey)
             case 3:
-                userDefaults.setValue("fr_FR", forKey: "kLocale")
+                userDefaults.setValue("fr_FR", forKey: localeKey)
             case 4:
-                userDefaults.setValue("it_IT", forKey: "kLocale")
+                userDefaults.setValue("it_IT", forKey: localeKey)
             case 5:
-                userDefaults.setValue("pt_PT", forKey: "kLocale")
+                userDefaults.setValue("pt_PT", forKey: localeKey)
             case 6:
-                userDefaults.setValue("ru_RU", forKey: "kLocale")
+                userDefaults.setValue("ru_RU", forKey: localeKey)
             default:
                 presentAlert("Language \(languages[languageControl.selectedSegmentIndex]) invalid for region \(regions[regionControl.selectedSegmentIndex])")
             }
         case 1:
             switch languageControl.selectedSegmentIndex {
             case 0:
-                userDefaults.setValue("en_US", forKey: "kLocale")
+                userDefaults.setValue("en_US", forKey: localeKey)
             case 2:
-                userDefaults.setValue("es_MX", forKey: "kLocale")
+                userDefaults.setValue("es_MX", forKey: localeKey)
             case 5:
-                userDefaults.setValue("pt_BR", forKey: "kLocale")
+                userDefaults.setValue("pt_BR", forKey: localeKey)
             default:
                 presentAlert("Language \(languages[languageControl.selectedSegmentIndex]) invalid for region \(regions[regionControl.selectedSegmentIndex])")
             }
         case 2:
-            userDefaults.setValue("zh_CN", forKey: "kLocale")
+            userDefaults.setValue("zh_CN", forKey: localeKey)
         case 3:
-            userDefaults.setValue("ko_KR", forKey: "kLocale")
+            userDefaults.setValue("ko_KR", forKey: localeKey)
         case 4:
-            userDefaults.setValue("zh_TW", forKey: "kLocale")
+            userDefaults.setValue("zh_TW", forKey: localeKey)
         default:
             DLog("No region selected")
         }
@@ -271,7 +271,7 @@ class SettingsVC: UIViewController {
     func newRealmsReceived () {
         DLog("")
         realmSpinner.reloadAllComponents()
-        if let realm : String = userDefaults.stringForKey("kRealm") {
+        if let realm : String = userDefaults.stringForKey(realmKey) {
             if let index : Int = DataHandler.sharedInstance.realmList.indexOf(realm) {
                 realmSpinner.selectRow(index, inComponent: 0, animated: true)
             }
@@ -298,7 +298,7 @@ extension SettingsVC: UIPickerViewDelegate {
         if DataHandler.sharedInstance.realmList.count > (row + 1) {
             realm = DataHandler.sharedInstance.realmList[row]
         }
-        userDefaults.setObject(realm, forKey: "kRealm")
+        userDefaults.setObject(realm, forKey: realmKey)
         DLog("realm: \(realm)")
     }
 }

@@ -9,9 +9,11 @@
 import Foundation
 import Alamofire
 
-let locale: String = userDefaults.stringForKey("kLocale")!
-let genericAAParams : Dictionary = ["locale": locale,
-                                    "idforvendor": idForVendor!]
+let locale: String? = userDefaults.stringForKey(localeKey)
+let deviceID: String? = userDefaults.stringForKey(deviceKey)
+let genericAAParams : Dictionary = ["locale": locale ?? "",
+                                    "idforvendor": idForVendor ?? "",
+                                    "deviceid": deviceID ?? ""]
 
 class API_Interface {
     
@@ -26,7 +28,7 @@ class API_Interface {
      */
     class func searchAuction (object: String, price: String) {
         var params: Dictionary = ["command": "search",
-                                  "realm": userDefaults.stringForKey("kRealm")!,
+                                  "realm": userDefaults.stringForKey(realmKey) ?? "",
                                   "object_name": object,
                                   "price": price]
         for key in genericAAParams.keys {
@@ -47,7 +49,7 @@ class API_Interface {
      */
     class func saveSearch (object: String, price: String) {
         var params: Dictionary = ["command": "save",
-                                  "realm": userDefaults.stringForKey("kRealm")!,
+                                  "realm": userDefaults.stringForKey(realmKey) ?? "",
                                   "object_name": object,
                                   "price": price]
         for key in genericAAParams.keys {
@@ -80,7 +82,7 @@ class API_Interface {
      */
     class func deleteAuction (object: String, price: String) {
         var params: Dictionary = ["command": "delete",
-                                  "realm": userDefaults.stringForKey("kRealm")!,
+                                  "realm": userDefaults.stringForKey(realmKey) ?? "",
                                   "object_name": object,
                                   "price": price]
         for key in genericAAParams.keys {
@@ -95,10 +97,10 @@ class API_Interface {
      * retrieves realm data from the battle.net server for the current region
      */
     class func fetchRealmData () {
-        let locale : String = userDefaults.stringForKey("kLocale")!
-        let region : String = userDefaults.stringForKey("kRegion")!
+        let locale : String = userDefaults.stringForKey(localeKey) ?? ""
+        let region : String = userDefaults.stringForKey(regionKey) ?? ""
         let params: Dictionary = ["locale": locale, "apikey": battleAPIKey]
-        let battleURL : String = "https://\(battleHost[region]!)/wow/realm/status"
+        let battleURL : String = "https://\(battleHost[region] ?? "")/wow/realm/status"
         DLog("battleURL: \(battleURL)")
         getRequest(params, urlString: battleURL)
     }
@@ -145,6 +147,7 @@ class API_Interface {
      * @param: params: Dictionary<String, String>   - The parameters for the request
      */
     class func makeRequest (method: Alamofire.Method, params: Dictionary<String, String>, urlString: String) {
+        
         Alamofire.request(method, urlString, parameters: params)
             .validate(statusCode: 200..<600)
             .progress({ (read, total, expected) in
@@ -158,7 +161,7 @@ class API_Interface {
                     }
                     handleResponse(response.response!)
                 case .Failure(let error):
-                    DLog("Status Code \(response.response!.statusCode): Error: \(error.localizedDescription)")
+                    DLog("Status Code \(response.response?.statusCode ?? -999): Error: \(error.localizedDescription)")
                 }
         }
     }

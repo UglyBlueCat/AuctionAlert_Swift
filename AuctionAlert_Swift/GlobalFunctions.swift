@@ -18,6 +18,11 @@ let battleHost : [String:String] = ["EU":"eu.api.battle.net",
                                     "KR":"kr.api.battle.net",
                                     "TW":"tw.api.battle.net"]
 let battleAPIKey : String = "h4gsxvxsaggw4azvg2pfmv7wuzvqarsc"
+let regionKey : String = "kRegion"
+let languageKey : String = "kLanguage"
+let localeKey : String = "kLocale"
+let realmKey : String = "kRealm"
+let deviceKey : String = "kDevice"
 
 /*
  * DLog
@@ -81,7 +86,7 @@ extension UIColor {
  * Colours
  */
 let primaryColor = UIColor(hexString: "#726036")
-let primaryTextColor = UIColor(hexString: "#AAACBF88")
+let primaryTextColor = UIColor(hexString: "#FFFFFF")
 let accentColor = UIColor(hexString: "#40371A")
 let primaryAttentionColor = UIColor(hexString: "#8CF205")
 let secondaryAttentionColor = UIColor(hexString: "#96BF3C")

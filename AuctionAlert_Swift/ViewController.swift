@@ -30,7 +30,7 @@ class ViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        if let realm : String = userDefaults.stringForKey("kRealm") {
+        if let realm : String = userDefaults.stringForKey(realmKey) {
             realmLabel.text = "Realm: \(realm)"
         }
     }
@@ -65,7 +65,7 @@ class ViewController: UIViewController {
         titleLabel = AALabel(textStr: "Auction Alert")
         view.addSubview(titleLabel!)
         
-        realmLabel = AALabel(textStr: "Realm: \(userDefaults.stringForKey("kRealm")!)")
+        realmLabel = AALabel(textStr: "Realm: \(userDefaults.stringForKey(realmKey)!)")
         realmLabel.textAlignment = .Left
         view.addSubview(realmLabel!)
         
@@ -204,7 +204,7 @@ class ViewController: UIViewController {
     func searchButtonTapped() {
         let object: String = objectEntry.text!
         let price: String = priceEntry.text!
-        DLog("Searching for \(object) on \(userDefaults.stringForKey("kRealm")!) with a maximum price of \(price) gold each")
+        DLog("Searching for \(object) on \(userDefaults.stringForKey(realmKey)!) with a maximum price of \(price) gold each")
         activityIndicator.startAnimating()
         API_Interface.searchAuction(object, price: price)
     }
@@ -218,7 +218,7 @@ class ViewController: UIViewController {
     func saveButtonTapped() {
         let object: String = objectEntry.text!
         let price: String = priceEntry.text!
-        DLog("Saving search for \(object) on \(userDefaults.stringForKey("kRealm")!) with a maximum price of \(price) gold each")
+        DLog("Saving search for \(object) on \(userDefaults.stringForKey(realmKey)!) with a maximum price of \(price) gold each")
         API_Interface.saveSearch(object, price: price)
     }
     
@@ -243,7 +243,7 @@ class ViewController: UIViewController {
     func deleteButtonTapped() {
         let object: String = objectEntry.text!
         let price: String = priceEntry.text!
-        DLog("Deleting search for \(object) on \(userDefaults.stringForKey("kRealm")!) with a maximum price of \(price) gold each")
+        DLog("Deleting search for \(object) on \(userDefaults.stringForKey(realmKey)!) with a maximum price of \(price) gold each")
         activityIndicator.startAnimating()
         API_Interface.deleteAuction(object, price: price)
     }
