@@ -24,7 +24,7 @@ class SettingsVC: UIViewController {
         super.viewDidLoad()
         setupView()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(newRealmsReceived), name: "kRealmsReceived", object: nil)
-        API_Interface.fetchRealmData()
+        API_Interface.sharedInstance.fetchRealmData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -259,7 +259,7 @@ class SettingsVC: UIViewController {
         default:
             DLog("No region selected")
         }
-        API_Interface.fetchRealmData()
+        API_Interface.sharedInstance.fetchRealmData()
     }
     
     /*

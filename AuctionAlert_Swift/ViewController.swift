@@ -206,7 +206,7 @@ class ViewController: UIViewController {
         let price: String = priceEntry.text!
         DLog("Searching for \(object) on \(userDefaults.stringForKey(realmKey)!) with a maximum price of \(price) gold each")
         activityIndicator.startAnimating()
-        API_Interface.searchAuction(object, price: price)
+        API_Interface.sharedInstance.searchAuction(object, price: price)
     }
     
     /*
@@ -219,7 +219,7 @@ class ViewController: UIViewController {
         let object: String = objectEntry.text!
         let price: String = priceEntry.text!
         DLog("Saving search for \(object) on \(userDefaults.stringForKey(realmKey)!) with a maximum price of \(price) gold each")
-        API_Interface.saveSearch(object, price: price)
+        API_Interface.sharedInstance.saveSearch(object, price: price)
     }
     
     /*
@@ -231,7 +231,7 @@ class ViewController: UIViewController {
     func listButtonTapped() {
         DLog("listing all searches")
         activityIndicator.startAnimating()
-        API_Interface.listAuctions()
+        API_Interface.sharedInstance.listAuctions()
     }
     
     /*
@@ -245,7 +245,7 @@ class ViewController: UIViewController {
         let price: String = priceEntry.text!
         DLog("Deleting search for \(object) on \(userDefaults.stringForKey(realmKey)!) with a maximum price of \(price) gold each")
         activityIndicator.startAnimating()
-        API_Interface.deleteAuction(object, price: price)
+        API_Interface.sharedInstance.deleteAuction(object, price: price)
     }
     
     /*
@@ -295,17 +295,21 @@ extension ViewController: UITableViewDataSource {
             let cell:SearchResultCell = tableView.dequeueReusableCellWithIdentifier("SearchResultCell", forIndexPath: indexPath) as! SearchResultCell
             
             let quantity : Int = singleResult["quantity"]! as! Int
-            let owner : String = singleResult["owner"]! as! String
+            let owner : String? = singleResult["owner"] as? String
             
-            let bid : Int = singleResult["bid"]! as! Int
-            let (bidGold, bidSilver, bidCopper) = ConvertMoney(bid)
-            let bidString = "\(bidGold)g \(bidSilver)s \(bidCopper)c"
+            var bidString : String = ""
+            if let bid : Int = singleResult["bid"] as? Int {
+                let (bidGold, bidSilver, bidCopper) = ConvertMoney(bid)
+                bidString = "\(bidGold)g \(bidSilver)s \(bidCopper)c"
+            }
             
-            let buyout : Int = singleResult["buyout"]! as! Int
-            let (buyoutGold, buyoutSilver, buyoutCopper) = ConvertMoney(buyout)
-            let buyoutString = "\(buyoutGold)g \(buyoutSilver)s \(buyoutCopper)c"
+            var buyoutString : String = ""
+            if let buyout : Int = singleResult["buyout"] as? Int {
+                let (buyoutGold, buyoutSilver, buyoutCopper) = ConvertMoney(buyout)
+                buyoutString = "\(buyoutGold)g \(buyoutSilver)s \(buyoutCopper)c"
+            }
             
-            cell.detailLabel!.text = "Stack size: \(quantity) Seller:\(owner)"
+            cell.detailLabel!.text = "Stack size: \(quantity) Seller:\(owner ?? "")"
             if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
                 cell.bidLabel!.text = "Current bid:\n\(bidString)"
                 cell.buyoutLabel!.text = "Buyout:\n\(buyoutString)"
@@ -318,13 +322,16 @@ extension ViewController: UITableViewDataSource {
         } else {
             let cell:SearchListCell = tableView.dequeueReusableCellWithIdentifier("SearchListCell", forIndexPath: indexPath) as! SearchListCell
             
-            let realm : String = singleResult["realm"]! as! String
-            let object : String = singleResult["object"]! as! String
-            let price : Int = singleResult["price"]! as! Int
-            let (priceGold, priceSilver, priceCopper) = ConvertMoney(price*10000)
-            let priceString = "\(priceGold)g \(priceSilver)s \(priceCopper)c"
+            let realm : String? = singleResult["realm"] as? String
+            let object : String? = singleResult["object"] as? String
             
-            cell.detailLabel!.text = "Search for \(object) on \(realm) with a minimum price of \(priceString)"
+            var priceString : String = ""
+            if let price : Int = singleResult["price"] as? Int {
+                let (priceGold, priceSilver, priceCopper) = ConvertMoney(price*10000)
+                priceString = "\(priceGold)g \(priceSilver)s \(priceCopper)c"
+            }
+            
+            cell.detailLabel!.text = "Search for \(object ?? "") on \(realm ?? "") with a minimum price of \(priceString)"
             
             return cell
         }

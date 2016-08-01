@@ -17,6 +17,16 @@ let genericAAParams : Dictionary = ["locale": locale ?? "",
 
 class API_Interface {
     
+    let alamofireManager : Alamofire.Manager?
+    
+    static let sharedInstance = API_Interface()
+    private init() {
+        DLog("")
+        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        configuration.timeoutIntervalForRequest = 300.0
+        alamofireManager = Alamofire.Manager(configuration: configuration)
+    }
+    
     /*
      * searchAuction
      *
@@ -26,7 +36,7 @@ class API_Interface {
      * @param: object:  String - The object to search for
      * @param: price:   String - The maximum price
      */
-    class func searchAuction (object: String, price: String) {
+    func searchAuction (object: String, price: String) {
         var params: Dictionary = ["command": "search",
                                   "realm": userDefaults.stringForKey(realmKey) ?? "",
                                   "object_name": object,
@@ -47,7 +57,7 @@ class API_Interface {
      * @param: object:  String - The object to search for
      * @param: price:   String - The maximum price
      */
-    class func saveSearch (object: String, price: String) {
+    func saveSearch (object: String, price: String) {
         var params: Dictionary = ["command": "save",
                                   "realm": userDefaults.stringForKey(realmKey) ?? "",
                                   "object_name": object,
@@ -63,7 +73,7 @@ class API_Interface {
      *
      * Initiates an API call to retrieve all saved searches
      */
-    class func listAuctions () {
+    func listAuctions () {
         var params: Dictionary = ["command": "fetch"]
         for key in genericAAParams.keys {
             params.updateValue(genericAAParams[key]!, forKey: key)
@@ -80,7 +90,7 @@ class API_Interface {
      * @param: object:  String - The object to search for
      * @param: price:   String - The maximum price
      */
-    class func deleteAuction (object: String, price: String) {
+    func deleteAuction (object: String, price: String) {
         var params: Dictionary = ["command": "delete",
                                   "realm": userDefaults.stringForKey(realmKey) ?? "",
                                   "object_name": object,
@@ -96,7 +106,7 @@ class API_Interface {
      *
      * retrieves realm data from the battle.net server for the current region
      */
-    class func fetchRealmData () {
+    func fetchRealmData () {
         let locale : String = userDefaults.stringForKey(localeKey) ?? ""
         let region : String = userDefaults.stringForKey(regionKey) ?? ""
         let params: Dictionary = ["locale": locale, "apikey": battleAPIKey]
@@ -112,7 +122,7 @@ class API_Interface {
      *
      * @param: params: Dictionary<String, String> - The parameters for the GET request
      */
-    class func getRequest (params: Dictionary<String, String>, urlString: String) {
+    func getRequest (params: Dictionary<String, String>, urlString: String) {
         makeRequest(.GET, params: params, urlString: urlString)
     }
     
@@ -123,7 +133,7 @@ class API_Interface {
      *
      * @param: params: Dictionary<String, String> - The parameters for the POST request
      */
-    class func postRequest (params: Dictionary<String, String>, urlString: String) {
+    func postRequest (params: Dictionary<String, String>, urlString: String) {
         makeRequest(.POST, params: params, urlString: urlString)
     }
     
@@ -134,7 +144,7 @@ class API_Interface {
      *
      * @param: params: Dictionary<String, String> - The parameters for the DELETE request
      */
-    class func deleteRequest (params: Dictionary<String, String>, urlString: String) {
+    func deleteRequest (params: Dictionary<String, String>, urlString: String) {
         makeRequest(.DELETE, params: params, urlString: urlString)
     }
     
@@ -146,9 +156,9 @@ class API_Interface {
      * @param: method: Alamofire.Method             - The method for the request
      * @param: params: Dictionary<String, String>   - The parameters for the request
      */
-    class func makeRequest (method: Alamofire.Method, params: Dictionary<String, String>, urlString: String) {
+    func makeRequest (method: Alamofire.Method, params: Dictionary<String, String>, urlString: String) {
         
-        Alamofire.request(method, urlString, parameters: params)
+        alamofireManager!.request(method, urlString, parameters: params)
             .validate(statusCode: 200..<600)
             .progress({ (read, total, expected) in
                 DLog("read: \(read) total: \(total) expected: \(expected)")
@@ -159,7 +169,7 @@ class API_Interface {
                     if response.data != nil {
                         DataHandler.sharedInstance.newData(response.data!)
                     }
-                    handleResponse(response.response!)
+                    self.handleResponse(response.response!)
                 case .Failure(let error):
                     DLog("Status Code \(response.response?.statusCode ?? -999): Error: \(error.localizedDescription)")
                 }
@@ -173,7 +183,7 @@ class API_Interface {
      *
      * @param: response: NSHTTPURLResponse - The response from the request
      */
-    class func handleResponse (response: NSHTTPURLResponse) {
+    func handleResponse (response: NSHTTPURLResponse) {
         switch response.statusCode {
         case 200:
             return
