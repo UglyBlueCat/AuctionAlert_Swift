@@ -339,4 +339,65 @@ extension ViewController: UITableViewDataSource {
 }
 
 extension ViewController: UITableViewDelegate {
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let singleResult: Dictionary<String, AnyObject> = DataHandler.sharedInstance.searchResults[indexPath.row]
+        if let realm: String = singleResult["realm"] as? String {
+            userDefaults.setObject(realm.capitalizedString, forKey: realmKey)
+            realmLabel.text = "Realm: \(realm.capitalizedString)"
+            if let object: String = singleResult["object"] as? String {
+                objectEntry.text = object
+            }
+            if let price: Int = singleResult["price"] as? Int {
+                priceEntry.text = price.description
+            }
+            if let locale: String = singleResult["locale"] as? String {
+                userDefaults.setObject(locale, forKey: localeKey)
+                switch locale {
+                case "en_GB":
+                    userDefaults.setObject("EU", forKey: regionKey)
+                    userDefaults.setObject("en", forKey: languageKey)
+                case "de_DE":
+                    userDefaults.setObject("EU", forKey: regionKey)
+                    userDefaults.setObject("de", forKey: languageKey)
+                case "es_ES":
+                    userDefaults.setObject("EU", forKey: regionKey)
+                    userDefaults.setObject("es", forKey: languageKey)
+                case "fr_FR":
+                    userDefaults.setObject("EU", forKey: regionKey)
+                    userDefaults.setObject("fr", forKey: languageKey)
+                case "it_IT":
+                    userDefaults.setObject("EU", forKey: regionKey)
+                    userDefaults.setObject("it", forKey: languageKey)
+                case "pt_PT":
+                    userDefaults.setObject("EU", forKey: regionKey)
+                    userDefaults.setObject("pt", forKey: languageKey)
+                case "ru_RU":
+                    userDefaults.setObject("EU", forKey: regionKey)
+                    userDefaults.setObject("ru", forKey: languageKey)
+                case "en_US":
+                    userDefaults.setObject("US", forKey: regionKey)
+                    userDefaults.setObject("en", forKey: languageKey)
+                case "es_MX":
+                    userDefaults.setObject("US", forKey: regionKey)
+                    userDefaults.setObject("es", forKey: languageKey)
+                case "pt_BR":
+                    userDefaults.setObject("US", forKey: regionKey)
+                    userDefaults.setObject("pt", forKey: languageKey)
+                case "zh_CN":
+                    userDefaults.setObject("CN", forKey: regionKey)
+                    userDefaults.setObject("zh", forKey: languageKey)
+                case "ko_KR":
+                    userDefaults.setObject("KR", forKey: regionKey)
+                    userDefaults.setObject("ko", forKey: languageKey)
+                case "zh_TW":
+                    userDefaults.setObject("TW", forKey: regionKey)
+                    userDefaults.setObject("zh", forKey: languageKey)
+                default:
+                    userDefaults.setObject("EU", forKey: regionKey)
+                    userDefaults.setObject("en", forKey: languageKey)
+                }
+            }
+        }
+    }
 }

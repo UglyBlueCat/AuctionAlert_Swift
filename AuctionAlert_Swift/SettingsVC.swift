@@ -299,7 +299,6 @@ extension SettingsVC: UIPickerViewDelegate {
             realm = DataHandler.sharedInstance.realmList[row]
         }
         userDefaults.setObject(realm, forKey: realmKey)
-        DLog("realm: \(realm)")
     }
 }
 

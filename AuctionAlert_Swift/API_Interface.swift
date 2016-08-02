@@ -9,12 +9,6 @@
 import Foundation
 import Alamofire
 
-let locale: String? = userDefaults.stringForKey(localeKey)
-let deviceID: String? = userDefaults.stringForKey(deviceKey)
-let genericAAParams : Dictionary = ["locale": locale ?? "",
-                                    "idforvendor": idForVendor ?? "",
-                                    "deviceid": deviceID ?? ""]
-
 class API_Interface {
     
     let alamofireManager : Alamofire.Manager?
@@ -37,13 +31,11 @@ class API_Interface {
      * @param: price:   String - The maximum price
      */
     func searchAuction (object: String, price: String) {
-        var params: Dictionary = ["command": "search",
-                                  "realm": userDefaults.stringForKey(realmKey) ?? "",
-                                  "object_name": object,
-                                  "price": price]
-        for key in genericAAParams.keys {
-            params.updateValue(genericAAParams[key]!, forKey: key)
-        }
+        var params: Dictionary<String, AnyObject> = ["command": "search",
+                                                     "realm": userDefaults.stringForKey(realmKey) ?? "",
+                                                     "object_name": object,
+                                                     "price": price]
+        params = addGlobalValues(params)
         getRequest(params, urlString: auctionAlertURL)
     }
     
@@ -58,13 +50,11 @@ class API_Interface {
      * @param: price:   String - The maximum price
      */
     func saveSearch (object: String, price: String) {
-        var params: Dictionary = ["command": "save",
-                                  "realm": userDefaults.stringForKey(realmKey) ?? "",
-                                  "object_name": object,
-                                  "price": price]
-        for key in genericAAParams.keys {
-            params.updateValue(genericAAParams[key]!, forKey: key)
-        }
+        var params: Dictionary<String, AnyObject> = ["command": "save",
+                                                     "realm": userDefaults.stringForKey(realmKey) ?? "",
+                                                     "object_name": object,
+                                                     "price": price]
+        params = addGlobalValues(params)
         postRequest(params, urlString: auctionAlertURL)
     }
     
@@ -74,10 +64,8 @@ class API_Interface {
      * Initiates an API call to retrieve all saved searches
      */
     func listAuctions () {
-        var params: Dictionary = ["command": "fetch"]
-        for key in genericAAParams.keys {
-            params.updateValue(genericAAParams[key]!, forKey: key)
-        }
+        var params: Dictionary<String, AnyObject> = ["command": "fetch"]
+        params = addGlobalValues(params)
         getRequest(params, urlString: auctionAlertURL)
     }
     
@@ -91,13 +79,11 @@ class API_Interface {
      * @param: price:   String - The maximum price
      */
     func deleteAuction (object: String, price: String) {
-        var params: Dictionary = ["command": "delete",
-                                  "realm": userDefaults.stringForKey(realmKey) ?? "",
-                                  "object_name": object,
-                                  "price": price]
-        for key in genericAAParams.keys {
-            params.updateValue(genericAAParams[key]!, forKey: key)
-        }
+        var params: Dictionary<String, AnyObject> = ["command": "delete",
+                                                     "realm": userDefaults.stringForKey(realmKey) ?? "",
+                                                     "object_name": object,
+                                                     "price": price]
+        params = addGlobalValues(params)
         deleteRequest(params, urlString: auctionAlertURL)
     }
     
@@ -109,7 +95,7 @@ class API_Interface {
     func fetchRealmData () {
         let locale : String = userDefaults.stringForKey(localeKey) ?? ""
         let region : String = userDefaults.stringForKey(regionKey) ?? ""
-        let params: Dictionary = ["locale": locale, "apikey": battleAPIKey]
+        let params: Dictionary<String, AnyObject> = ["locale": locale, "apikey": battleAPIKey]
         let battleURL : String = "https://\(battleHost[region] ?? "")/wow/realm/status"
         DLog("battleURL: \(battleURL)")
         getRequest(params, urlString: battleURL)
@@ -122,7 +108,7 @@ class API_Interface {
      *
      * @param: params: Dictionary<String, String> - The parameters for the GET request
      */
-    func getRequest (params: Dictionary<String, String>, urlString: String) {
+    func getRequest (params: Dictionary<String, AnyObject>, urlString: String) {
         makeRequest(.GET, params: params, urlString: urlString)
     }
     
@@ -133,7 +119,7 @@ class API_Interface {
      *
      * @param: params: Dictionary<String, String> - The parameters for the POST request
      */
-    func postRequest (params: Dictionary<String, String>, urlString: String) {
+    func postRequest (params: Dictionary<String, AnyObject>, urlString: String) {
         makeRequest(.POST, params: params, urlString: urlString)
     }
     
@@ -144,7 +130,7 @@ class API_Interface {
      *
      * @param: params: Dictionary<String, String> - The parameters for the DELETE request
      */
-    func deleteRequest (params: Dictionary<String, String>, urlString: String) {
+    func deleteRequest (params: Dictionary<String, AnyObject>, urlString: String) {
         makeRequest(.DELETE, params: params, urlString: urlString)
     }
     
@@ -156,7 +142,7 @@ class API_Interface {
      * @param: method: Alamofire.Method             - The method for the request
      * @param: params: Dictionary<String, String>   - The parameters for the request
      */
-    func makeRequest (method: Alamofire.Method, params: Dictionary<String, String>, urlString: String) {
+    func makeRequest (method: Alamofire.Method, params: Dictionary<String, AnyObject>, urlString: String) {
         
         alamofireManager!.request(method, urlString, parameters: params)
             .validate(statusCode: 200..<600)
@@ -192,5 +178,31 @@ class API_Interface {
         default:
             DLog("Status Code \(response.statusCode)")
         }
+    }
+    
+    /*
+     * addGlobalValues
+     *
+     * Adds global values to a parameter set
+     *
+     * @param: Dictionary<String, AnyObject>  - a set of parameters specific to a request
+     * @return: Dictionary<String, AnyObject> - the same parameters updated with additional genereric values
+     */
+    func addGlobalValues (params: Dictionary<String, AnyObject>) -> Dictionary<String, AnyObject> {
+        var localParams: Dictionary<String, AnyObject> = params
+        
+        if let locale: String = userDefaults.stringForKey(localeKey) {
+            localParams.updateValue(locale, forKey: "locale")
+        }
+        
+        if let deviceID: String = userDefaults.stringForKey(deviceKey) {
+            localParams.updateValue(deviceID, forKey: "deviceid")
+        }
+        
+        if let localIDforVendor: String = idForVendor {
+            localParams.updateValue(localIDforVendor, forKey: "idforvendor")
+        }
+        
+        return localParams
     }
 }
