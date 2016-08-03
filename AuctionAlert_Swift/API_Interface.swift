@@ -87,6 +87,21 @@ class API_Interface {
         deleteRequest(params, urlString: auctionAlertURL)
     }
     
+    
+    /*
+     * checkCode
+     *
+     * validates an entered object name by retrieving its code from the API
+     *
+     * @param: object:  String - The object to check
+     */
+    func checkCode (object: String) {
+        var params: Dictionary<String, AnyObject> = ["command": "code",
+                                                     "object_name": object]
+        params = addGlobalValues(params)
+        getRequest(params, urlString: auctionAlertURL)
+    }
+    
     /*
      * fetchRealmData
      *

@@ -19,9 +19,10 @@ class AATextField: UITextField {
         setupStandards()
     }
     
-    convenience init(placeHolder: String) {
+    convenience init(placeHolder: String, handler: AnyObject, selector: Selector) {
         self.init()
         placeholder = placeHolder
+        addTarget(handler, action: selector, forControlEvents: [.EditingDidEnd, .EditingDidEndOnExit])
     }
     
     /*

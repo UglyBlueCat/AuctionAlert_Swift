@@ -69,10 +69,10 @@ class ViewController: UIViewController {
         realmLabel.textAlignment = .Left
         view.addSubview(realmLabel!)
         
-        objectEntry = AATextField(placeHolder: "Object")
+        objectEntry = AATextField(placeHolder: "Object", handler: self, selector: #selector(objectNameEntered))
         view.addSubview(objectEntry!)
         
-        priceEntry = AATextField(placeHolder: "Maximum price (gold each)")
+        priceEntry = AATextField(placeHolder: "Maximum price (gold each)", handler: self, selector: #selector(priceEntered))
         view.addSubview(priceEntry!)
         
         searchButton = AAButton(title: "Search", handler: self, selector: #selector(searchButtonTapped))
@@ -264,7 +264,7 @@ class ViewController: UIViewController {
      * newDataReceived()
      *
      * Called when notification of new data download completion is received
-     * Reloads the table
+     * Reloads the table and stops the activity indicator
      */
     func newDataReceived() {
         DLog("Recieved: \(DataHandler.sharedInstance.searchResults.count) objects")
@@ -278,8 +278,34 @@ class ViewController: UIViewController {
      * Called when notification of message is received
      */
     func messageReceived() {
-        DLog("Recieved message")
+        DLog("Received message")
         activityIndicator.stopAnimating()
+    }
+    
+    /*
+     * objectNameEntered
+     *
+     * called after user edits object name text field
+     */
+    func objectNameEntered() {
+        if let objectName: String = objectEntry.text {
+            API_Interface.sharedInstance.checkCode(objectName)
+        }
+    }
+    
+    /*
+     * priceEntered
+     *
+     * called after user edits price text field
+     */
+    func priceEntered() {
+        if let priceStr : String = priceEntry.text {
+            if let price : Int = Int(priceStr) {
+                // price is int
+            } else {
+                presentAlert("Price needs to be in whole units of gold")
+            }
+        }
     }
 }
 
@@ -291,10 +317,9 @@ extension ViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let singleResult: Dictionary<String, AnyObject> = DataHandler.sharedInstance.searchResults[indexPath.row]
         
-        if singleResult["quantity"] != nil {
-            let cell:SearchResultCell = tableView.dequeueReusableCellWithIdentifier("SearchResultCell", forIndexPath: indexPath) as! SearchResultCell
+        if let quantity : Int = singleResult["quantity"] as? Int {
+            let cell : SearchResultCell = tableView.dequeueReusableCellWithIdentifier("SearchResultCell", forIndexPath: indexPath) as! SearchResultCell
             
-            let quantity : Int = singleResult["quantity"]! as! Int
             let owner : String? = singleResult["owner"] as? String
             
             var bidString : String = ""
@@ -319,10 +344,9 @@ extension ViewController: UITableViewDataSource {
             }
             
             return cell
-        } else {
-            let cell:SearchListCell = tableView.dequeueReusableCellWithIdentifier("SearchListCell", forIndexPath: indexPath) as! SearchListCell
+        } else if let realm : String = singleResult["realm"] as? String {
+            let cell : SearchListCell = tableView.dequeueReusableCellWithIdentifier("SearchListCell", forIndexPath: indexPath) as! SearchListCell
             
-            let realm : String? = singleResult["realm"] as? String
             let object : String? = singleResult["object"] as? String
             
             var priceString : String = ""
@@ -333,6 +357,10 @@ extension ViewController: UITableViewDataSource {
             
             cell.detailLabel!.text = "Search for \(object ?? "") on \(realm ?? "") with a minimum price of \(priceString)"
             
+            return cell
+        } else {
+            DLog("Cannot interpret data")
+            let cell : UITableViewCell = tableView.dequeueReusableCellWithIdentifier("cell")!
             return cell
         }
     }
