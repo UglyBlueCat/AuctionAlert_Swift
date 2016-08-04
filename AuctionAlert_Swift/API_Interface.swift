@@ -15,7 +15,6 @@ class API_Interface {
     
     static let sharedInstance = API_Interface()
     private init() {
-        DLog("")
         let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
         configuration.timeoutIntervalForRequest = 300.0
         alamofireManager = Alamofire.Manager(configuration: configuration)
@@ -108,12 +107,16 @@ class API_Interface {
      * retrieves realm data from the battle.net server for the current region
      */
     func fetchRealmData () {
-        let locale : String = userDefaults.stringForKey(localeKey) ?? ""
-        let region : String = userDefaults.stringForKey(regionKey) ?? ""
-        let params: Dictionary<String, AnyObject> = ["locale": locale, "apikey": battleAPIKey]
-        let battleURL : String = "https://\(battleHost[region] ?? "")/wow/realm/status"
-        DLog("battleURL: \(battleURL)")
-        getRequest(params, urlString: battleURL)
+        if let
+            locale : String = userDefaults.stringForKey(localeKey),
+            region : String = userDefaults.stringForKey(regionKey),
+            localBattleHost : String = battleHost[region]
+        {
+            let params: Dictionary<String, AnyObject> = ["locale": locale, "apikey": battleAPIKey]
+            let battleURL : String = "https://\(localBattleHost)/wow/realm/status"
+            DLog("battleURL: \(battleURL)")
+            getRequest(params, urlString: battleURL)
+        }
     }
     
     /*

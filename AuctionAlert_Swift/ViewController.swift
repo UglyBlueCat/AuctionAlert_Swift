@@ -202,11 +202,14 @@ class ViewController: UIViewController {
      * Initiates the download of new data with parameters entered
      */
     func searchButtonTapped() {
-        let object: String = objectEntry.text!
-        let price: String = priceEntry.text!
-        DLog("Searching for \(object) on \(userDefaults.stringForKey(realmKey)!) with a maximum price of \(price) gold each")
-        activityIndicator.startAnimating()
-        API_Interface.sharedInstance.searchAuction(object, price: price)
+        if let
+            object : String = objectEntry.text,
+            price : String = priceEntry.text
+        {
+            DLog("Searching for \(object) on \(userDefaults.stringForKey(realmKey)!) with a maximum price of \(price) gold each")
+            activityIndicator.startAnimating()
+            API_Interface.sharedInstance.searchAuction(object, price: price)
+        }
     }
     
     /*
@@ -216,10 +219,13 @@ class ViewController: UIViewController {
      * Initiates the saving of a search with parameters entered
      */
     func saveButtonTapped() {
-        let object: String = objectEntry.text!
-        let price: String = priceEntry.text!
-        DLog("Saving search for \(object) on \(userDefaults.stringForKey(realmKey)!) with a maximum price of \(price) gold each")
-        API_Interface.sharedInstance.saveSearch(object, price: price)
+        if let
+            object : String = objectEntry.text,
+            price : String = priceEntry.text
+        {
+            DLog("Saving search for \(object) on \(userDefaults.stringForKey(realmKey)!) with a maximum price of \(price) gold each")
+            API_Interface.sharedInstance.saveSearch(object, price: price)
+        }
     }
     
     /*
@@ -241,11 +247,14 @@ class ViewController: UIViewController {
      * Initiates the deletion of the selected search
      */
     func deleteButtonTapped() {
-        let object: String = objectEntry.text!
-        let price: String = priceEntry.text!
-        DLog("Deleting search for \(object) on \(userDefaults.stringForKey(realmKey)!) with a maximum price of \(price) gold each")
-        activityIndicator.startAnimating()
-        API_Interface.sharedInstance.deleteAuction(object, price: price)
+        if let
+            object : String = objectEntry.text,
+            price : String = priceEntry.text
+        {
+            DLog("Deleting search for \(object) on \(userDefaults.stringForKey(realmKey)!) with a maximum price of \(price) gold each")
+            activityIndicator.startAnimating()
+            API_Interface.sharedInstance.deleteAuction(object, price: price)
+        }
     }
     
     /*

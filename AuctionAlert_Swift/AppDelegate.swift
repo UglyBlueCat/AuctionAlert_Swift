@@ -30,20 +30,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func registerForPushNotifications (application: UIApplication) {
-        DLog("")
         let notificationSettings = UIUserNotificationSettings(forTypes: [.Badge, .Sound, .Alert], categories: nil)
         application.registerUserNotificationSettings(notificationSettings)
     }
     
     func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
-        DLog("")
         if notificationSettings.types != .None {
             application.registerForRemoteNotifications()
         }
     }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-        DLog("")
         let tokenChars = UnsafePointer<CChar>(deviceToken.bytes)
         var tokenString = ""
         
