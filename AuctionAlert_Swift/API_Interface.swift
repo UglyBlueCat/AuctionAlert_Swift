@@ -120,6 +120,26 @@ class API_Interface {
     }
     
     /*
+     * fetchObjectData
+     *
+     * retrieves the data for an object from the battle.net API
+     *
+     * @param: - The object code
+     */
+    func fetchObjectData (code: String) {
+        if let
+            locale : String = userDefaults.stringForKey(localeKey),
+            region : String = userDefaults.stringForKey(regionKey),
+            localBattleHost : String = battleHost[region]
+        {
+            let params: Dictionary<String, AnyObject> = ["locale": locale, "apikey": battleAPIKey]
+            let battleURL : String = "https://\(localBattleHost)/wow/item/\(code)"
+            DLog("battleURL: \(battleURL)")
+            getRequest(params, urlString: battleURL)
+        }
+    }
+    
+    /*
      * getRequest
      *
      * Calls a request with the GET method

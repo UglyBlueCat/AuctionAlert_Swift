@@ -54,6 +54,12 @@ class DataHandler {
             } else if let message = resultData["message"] as? String { // It'll be an API response message
                 presentAlert(message)
                 NSNotificationCenter.defaultCenter().postNotificationName("kMessageReceived", object: self)
+            } else if let iconImage = resultData["icon"] as? String { // It'll be item data from Blizzard
+                DLog("iconImage: \(iconImage)")
+                if let itemID = resultData["id"] as? Int {
+                    DLog("itemID: \(itemID)")
+                    ImageFetcher.sharedInstance.downloadImage(String(itemID), name: iconImage)
+                }
             }
         } else if let resultData = jsonData as? NSArray { // It'll be search results from the AuctionAlert API
             DLog("NSArray")

@@ -10,7 +10,7 @@ import UIKit
 
 class SearchResultCell: UITableViewCell {
     
-    let margin: CGFloat = 0.0
+    let margin: CGFloat = 2.0
     
     var iconImage: UIImageView!
     var detailLabel: AALabel!

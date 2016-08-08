@@ -28,6 +28,7 @@
 		00C2D8701D4A00CF00BFF253 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C2D86F1D4A00CF00BFF253 /* SettingsVC.swift */; };
 		00C2D8751D4A04D200BFF253 /* AAButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C2D8741D4A04D200BFF253 /* AAButton.swift */; };
 		00C2D8771D4A0F4D00BFF253 /* AATextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C2D8761D4A0F4D00BFF253 /* AATextField.swift */; };
+		00D236B61D579C8B00270303 /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D236B51D579C8B00270303 /* ImageFetcher.swift */; };
 		00DCD6861D3F763B0008543B /* AALabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00DCD6851D3F763B0008543B /* AALabel.swift */; };
 /* End PBXBuildFile section */
 
@@ -152,6 +153,7 @@
 		00C2D86F1D4A00CF00BFF253 /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		00C2D8741D4A04D200BFF253 /* AAButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AAButton.swift; sourceTree = "<group>"; };
 		00C2D8761D4A0F4D00BFF253 /* AATextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AATextField.swift; sourceTree = "<group>"; };
+		00D236B51D579C8B00270303 /* ImageFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFetcher.swift; sourceTree = "<group>"; };
 		00DCD6851D3F763B0008543B /* AALabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AALabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -283,6 +285,7 @@
 				00B1D1BF1D35519F00CB145D /* API_Interface.swift */,
 				00A115DC1D37A33A00C13962 /* DataHandler.swift */,
 				007CC79F1D37E6FC000E0A39 /* GlobalFunctions.swift */,
+				00D236B51D579C8B00270303 /* ImageFetcher.swift */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -527,6 +530,7 @@
 				00B192271D2D2894009A363E /* ViewController.swift in Sources */,
 				00B192251D2D2894009A363E /* AppDelegate.swift in Sources */,
 				00A115DD1D37A33A00C13962 /* DataHandler.swift in Sources */,
+				00D236B61D579C8B00270303 /* ImageFetcher.swift in Sources */,
 				00C2D8701D4A00CF00BFF253 /* SettingsVC.swift in Sources */,
 				0055C8C31D4A62A6009CCFF3 /* AASegmentedControl.swift in Sources */,
 			);

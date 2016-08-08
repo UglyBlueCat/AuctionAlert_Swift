@@ -27,6 +27,7 @@ class ViewController: UIViewController {
         setupView()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(newDataReceived), name: "kDataReceived", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(messageReceived), name: "kMessageReceived", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(newImageReceived), name: "kImageReceived", object: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -292,6 +293,16 @@ class ViewController: UIViewController {
     }
     
     /*
+     * newImageReceived()
+     *
+     * Called when notification of new icon image download completion is received
+     * Reloads the table
+     */
+    func newImageReceived() {
+        resultsTable!.reloadData()
+    }
+    
+    /*
      * objectNameEntered
      *
      * called after user edits object name text field
@@ -344,12 +355,17 @@ extension ViewController: UITableViewDataSource {
             }
             
             cell.detailLabel!.text = "Stack size: \(quantity) Seller:\(owner ?? "")"
+            
             if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
                 cell.bidLabel!.text = "Current bid:\n\(bidString)"
                 cell.buyoutLabel!.text = "Buyout:\n\(buyoutString)"
             } else {
                 cell.bidLabel!.text = "Current bid: \(bidString)"
                 cell.buyoutLabel!.text = "Buyout: \(buyoutString)"
+            }
+            
+            if let code : Int = singleResult["item"] as? Int {
+                cell.iconImage.image = ImageFetcher.sharedInstance.imageFromCode(String(code))
             }
             
             return cell

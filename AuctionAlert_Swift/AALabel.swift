@@ -30,7 +30,7 @@ class AALabel: UILabel {
      * Sets up label attributes considered standard or default for this application
      */
     func setupStandards() {
-        backgroundColor = UIColor.clearColor()
+        backgroundColor = primaryColor
         textColor = primaryTextColor
         textAlignment = .Center
         adjustsFontSizeToFitWidth = true
