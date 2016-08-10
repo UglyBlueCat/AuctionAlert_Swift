@@ -299,7 +299,9 @@ class ViewController: UIViewController {
      * Reloads the table
      */
     func newImageReceived() {
-        resultsTable!.reloadData()
+        if DataHandler.sharedInstance.searchResults.count > 0 {
+            resultsTable!.reloadData()
+        }
     }
     
     /*

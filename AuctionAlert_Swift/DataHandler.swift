@@ -60,6 +60,8 @@ class DataHandler {
                     DLog("itemID: \(itemID)")
                     ImageFetcher.sharedInstance.downloadImage(String(itemID), name: iconImage)
                 }
+            } else if let code = resultData["code"] as? Int { // It'll be a code check result
+                API_Interface.sharedInstance.fetchObjectData(String(code))
             }
         } else if let resultData = jsonData as? NSArray { // It'll be search results from the AuctionAlert API
             DLog("NSArray")
