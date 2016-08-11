@@ -107,7 +107,7 @@ class ViewController: UIViewController {
         
         settingsButton = AAButton(title: "", handler: self, selector: #selector(settingsButtonTapped))
         settingsButton.setBackgroundImage(UIImage(named: "settings_icon"), forState: .Normal)
-        settingsButton.tintColor = primaryTextColor
+        settingsButton.layer.borderWidth = 0
         view.addSubview(settingsButton)
         
         // TODO: Remove temporary debugging code

@@ -32,6 +32,9 @@ class AAButton: UIButton {
      */
     func setupStandards() {
         setTitleColor(primaryTextColor, forState: .Normal)
-        setBackgroundImage(UIImage(color: accentColor), forState: .Normal)
+//        setBackgroundImage(UIImage(color: accentColor), forState: .Normal)
+        layer.cornerRadius = 5
+        layer.borderWidth = 2
+        layer.borderColor = primaryTextColor.CGColor
     }
 }
