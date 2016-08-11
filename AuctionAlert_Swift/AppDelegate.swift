@@ -59,6 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Standard AppDelegate Methods
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        application.statusBarStyle = .LightContent
         
         setUserDefaults()
         registerForPushNotifications(application)
