@@ -269,7 +269,6 @@ class SettingsVC: UIViewController {
      * Reloads realms spinner with fresh data
      */
     func newRealmsReceived () {
-        DLog("")
         realmSpinner.reloadAllComponents()
         if let realm : String = userDefaults.stringForKey(realmKey) {
             if let index : Int = DataHandler.sharedInstance.realmList.indexOf(realm) {

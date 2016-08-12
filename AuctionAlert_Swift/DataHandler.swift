@@ -23,7 +23,6 @@ class DataHandler {
      * @param: newData: NSData - The raw data
      */
     func newData (newData: NSData) {
-        DLog("newData.length: \(newData.length)")
         do {
             let jsonData = try NSJSONSerialization.JSONObjectWithData(newData, options: .MutableLeaves)
             self.populateResults(jsonData)
@@ -42,7 +41,6 @@ class DataHandler {
      */
     func populateResults (jsonData: AnyObject) {
         if let resultData = jsonData as? NSDictionary {
-            DLog("NSDictionary")
             if let realmData = resultData["realms"] as? NSArray { // It'll be realm data from battle.net
                 realmList.removeAll()
                 for object in realmData {
@@ -55,16 +53,13 @@ class DataHandler {
                 presentAlert(message)
                 NSNotificationCenter.defaultCenter().postNotificationName("kMessageReceived", object: self)
             } else if let iconImage = resultData["icon"] as? String { // It'll be item data from Blizzard
-                DLog("iconImage: \(iconImage)")
                 if let itemID = resultData["id"] as? Int {
-                    DLog("itemID: \(itemID)")
                     ImageFetcher.sharedInstance.downloadImage(String(itemID), name: iconImage)
                 }
             } else if let code = resultData["code"] as? Int { // It'll be a code check result
                 API_Interface.sharedInstance.fetchObjectData(String(code))
             }
         } else if let resultData = jsonData as? NSArray { // It'll be search results from the AuctionAlert API
-            DLog("NSArray")
             searchResults.removeAll()
             for object in resultData {
                 let result: [String: AnyObject] = self.extractValuesFromJSON(object, values: ["item", "owner", "buyout", "bid", "quantity", "message", "code", "locale", "object", "price", "realm"])
@@ -72,7 +67,6 @@ class DataHandler {
             }
             NSNotificationCenter.defaultCenter().postNotificationName("kDataReceived", object: self)
         } else if let message = jsonData["message"] as? String { // It'll be an API response message
-            DLog("String")
             presentAlert(message)
             NSNotificationCenter.defaultCenter().postNotificationName("kMessageReceived", object: self)
         } else {

@@ -114,7 +114,6 @@ class API_Interface {
         {
             let params: Dictionary<String, AnyObject> = ["locale": locale, "apikey": battleAPIKey]
             let battleURL : String = "https://\(localBattleHost)/wow/realm/status"
-            DLog("battleURL: \(battleURL)")
             getRequest(params, urlString: battleURL)
         }
     }
@@ -134,7 +133,6 @@ class API_Interface {
         {
             let params: Dictionary<String, AnyObject> = ["locale": locale, "apikey": battleAPIKey]
             let battleURL : String = "https://\(localBattleHost)/wow/item/\(code)"
-            DLog("battleURL: \(battleURL)")
             getRequest(params, urlString: battleURL)
         }
     }
@@ -184,9 +182,6 @@ class API_Interface {
         
         alamofireManager!.request(method, urlString, parameters: params)
             .validate(statusCode: 200..<600)
-            .progress({ (read, total, expected) in
-                DLog("read: \(read) total: \(total) expected: \(expected)")
-            })
             .responseJSON { response in
                 switch response.result {
                 case .Success:

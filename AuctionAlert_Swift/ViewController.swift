@@ -276,7 +276,6 @@ class ViewController: UIViewController {
      * Initiates the deletion of the selected search
      */
     func settingsButtonTapped() {
-        DLog("")
         let settingsVC : SettingsVC = SettingsVC()
         presentViewController(settingsVC, animated: true, completion: nil)
     }
