@@ -18,7 +18,7 @@ class ViewController: UIViewController {
     var saveButton: AAButton!
     var listButton: AAButton!
     var deleteButton: AAButton!
-    var resultsTable: UITableView!
+    var resultsTable: AATableView!
     var activityIndicator: UIActivityIndicatorView!
     var settingsButton: AAButton!
     
@@ -99,7 +99,7 @@ class ViewController: UIViewController {
         deleteButton = AAButton(title: "Delete", handler: self, selector: #selector(deleteButtonTapped))
         view.addSubview(deleteButton!)
         
-        resultsTable = UITableView()
+        resultsTable = AATableView()
         resultsTable.backgroundColor = UIColor.clearColor()
         resultsTable.separatorStyle = .None
         resultsTable.dataSource = self

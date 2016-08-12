@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0010E6191D3BDE35002B4363 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010E6181D3BDE35002B4363 /* SearchResultCell.swift */; };
 		0055C8C31D4A62A6009CCFF3 /* AASegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0055C8C21D4A62A6009CCFF3 /* AASegmentedControl.swift */; };
+		00639A351D5E2027003044B4 /* AATableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00639A341D5E2027003044B4 /* AATableView.swift */; };
 		0076B4B91D47D04400BE0EBD /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0076B4A51D47CE9800BE0EBD /* Alamofire.framework */; };
 		0076B4BA1D47D04400BE0EBD /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0076B4A51D47CE9800BE0EBD /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0076B4BF1D47DE6400BE0EBD /* SearchListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0076B4BE1D47DE6400BE0EBD /* SearchListCell.swift */; };
@@ -129,6 +130,7 @@
 /* Begin PBXFileReference section */
 		0010E6181D3BDE35002B4363 /* SearchResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		0055C8C21D4A62A6009CCFF3 /* AASegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AASegmentedControl.swift; sourceTree = "<group>"; };
+		00639A341D5E2027003044B4 /* AATableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AATableView.swift; sourceTree = "<group>"; };
 		0076B4BE1D47DE6400BE0EBD /* SearchListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchListCell.swift; sourceTree = "<group>"; };
 		007CC79F1D37E6FC000E0A39 /* GlobalFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
 		00A115DC1D37A33A00C13962 /* DataHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataHandler.swift; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 				00C2D8741D4A04D200BFF253 /* AAButton.swift */,
 				00C2D8761D4A0F4D00BFF253 /* AATextField.swift */,
 				0055C8C21D4A62A6009CCFF3 /* AASegmentedControl.swift */,
+				00639A341D5E2027003044B4 /* AATableView.swift */,
 			);
 			name = Controls;
 			sourceTree = "<group>";
@@ -529,6 +532,7 @@
 				00C2D8771D4A0F4D00BFF253 /* AATextField.swift in Sources */,
 				00B192271D2D2894009A363E /* ViewController.swift in Sources */,
 				00B192251D2D2894009A363E /* AppDelegate.swift in Sources */,
+				00639A351D5E2027003044B4 /* AATableView.swift in Sources */,
 				00A115DD1D37A33A00C13962 /* DataHandler.swift in Sources */,
 				00D236B61D579C8B00270303 /* ImageFetcher.swift in Sources */,
 				00C2D8701D4A00CF00BFF253 /* SettingsVC.swift in Sources */,
