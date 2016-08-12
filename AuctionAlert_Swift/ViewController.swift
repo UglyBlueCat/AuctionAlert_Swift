@@ -21,6 +21,8 @@ class ViewController: UIViewController {
     var resultsTable: UITableView!
     var activityIndicator: UIActivityIndicatorView!
     var settingsButton: AAButton!
+    
+    // MARK: - UIViewController Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +47,12 @@ class ViewController: UIViewController {
         positionObjectsWithinSize(size)
         resultsTable.reloadData()
     }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
+    // MARK: - Custom Methods
     
     /*
      * setupView()
@@ -71,9 +79,11 @@ class ViewController: UIViewController {
         view.addSubview(realmLabel!)
         
         objectEntry = AATextField(placeHolder: "Object", handler: self, selector: #selector(objectNameEntered))
+        objectEntry.returnKeyType = .Done
         view.addSubview(objectEntry!)
         
         priceEntry = AATextField(placeHolder: "Maximum price (gold each)", handler: self, selector: #selector(priceEntered))
+        priceEntry.keyboardType = .NumberPad
         view.addSubview(priceEntry!)
         
         searchButton = AAButton(title: "Search", handler: self, selector: #selector(searchButtonTapped))
@@ -310,6 +320,7 @@ class ViewController: UIViewController {
      * called after user edits object name text field
      */
     func objectNameEntered() {
+        objectEntry.resignFirstResponder()
         if let objectName: String = objectEntry.text {
             API_Interface.sharedInstance.checkCode(objectName)
         }
@@ -321,11 +332,14 @@ class ViewController: UIViewController {
      * called after user edits price text field
      */
     func priceEntered() {
+        priceEntry.resignFirstResponder()
         if let priceStr : String = priceEntry.text {
-            if let price : Int = Int(priceStr) {
+            if let _ : Int = Int(priceStr) {
                 // price is int
             } else {
-                presentAlert("Price needs to be in whole units of gold")
+                if !priceStr.isEmpty {
+                    presentAlert("Price needs to be in whole units of gold")
+                }
             }
         }
     }
