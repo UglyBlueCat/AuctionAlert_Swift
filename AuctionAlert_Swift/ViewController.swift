@@ -30,6 +30,7 @@ class ViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(newDataReceived), name: "kDataReceived", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(messageReceived), name: "kMessageReceived", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(newImageReceived), name: "kImageReceived", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(tableTapped), name: "kTableTapped", object: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -342,6 +343,15 @@ class ViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    /*
+     * tableTapped
+     *
+     * Called when the table is tapped
+     */
+    func tableTapped() {
+        view.endEditing(true)
     }
 }
 
