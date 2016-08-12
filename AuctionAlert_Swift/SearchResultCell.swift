@@ -16,6 +16,7 @@ class SearchResultCell: UITableViewCell {
     var detailLabel: AALabel!
     var bidLabel: AALabel!
     var buyoutLabel: AALabel!
+    var stackSizeLabel: AALabel!
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -63,6 +64,10 @@ class SearchResultCell: UITableViewCell {
             bidLabel.numberOfLines = 2
             buyoutLabel.numberOfLines = 2
         }
+        
+        stackSizeLabel = AALabel()
+        stackSizeLabel.backgroundColor = UIColor.clearColor()
+        self.addSubview(stackSizeLabel!)
     }
     
     /*
@@ -75,12 +80,17 @@ class SearchResultCell: UITableViewCell {
         let cellHeight : CGFloat = bounds.size.height
         let cellWidth : CGFloat = bounds.size.width
         let iconWidth : CGFloat = cellHeight - 2*margin
-        let priceLabelWidth: CGFloat = 0.2*cellWidth
+        let priceLabelWidth: CGFloat = 0.3*cellWidth
         
         iconImage.frame = CGRect(x: margin,
                                  y: margin,
                                  width: iconWidth,
                                  height: iconWidth)
+        
+        stackSizeLabel.frame = CGRect(x: margin + iconWidth/2,
+                                      y: margin + iconWidth/2,
+                                      width: iconWidth/2,
+                                      height: iconWidth/2)
     
         bidLabel.frame = CGRect(x: cellWidth - (priceLabelWidth + margin),
                                 y: margin,

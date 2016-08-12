@@ -380,7 +380,7 @@ extension ViewController: UITableViewDataSource {
                 buyoutString = "\(buyoutGold)g \(buyoutSilver)s \(buyoutCopper)c"
             }
             
-            cell.detailLabel!.text = "Stack size: \(quantity) Seller:\(owner ?? "")"
+            cell.detailLabel!.text = "Seller: \(owner ?? "")"
             
             if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
                 cell.bidLabel!.text = "Current bid:\n\(bidString)"
@@ -393,6 +393,8 @@ extension ViewController: UITableViewDataSource {
             if let code : Int = singleResult["item"] as? Int {
                 cell.iconImage.image = ImageFetcher.sharedInstance.imageFromCode(String(code))
             }
+            
+            cell.stackSizeLabel.text = String(quantity)
             
             return cell
         } else if let realm : String = singleResult["realm"] as? String {
