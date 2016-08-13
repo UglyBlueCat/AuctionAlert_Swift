@@ -32,5 +32,6 @@ class AATextField: UITextField {
      */
     func setupStandards() {
         textColor = primaryTextColor
+        autocorrectionType = .No
     }
 }
