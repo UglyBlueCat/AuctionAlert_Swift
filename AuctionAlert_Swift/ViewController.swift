@@ -100,8 +100,6 @@ class ViewController: UIViewController {
         view.addSubview(deleteButton!)
         
         resultsTable = AATableView()
-        resultsTable.backgroundColor = UIColor.clearColor()
-        resultsTable.separatorStyle = .None
         resultsTable.dataSource = self
         resultsTable.delegate = self
         resultsTable.rowHeight = 56
