@@ -17,7 +17,7 @@ class SettingsVC: UIViewController {
     var regionControl: AASegmentedControl!
     var languageControl: AASegmentedControl!
     var realmSpinner: UIPickerView!
-    let regions: Array = ["EU", "US", "CN", "KR", "TW"]
+    let regions: Array = ["EU", "US", "KR", "TW"] //, "CN"] currently unsupported by battle.net
     let languages: Array = ["en", "de", "es", "fr", "it", "pt", "ru", "ko", "zh"]
     
     override func viewDidLoad() {
@@ -200,11 +200,11 @@ class SettingsVC: UIViewController {
                 languageControl.selectedSegmentIndex = currentSelectedIndex
             }
         case 2:
-            languageControl.setEnabled(true, forSegmentAtIndex: 8)
-            languageControl.selectedSegmentIndex = 8
-        case 3:
             languageControl.setEnabled(true, forSegmentAtIndex: 7)
             languageControl.selectedSegmentIndex = 7
+        case 3:
+            languageControl.setEnabled(true, forSegmentAtIndex: 8)
+            languageControl.selectedSegmentIndex = 8
         case 4:
             languageControl.setEnabled(true, forSegmentAtIndex: 8)
             languageControl.selectedSegmentIndex = 8
@@ -251,11 +251,11 @@ class SettingsVC: UIViewController {
                 presentAlert("Language \(languages[languageControl.selectedSegmentIndex]) invalid for region \(regions[regionControl.selectedSegmentIndex])")
             }
         case 2:
-            userDefaults.setValue("zh_CN", forKey: localeKey)
-        case 3:
             userDefaults.setValue("ko_KR", forKey: localeKey)
-        case 4:
+        case 3:
             userDefaults.setValue("zh_TW", forKey: localeKey)
+        case 4:
+            userDefaults.setValue("zh_CN", forKey: localeKey)
         default:
             DLog("No region selected")
         }
