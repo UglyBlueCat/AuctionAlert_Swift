@@ -80,32 +80,32 @@ class SearchResultCell: UITableViewCell {
     func sizeObjects() {
         let cellHeight : CGFloat = bounds.size.height
         let cellWidth : CGFloat = bounds.size.width
-        let iconWidth : CGFloat = cellHeight - 2*margin
+        let iconWidth : CGFloat = cellHeight - margin
         let priceLabelWidth: CGFloat = 0.3*cellWidth
         
         iconImage.frame = CGRect(x: margin,
-                                 y: margin,
+                                 y: margin/2,
                                  width: iconWidth,
                                  height: iconWidth)
         
         stackSizeLabel.frame = CGRect(x: margin + iconWidth/2,
-                                      y: margin + iconWidth/2,
+                                      y: margin/2 + iconWidth/2,
                                       width: iconWidth/2,
                                       height: iconWidth/2)
     
         bidLabel.frame = CGRect(x: cellWidth - (priceLabelWidth + margin),
-                                y: margin,
+                                y: margin/2,
                                 width: priceLabelWidth,
-                                height: cellHeight/2 - 1.5*margin)
+                                height: cellHeight/2 - margin)
     
         buyoutLabel.frame = CGRect(x: cellWidth - (priceLabelWidth + margin),
-                                   y: cellHeight/2 + 0.5*margin,
+                                   y: cellHeight/2 + margin/2,
                                    width: priceLabelWidth,
-                                   height: cellHeight/2 - 1.5*margin)
+                                   height: cellHeight/2 - margin)
     
         detailLabel.frame = CGRect(x: iconWidth + 2*margin,
-                                   y: margin,
+                                   y: margin/2,
                                    width: cellWidth - (priceLabelWidth + iconWidth + 4*margin),
-                                   height: cellHeight - 2*margin)
+                                   height: cellHeight - margin)
     }
 }
