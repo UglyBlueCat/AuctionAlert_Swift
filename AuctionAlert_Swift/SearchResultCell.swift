@@ -41,6 +41,7 @@ class SearchResultCell: UITableViewCell {
      */
     func setupView() {
         self.backgroundColor = UIColor.clearColor()
+        selectionStyle = .None
         
         iconImage = UIImageView()
         iconImage.backgroundColor = UIColor.clearColor()

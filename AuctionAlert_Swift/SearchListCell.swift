@@ -37,6 +37,7 @@ class SearchListCell: UITableViewCell {
      */
     func setupView() {
         self.backgroundColor = UIColor.clearColor()
+        selectionStyle = .None
         
         detailLabel = AALabel()
         detailLabel.numberOfLines = 2
