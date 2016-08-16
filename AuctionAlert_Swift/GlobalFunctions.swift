@@ -23,6 +23,7 @@ let languageKey : String = "kLanguage"
 let localeKey : String = "kLocale"
 let realmKey : String = "kRealm"
 let deviceKey : String = "kDevice"
+let battleIconWidth : CGFloat = 56.0
 
 /*
  * DLog

@@ -102,7 +102,7 @@ class ViewController: UIViewController {
         resultsTable = AATableView()
         resultsTable.dataSource = self
         resultsTable.delegate = self
-        resultsTable.rowHeight = 56
+        resultsTable.rowHeight = battleIconWidth
         resultsTable.backgroundView = UIImageView(image: UIImage(named: "goblin_rogue"))
         resultsTable.registerClass(SearchResultCell.self, forCellReuseIdentifier: "SearchResultCell")
         resultsTable.registerClass(SearchListCell.self, forCellReuseIdentifier: "SearchListCell")
