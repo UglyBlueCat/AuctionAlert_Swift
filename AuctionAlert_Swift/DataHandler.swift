@@ -48,10 +48,11 @@ class DataHandler {
                         realmList.append(realmName)
                     }
                 }
-                NSNotificationCenter.defaultCenter().postNotificationName("kRealmsReceived", object: self)
+                NSNotificationCenter.defaultCenter().postNotificationName("kRealmsReceived", object: nil)
             } else if let message = resultData["message"] as? String { // It'll be an API response message
-                presentAlert(message)
-                NSNotificationCenter.defaultCenter().postNotificationName("kMessageReceived", object: self)
+                NSNotificationCenter.defaultCenter().postNotificationName("kMessageReceived",
+                                                                          object: nil,
+                                                                          userInfo: ["message" : message])
             } else if let iconImage = resultData["icon"] as? String { // It'll be item data from Blizzard
                 if let itemID = resultData["id"] as? Int {
                     ImageFetcher.sharedInstance.downloadImage(String(itemID), name: iconImage)
@@ -65,10 +66,11 @@ class DataHandler {
                 let result: [String: AnyObject] = self.extractValuesFromJSON(object, values: ["item", "owner", "buyout", "bid", "quantity", "message", "code", "locale", "object", "price", "realm"])
                 searchResults.append(result)
             }
-            NSNotificationCenter.defaultCenter().postNotificationName("kDataReceived", object: self)
+            NSNotificationCenter.defaultCenter().postNotificationName("kDataReceived", object: nil)
         } else if let message = jsonData["message"] as? String { // It'll be an API response message
-            presentAlert(message)
-            NSNotificationCenter.defaultCenter().postNotificationName("kMessageReceived", object: self)
+            NSNotificationCenter.defaultCenter().postNotificationName("kMessageReceived",
+                                                                      object: nil,
+                                                                      userInfo: ["message" : message])
         } else {
             DLog("Cannot convert data")
         }

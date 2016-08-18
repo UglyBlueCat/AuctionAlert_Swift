@@ -21,11 +21,13 @@ class ViewController: UIViewController {
     var resultsTable: AATableView!
     var activityIndicator: UIActivityIndicatorView!
     var settingsButton: AAButton!
+    var presentingAlert: Bool!
     
     // MARK: - UIViewController Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        presentingAlert = false
         setupView()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(newDataReceived), name: "kDataReceived", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(messageReceived), name: "kMessageReceived", object: nil)
@@ -294,9 +296,26 @@ class ViewController: UIViewController {
      * messageReceived()
      *
      * Called when notification of message is received
+     *
+     * @param: notification: NSNotification - the notification
      */
-    func messageReceived() {
-        DLog("Received message")
+    func messageReceived(notification: NSNotification) {
+        if let message : String = notification.userInfo?["message"] as? String {
+            DLog("Received message: \(message)")
+            
+            if message.containsString("Saved search") || message.containsString("Search deleted") {
+                API_Interface.sharedInstance.listAuctions()
+            }
+            
+            if message.containsString("No searches") && DataHandler.sharedInstance.searchResults.count == 1 {
+                DataHandler.sharedInstance.searchResults.removeAll()
+                resultsTable!.reloadData()
+            }
+            
+            presentAlert(message)
+        } else {
+            DLog("Couldn't extract message from notification")
+        }
         activityIndicator.stopAnimating()
     }
     
@@ -349,6 +368,37 @@ class ViewController: UIViewController {
      */
     func tableTapped() {
         view.endEditing(true)
+    }
+    
+    /*
+     * presentAlert
+     *
+     * Presents an alert to the user
+     *
+     * @param: message: String - the message to present to the user
+     */
+    func presentAlert (message: String) {
+        if presentingAlert == false {
+            let alert = UIAlertController(title: "Auction Alert", message: message, preferredStyle: .Alert)
+            let action = UIAlertAction(title: "OK", style: .Default, handler: alertDismissed)
+            alert.addAction(action)
+            presentingAlert = true
+            presentViewController(alert, animated: true, completion: nil)
+        } else {
+            DLog("Already presenting alert")
+        }
+    }
+    
+    /*
+     * alertDismissed
+     *
+     * A handler for a UIAlertAction which dismisses the alert
+     * Resets the flag indicating an alert is currently presented
+     *
+     * @param: alert: UIAlertAction - The UIAlertAction
+     */
+    func alertDismissed(alert: UIAlertAction!) {
+        presentingAlert = false
     }
 }
 

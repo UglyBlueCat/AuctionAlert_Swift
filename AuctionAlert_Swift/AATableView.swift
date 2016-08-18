@@ -32,7 +32,7 @@ class AATableView: UITableView {
 
     override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
         if self.bounds.contains(point) {
-            NSNotificationCenter.defaultCenter().postNotificationName("kTableTapped", object: self)
+            NSNotificationCenter.defaultCenter().postNotificationName("kTableTapped", object: nil)
         }
         return super.hitTest(point, withEvent: event)
     }

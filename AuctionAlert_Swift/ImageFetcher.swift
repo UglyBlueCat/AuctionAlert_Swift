@@ -63,7 +63,7 @@ class ImageFetcher {
             return directoryURLs[0].URLByAppendingPathComponent("\(code).jpg")
         })
             .response { response in
-                NSNotificationCenter.defaultCenter().postNotificationName("kImageReceived", object: self)
+                NSNotificationCenter.defaultCenter().postNotificationName("kImageReceived", object: nil)
         }
     }
 }

@@ -237,7 +237,7 @@ class SettingsVC: UIViewController {
             case 6:
                 userDefaults.setValue("ru_RU", forKey: localeKey)
             default:
-                presentAlert("Language \(languages[languageControl.selectedSegmentIndex]) invalid for region \(regions[regionControl.selectedSegmentIndex])")
+                DLog("Language \(languages[languageControl.selectedSegmentIndex]) invalid for region \(regions[regionControl.selectedSegmentIndex])")
             }
         case 1:
             switch languageControl.selectedSegmentIndex {
@@ -248,7 +248,7 @@ class SettingsVC: UIViewController {
             case 5:
                 userDefaults.setValue("pt_BR", forKey: localeKey)
             default:
-                presentAlert("Language \(languages[languageControl.selectedSegmentIndex]) invalid for region \(regions[regionControl.selectedSegmentIndex])")
+                DLog("Language \(languages[languageControl.selectedSegmentIndex]) invalid for region \(regions[regionControl.selectedSegmentIndex])")
             }
         case 2:
             userDefaults.setValue("ko_KR", forKey: localeKey)
