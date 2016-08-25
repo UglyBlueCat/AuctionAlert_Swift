@@ -33,6 +33,7 @@ class ViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(messageReceived), name: "kMessageReceived", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(newImageReceived), name: "kImageReceived", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(tableTapped), name: "kTableTapped", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(codeOK), name: "kCodeOK", object: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -90,9 +91,11 @@ class ViewController: UIViewController {
         view.addSubview(priceEntry!)
         
         searchButton = AAButton(title: "Search", handler: self, selector: #selector(searchButtonTapped))
+        searchButton.enabled = false
         view.addSubview(searchButton!)
         
         saveButton = AAButton(title: "Save", handler: self, selector: #selector(saveButtonTapped))
+        saveButton.enabled = false
         view.addSubview(saveButton!)
         
         listButton = AAButton(title: "List", handler: self, selector: #selector(listButtonTapped))
@@ -312,6 +315,11 @@ class ViewController: UIViewController {
                 resultsTable!.reloadData()
             }
             
+            if message.containsString("Unknown Object") {
+                saveButton.enabled = false
+                searchButton.enabled = false
+            }
+            
             presentAlert(message)
         } else {
             DLog("Couldn't extract message from notification")
@@ -399,6 +407,17 @@ class ViewController: UIViewController {
      */
     func alertDismissed(alert: UIAlertAction!) {
         presentingAlert = false
+    }
+    
+    /*
+     * codeOK
+     *
+     * Called when a notification has been recieved that an item code has been returned for an item name entered into the object field
+     * Enables the search and save buttons
+     */
+    func codeOK() {
+        searchButton.enabled = true
+        saveButton.enabled = true
     }
 }
 

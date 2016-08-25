@@ -59,6 +59,7 @@ class DataHandler {
                 }
             } else if let code = resultData["code"] as? Int { // It'll be a code check result
                 API_Interface.sharedInstance.fetchObjectData(String(code))
+                NSNotificationCenter.defaultCenter().postNotificationName("kCodeOK", object: nil)
             }
         } else if let resultData = jsonData as? NSArray { // It'll be search results from the AuctionAlert API
             searchResults.removeAll()
