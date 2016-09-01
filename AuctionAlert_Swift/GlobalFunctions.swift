@@ -86,7 +86,7 @@ extension UIColor {
 /*
  * Colours
  */
-let primaryColor = UIColor(hexString: "#726036")
+let primaryColor = UIColor(hexString: "#515151")
 let primaryTextColor = UIColor(hexString: "#FFFFFF")
 let accentColor = UIColor(hexString: "#40371A")
 let primaryAttentionColor = UIColor(hexString: "#8CF205")

@@ -10,8 +10,9 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var titleLabel: AALabel!
     var realmLabel: AALabel!
+    var itemLabel: AALabel!
+    var maxPriceLabel: AALabel!
     var objectEntry: AATextField!
     var priceEntry: AATextField!
     var searchButton: AAButton!
@@ -22,6 +23,13 @@ class ViewController: UIViewController {
     var activityIndicator: UIActivityIndicatorView!
     var settingsButton: AAButton!
     var presentingAlert: Bool!
+    var logoImageView: UIImageView!
+    var topBackground: UIImageView!
+    var bottomBackground: UIImageView!
+    var titleImage: UIImageView!
+    var objectBG: UIImageView!
+    var priceBG: UIImageView!
+    var itemLabelBG: UIImageView!
     
     // MARK: - UIViewController Methods
 
@@ -75,18 +83,53 @@ class ViewController: UIViewController {
      * Add objects to the view
      */
     func addObjects() {
-        titleLabel = AALabel(textStr: "Auction Alert")
-        view.addSubview(titleLabel!)
+        
+        topBackground = UIImageView(image: UIImage(named: "TopBG"))
+        view.addSubview(topBackground!)
+        
+        logoImageView = UIImageView(image: UIImage(named: "Goblin_Logo"))
+        view.addSubview(logoImageView!)
+        
+        bottomBackground = UIImageView(image: UIImage(named: "BottomBG.jpg"))
+        view.addSubview(bottomBackground!)
+        
+        titleImage = UIImageView(image: UIImage(named: "AATitleRed"))
+        view.addSubview(titleImage!)
+        
+        objectBG = UIImageView(image: UIImage(named: "ObjectFieldBG"))
+        view.addSubview(objectBG!)
         
         realmLabel = AALabel(textStr: "Realm: \(userDefaults.stringForKey(realmKey)!)")
         realmLabel.textAlignment = .Left
         view.addSubview(realmLabel!)
         
-        objectEntry = AATextField(placeHolder: "Object", handler: self, selector: #selector(objectNameEntered))
+        itemLabel = AALabel(textStr: "Item Name")
+        itemLabel.textAlignment = .Center
+        itemLabel.backgroundColor = UIColor.clearColor()
+        itemLabel.textColor = primaryColor
+        
+        if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
+            itemLabel.font = itemLabel.font.fontWithSize(0.8*itemLabel.font.pointSize)
+        }
+        
+        view.addSubview(itemLabel!)
+        
+        itemLabelBG = UIImageView(image: UIImage(named: "ItemBGRHS"))
+        view.addSubview(itemLabelBG!)
+        
+        maxPriceLabel = AALabel(textStr: "max price (g)")
+        maxPriceLabel.font = maxPriceLabel.font.fontWithSize(maxPriceLabel.font.pointSize/2)
+        view.addSubview(maxPriceLabel!)
+        
+        priceBG = UIImageView(image: UIImage(named: "PriceFieldBG"))
+        view.addSubview(priceBG!)
+        
+        objectEntry = AATextField(placeHolder: "Item Name", handler: self, selector: #selector(objectNameEntered))
         objectEntry.returnKeyType = .Done
+        objectEntry.textColor = primaryColor
         view.addSubview(objectEntry!)
         
-        priceEntry = AATextField(placeHolder: "Maximum price (gold each)", handler: self, selector: #selector(priceEntered))
+        priceEntry = AATextField(placeHolder: "Max (g)", handler: self, selector: #selector(priceEntered))
         priceEntry.keyboardType = .NumberPad
         view.addSubview(priceEntry!)
         
@@ -108,7 +151,7 @@ class ViewController: UIViewController {
         resultsTable.dataSource = self
         resultsTable.delegate = self
         resultsTable.rowHeight = battleIconWidth
-        resultsTable.backgroundView = UIImageView(image: UIImage(named: "goblin_rogue"))
+        resultsTable.backgroundView = UIImageView(image: UIImage(named: "TableBG.jpg"))
         resultsTable.registerClass(SearchResultCell.self, forCellReuseIdentifier: "SearchResultCell")
         resultsTable.registerClass(SearchListCell.self, forCellReuseIdentifier: "SearchListCell")
         view.addSubview(resultsTable!)
@@ -120,7 +163,6 @@ class ViewController: UIViewController {
         view.addSubview(activityIndicator)
         
         settingsButton = AAButton(title: "", handler: self, selector: #selector(settingsButtonTapped))
-        settingsButton.setBackgroundImage(UIImage(named: "settings_icon"), forState: .Normal)
         settingsButton.layer.borderWidth = 0
         view.addSubview(settingsButton)
         
@@ -143,7 +185,6 @@ class ViewController: UIViewController {
         let viewWidth : CGFloat = size.width
         let margin: CGFloat = (viewWidth + viewHeight)/100
         let numButtons: CGFloat = 4.0
-        let settingsButtonWidth: CGFloat = standardControlHeight
         
         var buttonWidth : CGFloat
         if standardControlWidth*numButtons > viewWidth - (numButtons + 1)*margin {
@@ -154,30 +195,78 @@ class ViewController: UIViewController {
         
         let buttonGap = (viewWidth - numButtons*buttonWidth)/(numButtons + 1)
         
-        settingsButton.frame = CGRect(x: viewWidth - (settingsButtonWidth + margin),
-                                      y: topMargin,
-                                      width: settingsButtonWidth,
-                                      height: settingsButtonWidth)
+        topBackground.frame = CGRect(x: 0,
+                                     y: topMargin,
+                                     width: viewWidth,
+                                     height: 0.2*viewHeight)
         
-        titleLabel.frame = CGRect(x: margin + settingsButtonWidth,
-                                  y: topMargin,
-                                  width: viewWidth - (4*margin + 2*settingsButtonWidth),
+        let logoHeight: CGFloat = CGRectGetHeight(topBackground.frame) - margin
+        let logoWidth: CGFloat = logoHeight
+        
+        logoImageView.frame = CGRect(x: (viewWidth - logoWidth)/2,
+                                     y: topMargin,
+                                     width: logoWidth,
+                                     height: logoHeight)
+        
+        let titleWidth: CGFloat = 4.86*standardControlHeight // 4.86 is the width/height ratio of the title (646/133)
+        
+        titleImage.frame = CGRect(x: (viewWidth - titleWidth)/2,
+                                  y: CGRectGetMaxY(topBackground.frame) - standardControlHeight,
+                                  width: titleWidth,
                                   height: standardControlHeight)
         
         realmLabel.frame = CGRect(x: margin,
-                                  y: CGRectGetMaxY(titleLabel.frame) + margin,
+                                  y: CGRectGetMaxY(topBackground.frame),
                                   width: viewWidth - 2*margin,
                                   height: standardControlHeight)
         
-        objectEntry.frame = CGRect(x: margin,
-                                   y: CGRectGetMaxY(realmLabel.frame) + margin,
-                                   width: viewWidth - 2*margin,
+        settingsButton.frame = realmLabel.frame
+        
+        objectBG.frame = CGRect(x: 0,
+                                y: CGRectGetMaxY(realmLabel.frame),
+                                width: viewWidth,
+                                height: standardControlHeight)
+        
+        let priceBGWidth: CGFloat = 1.8*standardControlHeight // 1.8 is the width/height ratio of the price background (76/42)
+        
+        priceBG.frame = CGRect(x: CGRectGetMaxX(objectBG.frame) - priceBGWidth,
+                               y: CGRectGetMaxY(realmLabel.frame),
+                               width: priceBGWidth,
+                               height: standardControlHeight)
+        
+        maxPriceLabel.frame = CGRect(x: CGRectGetMinX(priceBG.frame),
+                                     y: CGRectGetMinY(priceBG.frame) - standardControlHeight/4,
+                                     width: priceBGWidth,
+                                     height: standardControlHeight/4)
+        
+        priceEntry.frame = CGRect(x: CGRectGetMaxX(objectBG.frame) - priceBGWidth + margin,
+                                  y: CGRectGetMaxY(realmLabel.frame),
+                                  width: priceBGWidth - 2*margin,
+                                  height: standardControlHeight)
+        
+        let itemLabelWidth: CGFloat = 2.89*standardControlHeight // 2.89 is the width/height ratio of the item label (306/106)
+        
+        itemLabel.frame = CGRect(x: 0,
+                                 y: CGRectGetMaxY(realmLabel.frame),
+                                 width: itemLabelWidth,
+                                 height: standardControlHeight)
+        
+        let itemLabelBGWidth: CGFloat = 0.47*standardControlHeight // 0.47 is the width/height ratio of the item label background image (50/106)
+        
+        itemLabelBG.frame = CGRect(x: itemLabelWidth - itemLabelBGWidth,
+                                 y: CGRectGetMaxY(realmLabel.frame),
+                                 width: itemLabelBGWidth,
+                                 height: standardControlHeight)
+        
+        objectEntry.frame = CGRect(x: CGRectGetMaxX(itemLabel.frame) + margin,
+                                   y: CGRectGetMaxY(realmLabel.frame),
+                                   width: viewWidth - itemLabelWidth - priceBGWidth - 2*margin,
                                    height: standardControlHeight)
         
-        priceEntry.frame = CGRect(x: margin,
-                                  y: CGRectGetMaxY(objectEntry.frame) + margin,
-                                  width: viewWidth - 2*margin,
-                                  height: standardControlHeight)
+        bottomBackground.frame = CGRect(x: 0,
+                                        y: viewHeight - 2*margin - standardControlHeight,
+                                        width: viewWidth,
+                                        height: standardControlHeight + 2*margin)
         
         searchButton.frame = CGRect(x: buttonGap,
                                     y: viewHeight - margin - standardControlHeight,
@@ -199,10 +288,10 @@ class ViewController: UIViewController {
                                     width: buttonWidth,
                                     height: standardControlHeight)
         
-        resultsTable.frame = CGRect(x: margin,
-                                    y: CGRectGetMaxY(priceEntry.frame) + margin,
-                                    width: viewWidth - 2*margin,
-                                    height: CGRectGetMinY(searchButton.frame) - CGRectGetMaxY(priceEntry.frame) - 2*margin)
+        resultsTable.frame = CGRect(x: 0,
+                                    y: CGRectGetMaxY(priceEntry.frame),
+                                    width: viewWidth,
+                                    height: CGRectGetMinY(searchButton.frame) - CGRectGetMaxY(priceEntry.frame) - margin)
         
         activityIndicator.frame = CGRect(x: (viewWidth - standardControlHeight)/2,
                                          y: (viewHeight - standardControlHeight)/2,
