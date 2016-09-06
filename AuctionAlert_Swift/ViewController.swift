@@ -93,7 +93,7 @@ class ViewController: UIViewController {
         bottomBackground = UIImageView(image: UIImage(named: "BottomBG.jpg"))
         view.addSubview(bottomBackground!)
         
-        titleImage = UIImageView(image: UIImage(named: "AATitleRed"))
+        titleImage = UIImageView(image: UIImage(named: "AATitle"))
         view.addSubview(titleImage!)
         
         objectBG = UIImageView(image: UIImage(named: "ObjectFieldBG"))
@@ -151,7 +151,7 @@ class ViewController: UIViewController {
         resultsTable.dataSource = self
         resultsTable.delegate = self
         resultsTable.rowHeight = battleIconWidth
-        resultsTable.backgroundView = UIImageView(image: UIImage(named: "TableBG.jpg"))
+        resultsTable.backgroundView = UIImageView(image: UIImage(named: "TableBG"))
         resultsTable.registerClass(SearchResultCell.self, forCellReuseIdentifier: "SearchResultCell")
         resultsTable.registerClass(SearchListCell.self, forCellReuseIdentifier: "SearchListCell")
         view.addSubview(resultsTable!)

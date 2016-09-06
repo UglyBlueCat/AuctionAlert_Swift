@@ -34,7 +34,9 @@ class AALabel: UILabel {
         textColor = primaryTextColor
         textAlignment = .Center
         adjustsFontSizeToFitWidth = true
-        allowsDefaultTighteningForTruncation = true
+        if #available(iOS 9.0, *) {
+            allowsDefaultTighteningForTruncation = true
+        }
         minimumScaleFactor = 0.5
     }
 }
