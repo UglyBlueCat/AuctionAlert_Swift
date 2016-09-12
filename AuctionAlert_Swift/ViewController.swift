@@ -30,6 +30,7 @@ class ViewController: UIViewController {
     var objectBG: UIImageView!
     var priceBG: UIImageView!
     var itemLabelBG: UIImageView!
+    var objectLHS: UIImageView!
     
     // MARK: - UIViewController Methods
 
@@ -64,6 +65,10 @@ class ViewController: UIViewController {
         view.endEditing(true)
     }
     
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
+    }
+    
     // MARK: - Custom Methods
     
     /*
@@ -90,7 +95,7 @@ class ViewController: UIViewController {
         logoImageView = UIImageView(image: UIImage(named: "Goblin_Logo"))
         view.addSubview(logoImageView!)
         
-        bottomBackground = UIImageView(image: UIImage(named: "BottomBG.jpg"))
+        bottomBackground = UIImageView(image: UIImage(named: "BottomBG"))
         view.addSubview(bottomBackground!)
         
         titleImage = UIImageView(image: UIImage(named: "AATitle"))
@@ -98,6 +103,9 @@ class ViewController: UIViewController {
         
         objectBG = UIImageView(image: UIImage(named: "ObjectFieldBG"))
         view.addSubview(objectBG!)
+        
+        objectLHS = UIImageView(image: UIImage(named: "ObjectFieldLHS"))
+        view.addSubview(objectLHS!)
         
         realmLabel = AALabel(textStr: "Realm: \(userDefaults.stringForKey(realmKey)!)")
         realmLabel.textAlignment = .Left
@@ -148,12 +156,7 @@ class ViewController: UIViewController {
         view.addSubview(deleteButton!)
         
         resultsTable = AATableView()
-        resultsTable.dataSource = self
-        resultsTable.delegate = self
-        resultsTable.rowHeight = battleIconWidth
-        resultsTable.backgroundView = UIImageView(image: UIImage(named: "TableBG"))
-        resultsTable.registerClass(SearchResultCell.self, forCellReuseIdentifier: "SearchResultCell")
-        resultsTable.registerClass(SearchListCell.self, forCellReuseIdentifier: "SearchListCell")
+        setupTable()
         view.addSubview(resultsTable!)
         
         activityIndicator = UIActivityIndicatorView()
@@ -169,6 +172,16 @@ class ViewController: UIViewController {
         // TODO: Remove temporary debugging code
         objectEntry.text = "silk cloth"
         priceEntry.text = "10"
+    }
+    
+    func setupTable () {
+        
+        resultsTable.dataSource = self
+        resultsTable.delegate = self
+        resultsTable.rowHeight = battleIconWidth
+        resultsTable.backgroundView = UIImageView(image: UIImage(named: "TableBG"))
+        resultsTable.registerClass(SearchResultCell.self, forCellReuseIdentifier: "SearchResultCell")
+        resultsTable.registerClass(SearchListCell.self, forCellReuseIdentifier: "SearchListCell")
     }
     
     /*
@@ -227,6 +240,11 @@ class ViewController: UIViewController {
                                 width: viewWidth,
                                 height: standardControlHeight)
         
+        objectLHS.frame = CGRect(x: 0, 
+                                 y: CGRectGetMaxY(realmLabel.frame),
+                                 width: 3*standardControlHeight, // 3 = width/height
+                                 height: standardControlHeight)
+        
         let priceBGWidth: CGFloat = 1.8*standardControlHeight // 1.8 is the width/height ratio of the price background (76/42)
         
         priceBG.frame = CGRect(x: CGRectGetMaxX(objectBG.frame) - priceBGWidth,
@@ -244,7 +262,7 @@ class ViewController: UIViewController {
                                   width: priceBGWidth - 2*margin,
                                   height: standardControlHeight)
         
-        let itemLabelWidth: CGFloat = 2.89*standardControlHeight // 2.89 is the width/height ratio of the item label (306/106)
+        let itemLabelWidth: CGFloat = itemLabel.intrinsicContentSize().width + 2*margin
         
         itemLabel.frame = CGRect(x: 0,
                                  y: CGRectGetMaxY(realmLabel.frame),

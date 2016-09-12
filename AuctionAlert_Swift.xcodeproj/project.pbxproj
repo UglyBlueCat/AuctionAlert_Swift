@@ -16,7 +16,6 @@
 		0076B4B91D47D04400BE0EBD /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0076B4A51D47CE9800BE0EBD /* Alamofire.framework */; };
 		0076B4BA1D47D04400BE0EBD /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0076B4A51D47CE9800BE0EBD /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0076B4BF1D47DE6400BE0EBD /* SearchListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0076B4BE1D47DE6400BE0EBD /* SearchListCell.swift */; };
-		00788B981D77337C00C2FFE0 /* BottomBG.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 00788B8D1D77337C00C2FFE0 /* BottomBG.jpg */; };
 		00788B9B1D77337C00C2FFE0 /* MainBG.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 00788B901D77337C00C2FFE0 /* MainBG.jpg */; };
 		007CC7A01D37E6FC000E0A39 /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007CC79F1D37E6FC000E0A39 /* GlobalFunctions.swift */; };
 		009BE10D1D7842CE0071902B /* PriceFieldBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 009BE10C1D7842CE0071902B /* PriceFieldBG.png */; };
@@ -38,6 +37,8 @@
 		00C2D8771D4A0F4D00BFF253 /* AATextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C2D8761D4A0F4D00BFF253 /* AATextField.swift */; };
 		00D236B61D579C8B00270303 /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D236B51D579C8B00270303 /* ImageFetcher.swift */; };
 		00DCD6861D3F763B0008543B /* AALabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00DCD6851D3F763B0008543B /* AALabel.swift */; };
+		00DD57371D86CE5A006D7B3F /* BottomBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 00DD57361D86CE5A006D7B3F /* BottomBG.png */; };
+		00DD573B1D86E875006D7B3F /* ObjectFieldLHS.png in Resources */ = {isa = PBXBuildFile; fileRef = 00DD573A1D86E875006D7B3F /* ObjectFieldLHS.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -140,10 +141,9 @@
 		0060E7FD1D78A6E70044E806 /* Goblin_Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Goblin_Logo.png; path = Images/Goblin_Logo.png; sourceTree = SOURCE_ROOT; };
 		00639A341D5E2027003044B4 /* AATableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AATableView.swift; sourceTree = "<group>"; };
 		00748D0A1D79EE920090A20B /* TableBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TableBG.png; path = Images/TableBG.png; sourceTree = SOURCE_ROOT; };
-		00748D0C1D79F0D70090A20B /* AATitle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AATitle.png; sourceTree = "<group>"; };
+		00748D0C1D79F0D70090A20B /* AATitle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AATitle.png; path = Images/AATitle.png; sourceTree = SOURCE_ROOT; };
 		0076B4BE1D47DE6400BE0EBD /* SearchListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchListCell.swift; sourceTree = "<group>"; };
-		00788B8D1D77337C00C2FFE0 /* BottomBG.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = BottomBG.jpg; path = Images/BottomBG.jpg; sourceTree = SOURCE_ROOT; };
-		00788B901D77337C00C2FFE0 /* MainBG.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = MainBG.jpg; path = ../Images/MainBG.jpg; sourceTree = "<group>"; };
+		00788B901D77337C00C2FFE0 /* MainBG.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = MainBG.jpg; path = Images/MainBG.jpg; sourceTree = SOURCE_ROOT; };
 		007CC79F1D37E6FC000E0A39 /* GlobalFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
 		009BE10C1D7842CE0071902B /* PriceFieldBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PriceFieldBG.png; path = Images/PriceFieldBG.png; sourceTree = SOURCE_ROOT; };
 		009BE10E1D7869670071902B /* ObjectFieldBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ObjectFieldBG.png; path = Images/ObjectFieldBG.png; sourceTree = SOURCE_ROOT; };
@@ -171,6 +171,8 @@
 		00C2D8761D4A0F4D00BFF253 /* AATextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AATextField.swift; sourceTree = "<group>"; };
 		00D236B51D579C8B00270303 /* ImageFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFetcher.swift; sourceTree = "<group>"; };
 		00DCD6851D3F763B0008543B /* AALabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AALabel.swift; sourceTree = "<group>"; };
+		00DD57361D86CE5A006D7B3F /* BottomBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BottomBG.png; path = Images/BottomBG.png; sourceTree = SOURCE_ROOT; };
+		00DD573A1D86E875006D7B3F /* ObjectFieldLHS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ObjectFieldLHS.png; path = Images/ObjectFieldLHS.png; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -266,6 +268,8 @@
 		00B96DBD1D492F33004E8ED5 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				00DD573A1D86E875006D7B3F /* ObjectFieldLHS.png */,
+				00DD57361D86CE5A006D7B3F /* BottomBG.png */,
 				00748D0C1D79F0D70090A20B /* AATitle.png */,
 				00748D0A1D79EE920090A20B /* TableBG.png */,
 				0060E7FD1D78A6E70044E806 /* Goblin_Logo.png */,
@@ -273,7 +277,6 @@
 				009BE10E1D7869670071902B /* ObjectFieldBG.png */,
 				009BE10F1D7869670071902B /* TopBG.png */,
 				009BE10C1D7842CE0071902B /* PriceFieldBG.png */,
-				00788B8D1D77337C00C2FFE0 /* BottomBG.jpg */,
 				00788B901D77337C00C2FFE0 /* MainBG.jpg */,
 			);
 			name = Images;
@@ -287,6 +290,7 @@
 				00B192301D2D2894009A363E /* LaunchScreen.storyboard */,
 				00B192331D2D2894009A363E /* Info.plist */,
 				00B1922B1D2D2894009A363E /* AuctionAlert_Swift.xcdatamodeld */,
+				007CC79F1D37E6FC000E0A39 /* GlobalFunctions.swift */,
 			);
 			name = "Other resources";
 			sourceTree = "<group>";
@@ -307,7 +311,6 @@
 				00B192241D2D2894009A363E /* AppDelegate.swift */,
 				00B1D1BF1D35519F00CB145D /* API_Interface.swift */,
 				00A115DC1D37A33A00C13962 /* DataHandler.swift */,
-				007CC79F1D37E6FC000E0A39 /* GlobalFunctions.swift */,
 				00D236B51D579C8B00270303 /* ImageFetcher.swift */,
 			);
 			name = Core;
@@ -523,9 +526,10 @@
 				00748D0D1D79F0D70090A20B /* AATitle.png in Resources */,
 				00B1922F1D2D2894009A363E /* Assets.xcassets in Resources */,
 				00B1922A1D2D2894009A363E /* Main.storyboard in Resources */,
+				00DD57371D86CE5A006D7B3F /* BottomBG.png in Resources */,
+				00DD573B1D86E875006D7B3F /* ObjectFieldLHS.png in Resources */,
 				00748D0B1D79EE920090A20B /* TableBG.png in Resources */,
 				009BE1101D7869670071902B /* ObjectFieldBG.png in Resources */,
-				00788B981D77337C00C2FFE0 /* BottomBG.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

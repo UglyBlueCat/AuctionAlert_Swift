@@ -35,6 +35,6 @@ class AASegmentedControl: UISegmentedControl {
      * Sets up attributes considered standard or default for this application
      */
     func setupStandards() {
-        tintColor = primaryTextColor
+        tintColor = secondaryTextColor
     }
 }

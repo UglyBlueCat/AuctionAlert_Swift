@@ -10,6 +10,7 @@ import UIKit
 
 class SettingsVC: UIViewController {
     
+    var backgroundImage: UIImageView!
     var doneButton: AAButton!
     var regionLabel: AALabel!
     var localeLabel: AALabel!
@@ -19,6 +20,8 @@ class SettingsVC: UIViewController {
     var realmSpinner: UIPickerView!
     let regions: Array = ["EU", "US", "KR", "TW"] //, "CN"] currently unsupported by battle.net
     let languages: Array = ["en", "de", "es", "fr", "it", "pt", "ru", "ko", "zh"]
+    
+    // MARK: - UIViewController Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +38,12 @@ class SettingsVC: UIViewController {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         positionObjectsWithinSize(size)
     }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.Default
+    }
+    
+    // MARK: - Custom Methods
     
     /*
      * setupView()
@@ -54,7 +63,12 @@ class SettingsVC: UIViewController {
      * Add objects to the view
      */
     func addObjects() {
+        
+        backgroundImage = UIImageView(image: UIImage(named: "MainBG.jpg"))
+        view.addSubview(backgroundImage)
+        
         regionLabel = AALabel(textStr: "Region")
+        regionLabel.textColor = secondaryTextColor
         view.addSubview(regionLabel)
         
         regionControl = AASegmentedControl(items: regions, handler: self, selector: #selector(regionSegmentTapped))
@@ -62,6 +76,7 @@ class SettingsVC: UIViewController {
         view.addSubview(regionControl)
         
         localeLabel = AALabel(textStr: "Language")
+        localeLabel.textColor = secondaryTextColor
         view.addSubview(localeLabel)
         
         languageControl = AASegmentedControl(items: languages, handler: self, selector: #selector(languageSegmentTapped))
@@ -69,15 +84,18 @@ class SettingsVC: UIViewController {
         view.addSubview(languageControl)
         
         realmLabel = AALabel(textStr: "Realm")
+        realmLabel.textColor = secondaryTextColor
         view.addSubview(realmLabel)
         
         realmSpinner = UIPickerView()
         realmSpinner.delegate = self
         realmSpinner.dataSource = self
-        realmSpinner.tintColor = primaryTextColor
+        realmSpinner.tintColor = secondaryTextColor
         view.addSubview(realmSpinner)
         
         doneButton = AAButton(title: "Done", handler: self, selector: #selector(doneButtonTapped))
+        doneButton.setTitleColor(secondaryTextColor, forState: .Normal)
+        doneButton.layer.borderColor = secondaryTextColor.CGColor
         view.addSubview(doneButton!)
     }
     
@@ -94,6 +112,11 @@ class SettingsVC: UIViewController {
         let viewHeight : CGFloat = size.height
         let viewWidth : CGFloat = size.width
         let margin: CGFloat = (viewWidth + viewHeight)/100
+        
+        backgroundImage.frame = CGRect(x: 0, 
+                                       y: 0, 
+                                       width: viewWidth, 
+                                       height: viewHeight)
         
         doneButton.frame = CGRect(x: (viewWidth - standardControlWidth)/2,
                                   y: viewHeight - standardControlHeight - margin,
