@@ -7,17 +7,19 @@
 //
 
 import Foundation
-import Alamofire
 
 class API_Interface {
     
-    let alamofireManager : Alamofire.Manager?
+    enum Method: String {
+        case GET, POST, PUT, DELETE
+    }
+    
+    let urlSession : NSURLSession
     
     static let sharedInstance = API_Interface()
+    
     private init() {
-        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
-        configuration.timeoutIntervalForRequest = 300.0
-        alamofireManager = Alamofire.Manager(configuration: configuration)
+        urlSession = NetworkManager.sharedInstance.defaultSession
     }
     
     /*
@@ -35,7 +37,14 @@ class API_Interface {
                                                      "object_name": object,
                                                      "price": price]
         params = addGlobalValues(params)
-        getRequest(params, urlString: auctionAlertURL)
+        getRequest(params, urlString: auctionAlertURL) { (data, urlResponse, error) in
+            DLog("\n\ndata:\n\n\(data)\n\nurlResponse:\n\n\(urlResponse)")
+            guard error == nil else {
+                DLog("Error: \(error!.description)")
+                return
+            }
+            DataHandler.sharedInstance.newData(data!)
+        }
     }
     
     /*
@@ -54,7 +63,14 @@ class API_Interface {
                                                      "object_name": object,
                                                      "price": price]
         params = addGlobalValues(params)
-        postRequest(params, urlString: auctionAlertURL)
+        postRequest(params, urlString: auctionAlertURL) { (data, urlResponse, error) in
+            DLog("\n\ndata:\n\n\(data)\n\nurlResponse:\n\n\(urlResponse)")
+            guard error == nil else {
+                DLog("Error: \(error!.description)")
+                return
+            }
+            DataHandler.sharedInstance.newData(data!)
+        }
     }
     
     /*
@@ -65,7 +81,14 @@ class API_Interface {
     func listAuctions () {
         var params: Dictionary<String, AnyObject> = ["command": "fetch"]
         params = addGlobalValues(params)
-        getRequest(params, urlString: auctionAlertURL)
+        getRequest(params, urlString: auctionAlertURL) { (data, urlResponse, error) in
+            DLog("\n\ndata:\n\n\(data)\n\nurlResponse:\n\n\(urlResponse)")
+            guard error == nil else {
+                DLog("Error: \(error!.description)")
+                return
+            }
+            DataHandler.sharedInstance.newData(data!)
+        }
     }
     
     /*
@@ -83,7 +106,14 @@ class API_Interface {
                                                      "object_name": object,
                                                      "price": price]
         params = addGlobalValues(params)
-        deleteRequest(params, urlString: auctionAlertURL)
+        deleteRequest(params, urlString: auctionAlertURL) { (data, urlResponse, error) in
+            DLog("\n\ndata:\n\n\(data)\n\nurlResponse:\n\n\(urlResponse)")
+            guard error == nil else {
+                DLog("Error: \(error!.description)")
+                return
+            }
+            DataHandler.sharedInstance.newData(data!)
+        }
     }
     
     
@@ -98,7 +128,14 @@ class API_Interface {
         var params: Dictionary<String, AnyObject> = ["command": "code",
                                                      "object_name": object]
         params = addGlobalValues(params)
-        getRequest(params, urlString: auctionAlertURL)
+        getRequest(params, urlString: auctionAlertURL) { (data, urlResponse, error) in
+            DLog("\n\ndata:\n\n\(data)\n\nurlResponse:\n\n\(urlResponse)")
+            guard error == nil else {
+                DLog("Error: \(error!.description)")
+                return
+            }
+            DataHandler.sharedInstance.newData(data!)
+        }
     }
     
     /*
@@ -114,7 +151,14 @@ class API_Interface {
         {
             let params: Dictionary<String, AnyObject> = ["locale": locale, "apikey": battleAPIKey]
             let battleURL : String = "https://\(localBattleHost)/wow/realm/status"
-            getRequest(params, urlString: battleURL)
+            getRequest(params, urlString: battleURL) { (data, urlResponse, error) in
+                DLog("\n\ndata:\n\n\(data)\n\nurlResponse:\n\n\(urlResponse)")
+                guard error == nil else {
+                    DLog("Error: \(error!.description)")
+                    return
+                }
+                DataHandler.sharedInstance.newData(data!)
+            }
         }
     }
     
@@ -133,7 +177,14 @@ class API_Interface {
         {
             let params: Dictionary<String, AnyObject> = ["locale": locale, "apikey": battleAPIKey]
             let battleURL : String = "https://\(localBattleHost)/wow/item/\(code)"
-            getRequest(params, urlString: battleURL)
+            getRequest(params, urlString: battleURL) { (data, urlResponse, error) in
+                DLog("\n\ndata:\n\n\(data)\n\nurlResponse:\n\n\(urlResponse)")
+                guard error == nil else {
+                    DLog("Error: \(error!.description)")
+                    return
+                }
+                DataHandler.sharedInstance.newData(data!)
+            }
         }
     }
     
@@ -144,8 +195,8 @@ class API_Interface {
      *
      * @param: params: Dictionary<String, String> - The parameters for the GET request
      */
-    func getRequest (params: Dictionary<String, AnyObject>, urlString: String) {
-        makeRequest(.GET, params: params, urlString: urlString)
+    func getRequest (params: Dictionary<String, AnyObject>, urlString: String, completion: (NSData?, NSURLResponse?, NSError?) -> Void) {
+        makeRequest(.GET, params: params, urlString: urlString, completion: completion)
     }
     
     /*
@@ -155,8 +206,8 @@ class API_Interface {
      *
      * @param: params: Dictionary<String, String> - The parameters for the POST request
      */
-    func postRequest (params: Dictionary<String, AnyObject>, urlString: String) {
-        makeRequest(.POST, params: params, urlString: urlString)
+    func postRequest (params: Dictionary<String, AnyObject>, urlString: String, completion: (NSData?, NSURLResponse?, NSError?) -> Void) {
+        makeRequest(.POST, params: params, urlString: urlString, completion: completion)
     }
     
     /*
@@ -166,8 +217,8 @@ class API_Interface {
      *
      * @param: params: Dictionary<String, String> - The parameters for the DELETE request
      */
-    func deleteRequest (params: Dictionary<String, AnyObject>, urlString: String) {
-        makeRequest(.DELETE, params: params, urlString: urlString)
+    func deleteRequest (params: Dictionary<String, AnyObject>, urlString: String, completion: (NSData?, NSURLResponse?, NSError?) -> Void) {
+        makeRequest(.DELETE, params: params, urlString: urlString, completion: completion)
     }
     
     /*
@@ -178,20 +229,31 @@ class API_Interface {
      * @param: method: Alamofire.Method             - The method for the request
      * @param: params: Dictionary<String, String>   - The parameters for the request
      */
-    func makeRequest (method: Alamofire.Method, params: Dictionary<String, AnyObject>, urlString: String) {
+    func makeRequest (method: Method, params: Dictionary<String, AnyObject>, urlString: String, completion: (NSData?, NSURLResponse?, NSError?) -> Void) {
         
-        alamofireManager!.request(method, urlString, parameters: params)
-            .validate(statusCode: 200..<600)
-            .responseJSON { response in
-                switch response.result {
-                case .Success:
-                    if response.data != nil {
-                        DataHandler.sharedInstance.newData(response.data!)
-                    }
-                    self.handleResponse(response.response!)
-                case .Failure(let error):
-                    DLog("Status Code \(response.response?.statusCode ?? -999): Error: \(error.localizedDescription)")
+        if let urlComponents = NSURLComponents(string: urlString) {
+            
+            var requestParams: [NSURLQueryItem] = []
+            
+            for (paramName, paramValue) in params {
+                if let requestParam : NSURLQueryItem = NSURLQueryItem(name: paramName, value: paramValue as? String) {
+                    requestParams.append(requestParam)
+                } else {
+                    DLog("Could not add parameter \(paramName) with value \(paramValue)")
                 }
+            }
+            
+            urlComponents.queryItems = requestParams
+            
+            if let url : NSURL = urlComponents.URL {
+                let request : NSMutableURLRequest = NSMutableURLRequest(URL: url)
+                request.HTTPMethod = method.rawValue
+                NetworkManager.sharedInstance.handleRequest(request, completion: completion)
+            } else {
+                DLog("Could not obtain NSURL from \(urlComponents.debugDescription)")
+            }
+        } else {
+            DLog("Could not construct NSURLComponents from \(urlString)")
         }
     }
     

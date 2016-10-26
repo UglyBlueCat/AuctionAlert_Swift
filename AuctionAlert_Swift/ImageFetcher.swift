@@ -35,7 +35,7 @@ class ImageFetcher {
         if let codeImage : UIImage = UIImage(contentsOfFile: imageLocation.relativePath!) {
             return codeImage
         } else {
-            DLog("Cannot find image at \(imageLocation.URLString)")
+            DLog("Cannot find image at \(imageLocation.relativePath)")
         }
         if currentCode != code {
             API_Interface.sharedInstance.fetchObjectData(code)
@@ -56,14 +56,14 @@ class ImageFetcher {
     func downloadImage (code: String, name: String) {
         let imageURL: String = "http://media.blizzard.com/wow/icons/56/\(name).jpg"
         
-        API_Interface.sharedInstance.alamofireManager?.download(.GET, imageURL, destination: { (NSURL, NSHTTPURLResponse) -> NSURL in
-            let directory : NSSearchPathDirectory = .DocumentDirectory
-            let domain : NSSearchPathDomainMask = .UserDomainMask
-            let directoryURLs = NSFileManager.defaultManager().URLsForDirectory(directory, inDomains: domain)
-            return directoryURLs[0].URLByAppendingPathComponent("\(code).jpg")
-        })
-            .response { response in
-                NSNotificationCenter.defaultCenter().postNotificationName("kImageReceived", object: nil)
-        }
+//        API_Interface.sharedInstance.alamofireManager?.download(.GET, imageURL, destination: { (NSURL, NSHTTPURLResponse) -> NSURL in
+//            let directory : NSSearchPathDirectory = .DocumentDirectory
+//            let domain : NSSearchPathDomainMask = .UserDomainMask
+//            let directoryURLs = NSFileManager.defaultManager().URLsForDirectory(directory, inDomains: domain)
+//            return directoryURLs[0].URLByAppendingPathComponent("\(code).jpg")
+//        })
+//            .response { response in
+//                NSNotificationCenter.defaultCenter().postNotificationName("kImageReceived", object: nil)
+//        }
     }
 }
