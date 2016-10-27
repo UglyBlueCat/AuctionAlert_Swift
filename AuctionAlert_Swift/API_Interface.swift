@@ -37,14 +37,7 @@ class API_Interface {
                                                      "object_name": object,
                                                      "price": price]
         params = addGlobalValues(params)
-        getRequest(params, urlString: auctionAlertURL) { (data, urlResponse, error) in
-            DLog("\n\ndata:\n\n\(data)\n\nurlResponse:\n\n\(urlResponse)")
-            guard error == nil else {
-                DLog("Error: \(error!.description)")
-                return
-            }
-            DataHandler.sharedInstance.newData(data!)
-        }
+        getRequest(params, urlString: auctionAlertURL)
     }
     
     /*
@@ -63,14 +56,7 @@ class API_Interface {
                                                      "object_name": object,
                                                      "price": price]
         params = addGlobalValues(params)
-        postRequest(params, urlString: auctionAlertURL) { (data, urlResponse, error) in
-            DLog("\n\ndata:\n\n\(data)\n\nurlResponse:\n\n\(urlResponse)")
-            guard error == nil else {
-                DLog("Error: \(error!.description)")
-                return
-            }
-            DataHandler.sharedInstance.newData(data!)
-        }
+        postRequest(params, urlString: auctionAlertURL)
     }
     
     /*
@@ -81,14 +67,7 @@ class API_Interface {
     func listAuctions () {
         var params: Dictionary<String, AnyObject> = ["command": "fetch"]
         params = addGlobalValues(params)
-        getRequest(params, urlString: auctionAlertURL) { (data, urlResponse, error) in
-            DLog("\n\ndata:\n\n\(data)\n\nurlResponse:\n\n\(urlResponse)")
-            guard error == nil else {
-                DLog("Error: \(error!.description)")
-                return
-            }
-            DataHandler.sharedInstance.newData(data!)
-        }
+        getRequest(params, urlString: auctionAlertURL)
     }
     
     /*
@@ -106,14 +85,7 @@ class API_Interface {
                                                      "object_name": object,
                                                      "price": price]
         params = addGlobalValues(params)
-        deleteRequest(params, urlString: auctionAlertURL) { (data, urlResponse, error) in
-            DLog("\n\ndata:\n\n\(data)\n\nurlResponse:\n\n\(urlResponse)")
-            guard error == nil else {
-                DLog("Error: \(error!.description)")
-                return
-            }
-            DataHandler.sharedInstance.newData(data!)
-        }
+        deleteRequest(params, urlString: auctionAlertURL)
     }
     
     
@@ -128,14 +100,7 @@ class API_Interface {
         var params: Dictionary<String, AnyObject> = ["command": "code",
                                                      "object_name": object]
         params = addGlobalValues(params)
-        getRequest(params, urlString: auctionAlertURL) { (data, urlResponse, error) in
-            DLog("\n\ndata:\n\n\(data)\n\nurlResponse:\n\n\(urlResponse)")
-            guard error == nil else {
-                DLog("Error: \(error!.description)")
-                return
-            }
-            DataHandler.sharedInstance.newData(data!)
-        }
+        getRequest(params, urlString: auctionAlertURL)
     }
     
     /*
@@ -151,14 +116,7 @@ class API_Interface {
         {
             let params: Dictionary<String, AnyObject> = ["locale": locale, "apikey": battleAPIKey]
             let battleURL : String = "https://\(localBattleHost)/wow/realm/status"
-            getRequest(params, urlString: battleURL) { (data, urlResponse, error) in
-                DLog("\n\ndata:\n\n\(data)\n\nurlResponse:\n\n\(urlResponse)")
-                guard error == nil else {
-                    DLog("Error: \(error!.description)")
-                    return
-                }
-                DataHandler.sharedInstance.newData(data!)
-            }
+            getRequest(params, urlString: battleURL)
         }
     }
     
@@ -177,14 +135,7 @@ class API_Interface {
         {
             let params: Dictionary<String, AnyObject> = ["locale": locale, "apikey": battleAPIKey]
             let battleURL : String = "https://\(localBattleHost)/wow/item/\(code)"
-            getRequest(params, urlString: battleURL) { (data, urlResponse, error) in
-                DLog("\n\ndata:\n\n\(data)\n\nurlResponse:\n\n\(urlResponse)")
-                guard error == nil else {
-                    DLog("Error: \(error!.description)")
-                    return
-                }
-                DataHandler.sharedInstance.newData(data!)
-            }
+            getRequest(params, urlString: battleURL)
         }
     }
     
@@ -195,8 +146,8 @@ class API_Interface {
      *
      * @param: params: Dictionary<String, String> - The parameters for the GET request
      */
-    func getRequest (params: Dictionary<String, AnyObject>, urlString: String, completion: (NSData?, NSURLResponse?, NSError?) -> Void) {
-        makeRequest(.GET, params: params, urlString: urlString, completion: completion)
+    func getRequest (params: Dictionary<String, AnyObject>, urlString: String) {
+        makeRequest(.GET, params: params, urlString: urlString)
     }
     
     /*
@@ -206,8 +157,8 @@ class API_Interface {
      *
      * @param: params: Dictionary<String, String> - The parameters for the POST request
      */
-    func postRequest (params: Dictionary<String, AnyObject>, urlString: String, completion: (NSData?, NSURLResponse?, NSError?) -> Void) {
-        makeRequest(.POST, params: params, urlString: urlString, completion: completion)
+    func postRequest (params: Dictionary<String, AnyObject>, urlString: String) {
+        makeRequest(.POST, params: params, urlString: urlString)
     }
     
     /*
@@ -217,8 +168,8 @@ class API_Interface {
      *
      * @param: params: Dictionary<String, String> - The parameters for the DELETE request
      */
-    func deleteRequest (params: Dictionary<String, AnyObject>, urlString: String, completion: (NSData?, NSURLResponse?, NSError?) -> Void) {
-        makeRequest(.DELETE, params: params, urlString: urlString, completion: completion)
+    func deleteRequest (params: Dictionary<String, AnyObject>, urlString: String) {
+        makeRequest(.DELETE, params: params, urlString: urlString)
     }
     
     /*
@@ -229,7 +180,7 @@ class API_Interface {
      * @param: method: Alamofire.Method             - The method for the request
      * @param: params: Dictionary<String, String>   - The parameters for the request
      */
-    func makeRequest (method: Method, params: Dictionary<String, AnyObject>, urlString: String, completion: (NSData?, NSURLResponse?, NSError?) -> Void) {
+    func makeRequest (method: Method, params: Dictionary<String, AnyObject>, urlString: String) {
         
         if let urlComponents = NSURLComponents(string: urlString) {
             
@@ -248,7 +199,14 @@ class API_Interface {
             if let url : NSURL = urlComponents.URL {
                 let request : NSMutableURLRequest = NSMutableURLRequest(URL: url)
                 request.HTTPMethod = method.rawValue
-                NetworkManager.sharedInstance.handleRequest(request, completion: completion)
+                NetworkManager.sharedInstance.handleRequest(request) { (data, urlResponse, error) in
+                    DLog("\n\ndata:\n\n\(data)\n\nurlResponse:\n\n\(urlResponse)")
+                    guard error == nil else {
+                        DLog("Error: \(error!.description)")
+                        return
+                    }
+                    DataHandler.sharedInstance.newData(data!)
+                }
             } else {
                 DLog("Could not obtain NSURL from \(urlComponents.debugDescription)")
             }
