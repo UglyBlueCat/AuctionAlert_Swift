@@ -200,7 +200,6 @@ class API_Interface {
                 let request : NSMutableURLRequest = NSMutableURLRequest(URL: url)
                 request.HTTPMethod = method.rawValue
                 NetworkManager.sharedInstance.handleRequest(request) { (data, urlResponse, error) in
-                    DLog("\n\ndata:\n\n\(data)\n\nurlResponse:\n\n\(urlResponse)")
                     guard error == nil else {
                         DLog("Error: \(error!.description)")
                         return

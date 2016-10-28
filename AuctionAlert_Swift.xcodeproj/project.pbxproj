@@ -577,7 +577,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: uglybluecat@googlemail.com (S4GARPFP3J)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = AuctionAlert_Swift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -585,7 +586,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.UglyBlueCat.AuctionAlert;
 				PRODUCT_NAME = AuctionAlert;
-				PROVISIONING_PROFILE = "08ef3870-dce6-4a75-b59b-6d43ec97fb89";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -593,7 +594,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Robin Spinks (F37NX2W83F)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = AuctionAlert_Swift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -601,7 +603,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.UglyBlueCat.AuctionAlert;
 				PRODUCT_NAME = AuctionAlert;
-				PROVISIONING_PROFILE = "5dbcc03e-577e-4d7b-8e03-a906330e4814";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
