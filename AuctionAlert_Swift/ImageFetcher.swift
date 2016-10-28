@@ -54,16 +54,30 @@ class ImageFetcher {
      * @param: name: String - the items icon name
      */
     func downloadImage (code: String, name: String) {
-        let imageURL: String = "http://media.blizzard.com/wow/icons/56/\(name).jpg"
         
-//        API_Interface.sharedInstance.alamofireManager?.download(.GET, imageURL, destination: { (NSURL, NSHTTPURLResponse) -> NSURL in
-//            let directory : NSSearchPathDirectory = .DocumentDirectory
-//            let domain : NSSearchPathDomainMask = .UserDomainMask
-//            let directoryURLs = NSFileManager.defaultManager().URLsForDirectory(directory, inDomains: domain)
-//            return directoryURLs[0].URLByAppendingPathComponent("\(code).jpg")
-//        })
-//            .response { response in
-//                NSNotificationCenter.defaultCenter().postNotificationName("kImageReceived", object: nil)
-//        }
+        let imageURLString: String = "http://media.blizzard.com/wow/icons/56/\(name).jpg"
+        
+        if let imageURL : NSURL = NSURL(string: imageURLString) {
+            
+            let request : NSURLRequest = NSURLRequest(URL: imageURL)
+            
+            NetworkManager.sharedInstance.handleRequest(request) { (data, urlResponse, error) in
+                DLog("imageURLString: \(imageURLString)")
+                
+                let directory : NSSearchPathDirectory = .DocumentDirectory
+                let domain : NSSearchPathDomainMask = .UserDomainMask
+                let directoryURLs = NSFileManager.defaultManager().URLsForDirectory(directory, inDomains: domain)
+                let imageFileURL : NSURL = directoryURLs[0].URLByAppendingPathComponent("\(code).jpg")
+                DLog("imageFileURL: \(imageFileURL.debugDescription)")
+                
+                if data!.writeToURL(imageFileURL, atomically: false) {
+                    NSNotificationCenter.defaultCenter().postNotificationName("kImageReceived", object: nil)
+                } else {
+                    DLog("Unable to write to file: \(imageFileURL)")
+                }
+            }
+        } else {
+            DLog("Cannot construct URL from \(imageURLString)")
+        }
     }
 }
