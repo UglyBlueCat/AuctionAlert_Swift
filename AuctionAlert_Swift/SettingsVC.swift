@@ -26,7 +26,7 @@ class SettingsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(newRealmsReceived), name: "kRealmsReceived", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(newRealmsReceived), name: NSNotification.Name(rawValue: "kRealmsReceived"), object: nil)
         API_Interface.sharedInstance.fetchRealmData()
     }
     
@@ -34,13 +34,13 @@ class SettingsVC: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
         positionObjectsWithinSize(size)
     }
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return UIStatusBarStyle.Default
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return UIStatusBarStyle.default
     }
     
     // MARK: - Custom Methods
@@ -71,16 +71,16 @@ class SettingsVC: UIViewController {
         regionLabel.textColor = secondaryTextColor
         view.addSubview(regionLabel)
         
-        regionControl = AASegmentedControl(items: regions, handler: self, selector: #selector(regionSegmentTapped))
-        regionControl.selectedSegmentIndex = regions.indexOf(userDefaults.stringForKey(regionKey)!)!
+        regionControl = AASegmentedControl(items: regions as [AnyObject]?, handler: self, selector: #selector(regionSegmentTapped))
+        regionControl.selectedSegmentIndex = regions.index(of: userDefaults.string(forKey: regionKey)!)!
         view.addSubview(regionControl)
         
         localeLabel = AALabel(textStr: "Language")
         localeLabel.textColor = secondaryTextColor
         view.addSubview(localeLabel)
         
-        languageControl = AASegmentedControl(items: languages, handler: self, selector: #selector(languageSegmentTapped))
-        languageControl.selectedSegmentIndex = languages.indexOf(userDefaults.stringForKey(languageKey)!)!
+        languageControl = AASegmentedControl(items: languages as [AnyObject]?, handler: self, selector: #selector(languageSegmentTapped))
+        languageControl.selectedSegmentIndex = languages.index(of: userDefaults.string(forKey: languageKey)!)!
         view.addSubview(languageControl)
         
         realmLabel = AALabel(textStr: "Realm")
@@ -94,8 +94,8 @@ class SettingsVC: UIViewController {
         view.addSubview(realmSpinner)
         
         doneButton = AAButton(title: "Done", handler: self, selector: #selector(doneButtonTapped))
-        doneButton.setTitleColor(secondaryTextColor, forState: .Normal)
-        doneButton.layer.borderColor = secondaryTextColor.CGColor
+        doneButton.setTitleColor(secondaryTextColor, for: UIControlState())
+        doneButton.layer.borderColor = secondaryTextColor.cgColor
         view.addSubview(doneButton!)
     }
     
@@ -104,7 +104,7 @@ class SettingsVC: UIViewController {
      *
      * Sets the size of objects separately so this function can be called from different places
      */
-    func positionObjectsWithinSize(size: CGSize) {
+    func positionObjectsWithinSize(_ size: CGSize) {
         
         let topMargin: CGFloat = 20.0
         let standardControlWidth: CGFloat = 200.0
@@ -129,29 +129,29 @@ class SettingsVC: UIViewController {
                                    height: standardControlHeight)
         
         regionControl.frame = CGRect(x: margin,
-                                     y: CGRectGetMaxY(regionLabel.frame) + margin,
+                                     y: regionLabel.frame.maxY + margin,
                                      width: viewWidth - 2*margin,
                                      height: standardControlHeight)
         
         localeLabel.frame = CGRect(x: margin,
-                                   y: CGRectGetMaxY(regionControl.frame) + margin,
+                                   y: regionControl.frame.maxY + margin,
                                    width: viewWidth - 2*margin,
                                    height: standardControlHeight)
         
         languageControl.frame = CGRect(x: margin,
-                                       y: CGRectGetMaxY(localeLabel.frame) + margin,
+                                       y: localeLabel.frame.maxY + margin,
                                        width: viewWidth - 2*margin,
                                        height: standardControlHeight)
         
         realmLabel.frame = CGRect(x: margin,
-                                  y: CGRectGetMaxY(languageControl.frame) + margin,
+                                  y: languageControl.frame.maxY + margin,
                                   width: viewWidth - 2*margin,
                                   height: standardControlHeight)
         
         realmSpinner.frame = CGRect(x: margin,
-                                    y: CGRectGetMaxY(realmLabel.frame) + margin,
+                                    y: realmLabel.frame.maxY + margin,
                                     width: viewWidth - 2*margin,
-                                    height: CGRectGetMinY(doneButton.frame) - CGRectGetMaxY(realmLabel.frame) - 2*margin)
+                                    height: doneButton.frame.minY - realmLabel.frame.maxY - 2*margin)
     }
     
     /*
@@ -163,8 +163,8 @@ class SettingsVC: UIViewController {
     func doneButtonTapped() {
         userDefaults.setValue(regions[regionControl.selectedSegmentIndex], forKey: regionKey)
         userDefaults.setValue(languages[languageControl.selectedSegmentIndex], forKey: languageKey)
-        userDefaults.setObject(DataHandler.sharedInstance.realmList[realmSpinner.selectedRowInComponent(0)], forKey: realmKey)
-        dismissViewControllerAnimated(true, completion: nil)
+        userDefaults.set(DataHandler.sharedInstance.realmList[realmSpinner.selectedRow(inComponent: 0)], forKey: realmKey)
+        dismiss(animated: true, completion: nil)
     }
     
     /*
@@ -197,13 +197,13 @@ class SettingsVC: UIViewController {
         let currentSelectedIndex = languageControl.selectedSegmentIndex
         
         for i in 0..<languageControl.numberOfSegments {
-            languageControl.setEnabled(false, forSegmentAtIndex: i)
+            languageControl.setEnabled(false, forSegmentAt: i)
         }
 
         switch regionControl.selectedSegmentIndex {
         case 0:
             for j in 0..<7 {
-                languageControl.setEnabled(true, forSegmentAtIndex: j)
+                languageControl.setEnabled(true, forSegmentAt: j)
             }
             if currentSelectedIndex > 6 {
                 languageControl.selectedSegmentIndex = 0
@@ -211,9 +211,9 @@ class SettingsVC: UIViewController {
                 languageControl.selectedSegmentIndex = currentSelectedIndex
             }
         case 1:
-            languageControl.setEnabled(true, forSegmentAtIndex: 0)
-            languageControl.setEnabled(true, forSegmentAtIndex: 2)
-            languageControl.setEnabled(true, forSegmentAtIndex: 5)
+            languageControl.setEnabled(true, forSegmentAt: 0)
+            languageControl.setEnabled(true, forSegmentAt: 2)
+            languageControl.setEnabled(true, forSegmentAt: 5)
             
             if currentSelectedIndex != 0 &&
                 currentSelectedIndex != 2 &&
@@ -223,13 +223,13 @@ class SettingsVC: UIViewController {
                 languageControl.selectedSegmentIndex = currentSelectedIndex
             }
         case 2:
-            languageControl.setEnabled(true, forSegmentAtIndex: 7)
+            languageControl.setEnabled(true, forSegmentAt: 7)
             languageControl.selectedSegmentIndex = 7
         case 3:
-            languageControl.setEnabled(true, forSegmentAtIndex: 8)
+            languageControl.setEnabled(true, forSegmentAt: 8)
             languageControl.selectedSegmentIndex = 8
         case 4:
-            languageControl.setEnabled(true, forSegmentAtIndex: 8)
+            languageControl.setEnabled(true, forSegmentAt: 8)
             languageControl.selectedSegmentIndex = 8
         default:
             DLog("No region selected")
@@ -293,8 +293,8 @@ class SettingsVC: UIViewController {
      */
     func newRealmsReceived () {
         realmSpinner.reloadAllComponents()
-        if let realm : String = userDefaults.stringForKey(realmKey) {
-            if let index : Int = DataHandler.sharedInstance.realmList.indexOf(realm) {
+        if let realm : String = userDefaults.string(forKey: realmKey) {
+            if let index : Int = DataHandler.sharedInstance.realmList.index(of: realm) {
                 realmSpinner.selectRow(index, inComponent: 0, animated: true)
             }
         }
@@ -303,7 +303,7 @@ class SettingsVC: UIViewController {
 
 extension SettingsVC: UIPickerViewDelegate {
     
-    func pickerView(pickerView: UIPickerView,
+    func pickerView(_ pickerView: UIPickerView,
                                titleForRow row: Int,
                                            forComponent component: Int) -> String? {
         var realm : String!
@@ -313,24 +313,24 @@ extension SettingsVC: UIPickerViewDelegate {
         return realm
     }
     
-    func pickerView(pickerView: UIPickerView,
+    func pickerView(_ pickerView: UIPickerView,
                                didSelectRow row: Int,
                                             inComponent component: Int) {
         var realm : String!
         if DataHandler.sharedInstance.realmList.count > (row + 1) {
             realm = DataHandler.sharedInstance.realmList[row]
         }
-        userDefaults.setObject(realm, forKey: realmKey)
+        userDefaults.set(realm, forKey: realmKey)
     }
 }
 
 extension SettingsVC: UIPickerViewDataSource {
     
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
-    func pickerView(pickerView: UIPickerView,
+    func pickerView(_ pickerView: UIPickerView,
                       numberOfRowsInComponent component: Int) -> Int {
         return DataHandler.sharedInstance.realmList.count - 1
     }

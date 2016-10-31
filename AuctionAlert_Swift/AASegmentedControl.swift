@@ -19,14 +19,14 @@ class AASegmentedControl: UISegmentedControl {
         setupStandards()
     }
     
-    override init(items: [AnyObject]?) {
+    override init(items: [Any]?) {
         super.init(items: items)
         setupStandards()
     }
     
     convenience init(items: [AnyObject]?, handler: AnyObject, selector: Selector) {
         self.init(items: items)
-        addTarget(handler, action: selector, forControlEvents: .ValueChanged)
+        addTarget(handler, action: selector, for: .valueChanged)
     }
     
     /*

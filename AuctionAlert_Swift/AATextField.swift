@@ -22,7 +22,7 @@ class AATextField: UITextField {
     convenience init(placeHolder: String, handler: AnyObject, selector: Selector) {
         self.init()
         placeholder = placeHolder
-        addTarget(handler, action: selector, forControlEvents: [.EditingDidEnd, .EditingDidEndOnExit])
+        addTarget(handler, action: selector, for: [.editingDidEnd, .editingDidEndOnExit])
     }
     
     /*
@@ -32,6 +32,6 @@ class AATextField: UITextField {
      */
     func setupStandards() {
         textColor = primaryTextColor
-        autocorrectionType = .No
+        autocorrectionType = .no
     }
 }

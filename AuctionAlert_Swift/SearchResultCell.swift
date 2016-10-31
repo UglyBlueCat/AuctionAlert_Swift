@@ -40,11 +40,11 @@ class SearchResultCell: UITableViewCell {
      * Seperate from sizeObjects() so it can be called from initialisers
      */
     func setupView() {
-        self.backgroundColor = UIColor.clearColor()
-        selectionStyle = .None
+        self.backgroundColor = UIColor.clear
+        selectionStyle = .none
         
         iconImage = UIImageView()
-        iconImage.backgroundColor = UIColor.clearColor()
+        iconImage.backgroundColor = UIColor.clear
         self.addSubview(iconImage!)
         
         detailLabel = AALabel()
@@ -57,17 +57,17 @@ class SearchResultCell: UITableViewCell {
         buyoutLabel = AALabel()
         self.addSubview(buyoutLabel!)
         
-        if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
+        if UIDevice.current.userInterfaceIdiom == .phone {
             let currentFontSize: CGFloat = bidLabel.font.pointSize
             let currentFont: UIFont = bidLabel.font
-            bidLabel.font = currentFont.fontWithSize(currentFontSize/2)
-            buyoutLabel.font = currentFont.fontWithSize(currentFontSize/2)
+            bidLabel.font = currentFont.withSize(currentFontSize/2)
+            buyoutLabel.font = currentFont.withSize(currentFontSize/2)
             bidLabel.numberOfLines = 2
             buyoutLabel.numberOfLines = 2
         }
         
         stackSizeLabel = AALabel()
-        stackSizeLabel.backgroundColor = UIColor.clearColor()
+        stackSizeLabel.backgroundColor = UIColor.clear
         self.addSubview(stackSizeLabel!)
     }
     

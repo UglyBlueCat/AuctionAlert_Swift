@@ -10,11 +10,11 @@ import Foundation
 import UIKit
 
 class ImageFetcher {
-    let defaultImage : UIImage = UIImage(color: UIColor.clearColor())!
+    let defaultImage : UIImage = UIImage(color: UIColor.clear)!
     var currentCode : String?
     
     static let sharedInstance = ImageFetcher()
-    private init() {
+    fileprivate init() {
         currentCode = nil
     }
     
@@ -27,12 +27,12 @@ class ImageFetcher {
      * @param: code: String - the item code
      * @return: UIImage     - the image
      */
-    func imageFromCode (code: String) -> UIImage {
-        let directory : NSSearchPathDirectory = .DocumentDirectory
-        let domain : NSSearchPathDomainMask = .UserDomainMask
-        let directoryURLs = NSFileManager.defaultManager().URLsForDirectory(directory, inDomains: domain)
-        let imageLocation : NSURL = directoryURLs[0].URLByAppendingPathComponent("\(code).jpg")
-        if let codeImage : UIImage = UIImage(contentsOfFile: imageLocation.relativePath!) {
+    func imageFromCode (_ code: String) -> UIImage {
+        let directory : FileManager.SearchPathDirectory = .documentDirectory
+        let domain : FileManager.SearchPathDomainMask = .userDomainMask
+        let directoryURLs = FileManager.default.urls(for: directory, in: domain)
+        let imageLocation : URL = directoryURLs[0].appendingPathComponent("\(code).jpg")
+        if let codeImage : UIImage = UIImage(contentsOfFile: imageLocation.relativePath) {
             return codeImage
         } else {
             DLog("Cannot find image at \(imageLocation.relativePath)")
@@ -53,25 +53,25 @@ class ImageFetcher {
      * @param: code: String - the item code
      * @param: name: String - the items icon name
      */
-    func downloadImage (code: String, name: String) {
+    func downloadImage (_ code: String, name: String) {
         
         let imageURLString: String = "http://media.blizzard.com/wow/icons/56/\(name).jpg"
         
-        if let imageURL : NSURL = NSURL(string: imageURLString) {
+        if let imageURL : URL = URL(string: imageURLString) {
             
-            let request : NSURLRequest = NSURLRequest(URL: imageURL)
+            let request : URLRequest = URLRequest(url: imageURL)
             
             NetworkManager.sharedInstance.handleRequest(request) { (data, urlResponse, error) in
                 DLog("imageURLString: \(imageURLString)")
                 
-                let directory : NSSearchPathDirectory = .DocumentDirectory
-                let domain : NSSearchPathDomainMask = .UserDomainMask
-                let directoryURLs = NSFileManager.defaultManager().URLsForDirectory(directory, inDomains: domain)
-                let imageFileURL : NSURL = directoryURLs[0].URLByAppendingPathComponent("\(code).jpg")
+                let directory : FileManager.SearchPathDirectory = .documentDirectory
+                let domain : FileManager.SearchPathDomainMask = .userDomainMask
+                let directoryURLs = FileManager.default.urls(for: directory, in: domain)
+                let imageFileURL : URL = directoryURLs[0].appendingPathComponent("\(code).jpg")
                 DLog("imageFileURL: \(imageFileURL.debugDescription)")
                 
-                if data!.writeToURL(imageFileURL, atomically: false) {
-                    NSNotificationCenter.defaultCenter().postNotificationName("kImageReceived", object: nil)
+                if (try? data!.write(to: imageFileURL, options: [])) != nil {
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: "kImageReceived"), object: nil)
                 } else {
                     DLog("Unable to write to file: \(imageFileURL)")
                 }

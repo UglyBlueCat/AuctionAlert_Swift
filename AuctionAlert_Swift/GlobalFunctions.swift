@@ -9,8 +9,8 @@
 import Foundation
 import UIKit
 
-let userDefaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-let idForVendor: String? = UIDevice.currentDevice().identifierForVendor?.UUIDString
+let userDefaults: UserDefaults = UserDefaults.standard
+let idForVendor: String? = UIDevice.current.identifierForVendor?.uuidString
 let auctionAlertURL: String = "http://uglybluecat.com/AuctionAlert.php"
 let battleHost : [String:String] = ["EU":"eu.api.battle.net",
                                     "US":"us.api.battle.net",
@@ -36,9 +36,9 @@ let battleIconWidth : CGFloat = 56.0
  * @param: file:     String  - Defaults to #file
  * @param: line:     Int     - Defaults to #line
  */
-func DLog(msg: String, function: String = #function, file: String = #file, line: Int = #line) {
-    let url = NSURL(fileURLWithPath: file)
-    let className:String! = url.lastPathComponent == nil ? file : url.lastPathComponent!
+func DLog(_ msg: String, function: String = #function, file: String = #file, line: Int = #line) {
+    let url = URL(fileURLWithPath: file)
+    let className:String! = url.lastPathComponent == nil ? file : url.lastPathComponent
     print("[\(className) \(function)](\(line)) \(msg)")
 }
 
@@ -52,7 +52,7 @@ func DLog(msg: String, function: String = #function, file: String = #file, line:
  * @return: silver:   Int  - The silver portion
  * @return: copper:   Int  - The copper portion
  */
-func ConvertMoney(allCopper: Int) -> (gold: Int, silver: Int, copper: Int) {
+func ConvertMoney(_ allCopper: Int) -> (gold: Int, silver: Int, copper: Int) {
     let gold : Int = Int(allCopper/10000)
     let silver : Int = Int((allCopper - gold*10000)/100)
     let copper : Int = allCopper - gold*10000 - silver*100
@@ -65,9 +65,9 @@ func ConvertMoney(allCopper: Int) -> (gold: Int, silver: Int, copper: Int) {
  */
 extension UIColor {
     convenience init(hexString: String) {
-        let hex = hexString.stringByTrimmingCharactersInSet(NSCharacterSet.alphanumericCharacterSet().invertedSet)
+        let hex = hexString.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
         var int = UInt32()
-        NSScanner(string: hex).scanHexInt(&int)
+        Scanner(string: hex).scanHexInt32(&int)
         let a, r, g, b: UInt32
         switch hex.characters.count {
         case 3: // RGB (12-bit)
@@ -107,7 +107,7 @@ public extension UIImage {
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        guard let cgImage = image.CGImage else { return nil }
-        self.init(CGImage: cgImage)
+        guard let cgImage = image?.cgImage else { return nil }
+        self.init(cgImage: cgImage)
     }
 }

@@ -26,14 +26,14 @@ class AATableView: UITableView {
      * Sets up tableview attributes considered standard or default for this application
      */
     func setupStandards() {
-        backgroundColor = UIColor.clearColor()
-        separatorStyle = .None
+        backgroundColor = UIColor.clear
+        separatorStyle = .none
     }
 
-    override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         if self.bounds.contains(point) {
-            NSNotificationCenter.defaultCenter().postNotificationName("kTableTapped", object: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "kTableTapped"), object: nil)
         }
-        return super.hitTest(point, withEvent: event)
+        return super.hitTest(point, with: event)
     }
 }

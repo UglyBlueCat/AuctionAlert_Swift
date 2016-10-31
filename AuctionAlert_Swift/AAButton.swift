@@ -21,8 +21,8 @@ class AAButton: UIButton {
     
     convenience init(title: String, handler: AnyObject, selector: Selector) {
         self.init()
-        setTitle(title, forState: .Normal)
-        addTarget(handler, action: selector, forControlEvents: .TouchUpInside)
+        setTitle(title, for: UIControlState())
+        addTarget(handler, action: selector, for: .touchUpInside)
     }
     
     /*
@@ -31,9 +31,9 @@ class AAButton: UIButton {
      * Sets up attributes considered standard or default for this application
      */
     func setupStandards() {
-        setTitleColor(primaryTextColor, forState: .Normal)
+        setTitleColor(primaryTextColor, for: UIControlState())
         layer.cornerRadius = 5
         layer.borderWidth = 2
-        layer.borderColor = primaryTextColor.CGColor
+        layer.borderColor = primaryTextColor.cgColor
     }
 }

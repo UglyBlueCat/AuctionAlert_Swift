@@ -239,6 +239,7 @@
 					00B192201D2D2894009A363E = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = F37NX2W83F;
+						LastSwiftMigration = 0800;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -437,6 +438,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.UglyBlueCat.AuctionAlert;
 				PRODUCT_NAME = AuctionAlert;
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -454,6 +456,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.UglyBlueCat.AuctionAlert;
 				PRODUCT_NAME = AuctionAlert;
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

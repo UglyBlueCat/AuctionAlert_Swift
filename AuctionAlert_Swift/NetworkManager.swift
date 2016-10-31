@@ -10,19 +10,19 @@ import Foundation
 
 class NetworkManager {
     
-    let defaultSession : NSURLSession
+    let defaultSession : URLSession
     
     /*
      * Create a shared instance to initialise class as a singleton
      * originally taken from: http://krakendev.io/blog/the-right-way-to-write-a-singleton
      */
     static let sharedInstance = NetworkManager()
-    private init() {
+    fileprivate init() {
         
-        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 300.0
         
-        self.defaultSession = NSURLSession(configuration: configuration)
+        self.defaultSession = URLSession(configuration: configuration)
     }
         
     /*
@@ -37,9 +37,9 @@ class NetworkManager {
      * @param: completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void)
      *         - A method to handle the returned data
      */
-    func handleRequest (request: NSURLRequest, completion: (NSData?, NSURLResponse?, NSError?) -> Void) {
+    func handleRequest (_ request: URLRequest, completion: @escaping (Data?, URLResponse?, NSError?) -> Void) {
         
-        let task : NSURLSessionDataTask = defaultSession.dataTaskWithRequest(request, completionHandler: completion) 
+        let task : URLSessionDataTask = defaultSession.dataTask(with: request, completionHandler: completion as! (Data?, URLResponse?, Error?) -> Void) 
         task.resume()
     }
 

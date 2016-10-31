@@ -38,15 +38,15 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         presentingAlert = false
         setupView()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(newDataReceived), name: "kDataReceived", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(messageReceived), name: "kMessageReceived", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(newImageReceived), name: "kImageReceived", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(tableTapped), name: "kTableTapped", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(codeOK), name: "kCodeOK", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(newDataReceived), name: NSNotification.Name(rawValue: "kDataReceived"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(messageReceived), name: NSNotification.Name(rawValue: "kMessageReceived"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(newImageReceived), name: NSNotification.Name(rawValue: "kImageReceived"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(tableTapped), name: NSNotification.Name(rawValue: "kTableTapped"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(codeOK), name: NSNotification.Name(rawValue: "kCodeOK"), object: nil)
     }
     
-    override func viewWillAppear(animated: Bool) {
-        if let realm : String = userDefaults.stringForKey(realmKey) {
+    override func viewWillAppear(_ animated: Bool) {
+        if let realm : String = userDefaults.string(forKey: realmKey) {
             realmLabel.text = "Realm: \(realm)"
         }
     }
@@ -55,18 +55,18 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
         positionObjectsWithinSize(size)
         resultsTable.reloadData()
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return UIStatusBarStyle.LightContent
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
     }
     
     // MARK: - Custom Methods
@@ -107,17 +107,17 @@ class ViewController: UIViewController {
         objectLHS = UIImageView(image: UIImage(named: "ObjectFieldLHS"))
         view.addSubview(objectLHS!)
         
-        realmLabel = AALabel(textStr: "Realm: \(userDefaults.stringForKey(realmKey)!)")
-        realmLabel.textAlignment = .Left
+        realmLabel = AALabel(textStr: "Realm: \(userDefaults.string(forKey: realmKey)!)")
+        realmLabel.textAlignment = .left
         view.addSubview(realmLabel!)
         
         itemLabel = AALabel(textStr: "Item Name")
-        itemLabel.textAlignment = .Center
-        itemLabel.backgroundColor = UIColor.clearColor()
+        itemLabel.textAlignment = .center
+        itemLabel.backgroundColor = UIColor.clear
         itemLabel.textColor = primaryColor
         
-        if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
-            itemLabel.font = itemLabel.font.fontWithSize(0.8*itemLabel.font.pointSize)
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            itemLabel.font = itemLabel.font.withSize(0.8*itemLabel.font.pointSize)
         }
         
         view.addSubview(itemLabel!)
@@ -126,27 +126,27 @@ class ViewController: UIViewController {
         view.addSubview(itemLabelBG!)
         
         maxPriceLabel = AALabel(textStr: "max price (g)")
-        maxPriceLabel.font = maxPriceLabel.font.fontWithSize(maxPriceLabel.font.pointSize/2)
+        maxPriceLabel.font = maxPriceLabel.font.withSize(maxPriceLabel.font.pointSize/2)
         view.addSubview(maxPriceLabel!)
         
         priceBG = UIImageView(image: UIImage(named: "PriceFieldBG"))
         view.addSubview(priceBG!)
         
         objectEntry = AATextField(placeHolder: "Item Name", handler: self, selector: #selector(objectNameEntered))
-        objectEntry.returnKeyType = .Done
+        objectEntry.returnKeyType = .done
         objectEntry.textColor = primaryColor
         view.addSubview(objectEntry!)
         
         priceEntry = AATextField(placeHolder: "Max (g)", handler: self, selector: #selector(priceEntered))
-        priceEntry.keyboardType = .NumberPad
+        priceEntry.keyboardType = .numberPad
         view.addSubview(priceEntry!)
         
         searchButton = AAButton(title: "Search", handler: self, selector: #selector(searchButtonTapped))
-        searchButton.enabled = false
+        searchButton.isEnabled = false
         view.addSubview(searchButton!)
         
         saveButton = AAButton(title: "Save", handler: self, selector: #selector(saveButtonTapped))
-        saveButton.enabled = false
+        saveButton.isEnabled = false
         view.addSubview(saveButton!)
         
         listButton = AAButton(title: "List", handler: self, selector: #selector(listButtonTapped))
@@ -160,8 +160,8 @@ class ViewController: UIViewController {
         view.addSubview(resultsTable!)
         
         activityIndicator = UIActivityIndicatorView()
-        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
-            activityIndicator.activityIndicatorViewStyle = .WhiteLarge
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            activityIndicator.activityIndicatorViewStyle = .whiteLarge
         }
         view.addSubview(activityIndicator)
         
@@ -180,8 +180,8 @@ class ViewController: UIViewController {
         resultsTable.delegate = self
         resultsTable.rowHeight = battleIconWidth
         resultsTable.backgroundView = UIImageView(image: UIImage(named: "TableBG"))
-        resultsTable.registerClass(SearchResultCell.self, forCellReuseIdentifier: "SearchResultCell")
-        resultsTable.registerClass(SearchListCell.self, forCellReuseIdentifier: "SearchListCell")
+        resultsTable.register(SearchResultCell.self, forCellReuseIdentifier: "SearchResultCell")
+        resultsTable.register(SearchListCell.self, forCellReuseIdentifier: "SearchListCell")
     }
     
     /*
@@ -189,7 +189,7 @@ class ViewController: UIViewController {
      *
      * Sets the size of objects separately so this function can be called from different places
      */
-    func positionObjectsWithinSize(size: CGSize) {
+    func positionObjectsWithinSize(_ size: CGSize) {
         
         let topMargin: CGFloat = 20.0
         let standardControlWidth: CGFloat = 200.0
@@ -213,7 +213,7 @@ class ViewController: UIViewController {
                                      width: viewWidth,
                                      height: 0.2*viewHeight)
         
-        let logoHeight: CGFloat = CGRectGetHeight(topBackground.frame) - margin
+        let logoHeight: CGFloat = topBackground.frame.height - margin
         let logoWidth: CGFloat = logoHeight
         
         logoImageView.frame = CGRect(x: (viewWidth - logoWidth)/2,
@@ -224,60 +224,60 @@ class ViewController: UIViewController {
         let titleWidth: CGFloat = 4.86*standardControlHeight // 4.86 is the width/height ratio of the title (646/133)
         
         titleImage.frame = CGRect(x: (viewWidth - titleWidth)/2,
-                                  y: CGRectGetMaxY(topBackground.frame) - standardControlHeight,
+                                  y: topBackground.frame.maxY - standardControlHeight,
                                   width: titleWidth,
                                   height: standardControlHeight)
         
         realmLabel.frame = CGRect(x: margin,
-                                  y: CGRectGetMaxY(topBackground.frame),
+                                  y: topBackground.frame.maxY,
                                   width: viewWidth - 2*margin,
                                   height: standardControlHeight)
         
         settingsButton.frame = realmLabel.frame
         
         objectBG.frame = CGRect(x: 0,
-                                y: CGRectGetMaxY(realmLabel.frame),
+                                y: realmLabel.frame.maxY,
                                 width: viewWidth,
                                 height: standardControlHeight)
         
         objectLHS.frame = CGRect(x: 0, 
-                                 y: CGRectGetMaxY(realmLabel.frame),
+                                 y: realmLabel.frame.maxY,
                                  width: 3*standardControlHeight, // 3 = width/height
                                  height: standardControlHeight)
         
         let priceBGWidth: CGFloat = 1.8*standardControlHeight // 1.8 is the width/height ratio of the price background (76/42)
         
-        priceBG.frame = CGRect(x: CGRectGetMaxX(objectBG.frame) - priceBGWidth,
-                               y: CGRectGetMaxY(realmLabel.frame),
+        priceBG.frame = CGRect(x: objectBG.frame.maxX - priceBGWidth,
+                               y: realmLabel.frame.maxY,
                                width: priceBGWidth,
                                height: standardControlHeight)
         
-        maxPriceLabel.frame = CGRect(x: CGRectGetMinX(priceBG.frame),
-                                     y: CGRectGetMinY(priceBG.frame) - standardControlHeight/4,
+        maxPriceLabel.frame = CGRect(x: priceBG.frame.minX,
+                                     y: priceBG.frame.minY - standardControlHeight/4,
                                      width: priceBGWidth,
                                      height: standardControlHeight/4)
         
-        priceEntry.frame = CGRect(x: CGRectGetMaxX(objectBG.frame) - priceBGWidth + margin,
-                                  y: CGRectGetMaxY(realmLabel.frame),
+        priceEntry.frame = CGRect(x: objectBG.frame.maxX - priceBGWidth + margin,
+                                  y: realmLabel.frame.maxY,
                                   width: priceBGWidth - 2*margin,
                                   height: standardControlHeight)
         
-        let itemLabelWidth: CGFloat = itemLabel.intrinsicContentSize().width + 2*margin
+        let itemLabelWidth: CGFloat = itemLabel.intrinsicContentSize.width + 2*margin
         
         itemLabel.frame = CGRect(x: 0,
-                                 y: CGRectGetMaxY(realmLabel.frame),
+                                 y: realmLabel.frame.maxY,
                                  width: itemLabelWidth,
                                  height: standardControlHeight)
         
         let itemLabelBGWidth: CGFloat = 0.47*standardControlHeight // 0.47 is the width/height ratio of the item label background image (50/106)
         
         itemLabelBG.frame = CGRect(x: itemLabelWidth - itemLabelBGWidth,
-                                 y: CGRectGetMaxY(realmLabel.frame),
+                                 y: realmLabel.frame.maxY,
                                  width: itemLabelBGWidth,
                                  height: standardControlHeight)
         
-        objectEntry.frame = CGRect(x: CGRectGetMaxX(itemLabel.frame) + margin,
-                                   y: CGRectGetMaxY(realmLabel.frame),
+        objectEntry.frame = CGRect(x: itemLabel.frame.maxX + margin,
+                                   y: realmLabel.frame.maxY,
                                    width: viewWidth - itemLabelWidth - priceBGWidth - 2*margin,
                                    height: standardControlHeight)
         
@@ -307,9 +307,9 @@ class ViewController: UIViewController {
                                     height: standardControlHeight)
         
         resultsTable.frame = CGRect(x: 0,
-                                    y: CGRectGetMaxY(priceEntry.frame),
+                                    y: priceEntry.frame.maxY,
                                     width: viewWidth,
-                                    height: CGRectGetMinY(searchButton.frame) - CGRectGetMaxY(priceEntry.frame) - margin)
+                                    height: searchButton.frame.minY - priceEntry.frame.maxY - margin)
         
         activityIndicator.frame = CGRect(x: (viewWidth - standardControlHeight)/2,
                                          y: (viewHeight - standardControlHeight)/2,
@@ -326,9 +326,9 @@ class ViewController: UIViewController {
     func searchButtonTapped() {
         if let
             object : String = objectEntry.text,
-            price : String = priceEntry.text
+            let price : String = priceEntry.text
         {
-            DLog("Searching for \(object) on \(userDefaults.stringForKey(realmKey)!) with a maximum price of \(price) gold each")
+            DLog("Searching for \(object) on \(userDefaults.string(forKey: realmKey)!) with a maximum price of \(price) gold each")
             activityIndicator.startAnimating()
             API_Interface.sharedInstance.searchAuction(object, price: price)
         }
@@ -343,9 +343,9 @@ class ViewController: UIViewController {
     func saveButtonTapped() {
         if let
             object : String = objectEntry.text,
-            price : String = priceEntry.text
+            let price : String = priceEntry.text
         {
-            DLog("Saving search for \(object) on \(userDefaults.stringForKey(realmKey)!) with a maximum price of \(price) gold each")
+            DLog("Saving search for \(object) on \(userDefaults.string(forKey: realmKey)!) with a maximum price of \(price) gold each")
             API_Interface.sharedInstance.saveSearch(object, price: price)
         }
     }
@@ -371,9 +371,9 @@ class ViewController: UIViewController {
     func deleteButtonTapped() {
         if let
             object : String = objectEntry.text,
-            price : String = priceEntry.text
+            let price : String = priceEntry.text
         {
-            DLog("Deleting search for \(object) on \(userDefaults.stringForKey(realmKey)!) with a maximum price of \(price) gold each")
+            DLog("Deleting search for \(object) on \(userDefaults.string(forKey: realmKey)!) with a maximum price of \(price) gold each")
             activityIndicator.startAnimating()
             API_Interface.sharedInstance.deleteAuction(object, price: price)
         }
@@ -387,7 +387,7 @@ class ViewController: UIViewController {
      */
     func settingsButtonTapped() {
         let settingsVC : SettingsVC = SettingsVC()
-        presentViewController(settingsVC, animated: true, completion: nil)
+        present(settingsVC, animated: true, completion: nil)
     }
     
     /*
@@ -409,22 +409,22 @@ class ViewController: UIViewController {
      *
      * @param: notification: NSNotification - the notification
      */
-    func messageReceived(notification: NSNotification) {
-        if let message : String = notification.userInfo?["message"] as? String {
+    func messageReceived(_ notification: Notification) {
+        if let message : String = (notification as NSNotification).userInfo?["message"] as? String {
             DLog("Received message: \(message)")
             
-            if message.containsString("Saved search") || message.containsString("Search deleted") {
+            if message.contains("Saved search") || message.contains("Search deleted") {
                 API_Interface.sharedInstance.listAuctions()
             }
             
-            if message.containsString("No searches") && DataHandler.sharedInstance.searchResults.count == 1 {
+            if message.contains("No searches") && DataHandler.sharedInstance.searchResults.count == 1 {
                 DataHandler.sharedInstance.searchResults.removeAll()
                 resultsTable!.reloadData()
             }
             
-            if message.containsString("Unknown Object") {
-                saveButton.enabled = false
-                searchButton.enabled = false
+            if message.contains("Unknown Object") {
+                saveButton.isEnabled = false
+                searchButton.isEnabled = false
             }
             
             presentAlert(message)
@@ -492,13 +492,13 @@ class ViewController: UIViewController {
      *
      * @param: message: String - the message to present to the user
      */
-    func presentAlert (message: String) {
+    func presentAlert (_ message: String) {
         if presentingAlert == false {
-            let alert = UIAlertController(title: "Auction Alert", message: message, preferredStyle: .Alert)
-            let action = UIAlertAction(title: "OK", style: .Default, handler: alertDismissed)
+            let alert = UIAlertController(title: "Auction Alert", message: message, preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .default, handler: alertDismissed)
             alert.addAction(action)
             presentingAlert = true
-            presentViewController(alert, animated: true, completion: nil)
+            present(alert, animated: true, completion: nil)
         } else {
             DLog("Already presenting alert")
         }
@@ -512,7 +512,7 @@ class ViewController: UIViewController {
      *
      * @param: alert: UIAlertAction - The UIAlertAction
      */
-    func alertDismissed(alert: UIAlertAction!) {
+    func alertDismissed(_ alert: UIAlertAction!) {
         presentingAlert = false
     }
     
@@ -523,21 +523,21 @@ class ViewController: UIViewController {
      * Enables the search and save buttons
      */
     func codeOK() {
-        searchButton.enabled = true
-        saveButton.enabled = true
+        searchButton.isEnabled = true
+        saveButton.isEnabled = true
     }
 }
 
 extension ViewController: UITableViewDataSource {
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return DataHandler.sharedInstance.searchResults.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let singleResult: Dictionary<String, AnyObject> = DataHandler.sharedInstance.searchResults[indexPath.row]
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let singleResult: Dictionary<String, AnyObject> = DataHandler.sharedInstance.searchResults[(indexPath as NSIndexPath).row]
         
         if let quantity : Int = singleResult["quantity"] as? Int {
-            let cell : SearchResultCell = tableView.dequeueReusableCellWithIdentifier("SearchResultCell", forIndexPath: indexPath) as! SearchResultCell
+            let cell : SearchResultCell = tableView.dequeueReusableCell(withIdentifier: "SearchResultCell", for: indexPath) as! SearchResultCell
             
             let owner : String? = singleResult["owner"] as? String
             
@@ -555,7 +555,7 @@ extension ViewController: UITableViewDataSource {
             
             cell.detailLabel!.text = "Seller: \(owner ?? "")"
             
-            if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
+            if UIDevice.current.userInterfaceIdiom == .phone {
                 cell.bidLabel!.text = "Current bid:\n\(bidString)"
                 cell.buyoutLabel!.text = "Buyout:\n\(buyoutString)"
             } else {
@@ -571,7 +571,7 @@ extension ViewController: UITableViewDataSource {
             
             return cell
         } else if let realm : String = singleResult["realm"] as? String {
-            let cell : SearchListCell = tableView.dequeueReusableCellWithIdentifier("SearchListCell", forIndexPath: indexPath) as! SearchListCell
+            let cell : SearchListCell = tableView.dequeueReusableCell(withIdentifier: "SearchListCell", for: indexPath) as! SearchListCell
             
             let object : String? = singleResult["object"] as? String
             
@@ -586,7 +586,7 @@ extension ViewController: UITableViewDataSource {
             return cell
         } else {
             DLog("Cannot interpret data")
-            let cell : UITableViewCell = tableView.dequeueReusableCellWithIdentifier("cell")!
+            let cell : UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell")!
             return cell
         }
     }
@@ -594,11 +594,11 @@ extension ViewController: UITableViewDataSource {
 
 extension ViewController: UITableViewDelegate {
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let singleResult: Dictionary<String, AnyObject> = DataHandler.sharedInstance.searchResults[indexPath.row]
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let singleResult: Dictionary<String, AnyObject> = DataHandler.sharedInstance.searchResults[(indexPath as NSIndexPath).row]
         if let realm: String = singleResult["realm"] as? String {
-            userDefaults.setObject(realm.capitalizedString, forKey: realmKey)
-            realmLabel.text = "Realm: \(realm.capitalizedString)"
+            userDefaults.set(realm.capitalized, forKey: realmKey)
+            realmLabel.text = "Realm: \(realm.capitalized)"
             if let object: String = singleResult["object"] as? String {
                 objectEntry.text = object
             }
@@ -606,50 +606,50 @@ extension ViewController: UITableViewDelegate {
                 priceEntry.text = price.description
             }
             if let locale: String = singleResult["locale"] as? String {
-                userDefaults.setObject(locale, forKey: localeKey)
+                userDefaults.set(locale, forKey: localeKey)
                 switch locale {
                 case "en_GB":
-                    userDefaults.setObject("EU", forKey: regionKey)
-                    userDefaults.setObject("en", forKey: languageKey)
+                    userDefaults.set("EU", forKey: regionKey)
+                    userDefaults.set("en", forKey: languageKey)
                 case "de_DE":
-                    userDefaults.setObject("EU", forKey: regionKey)
-                    userDefaults.setObject("de", forKey: languageKey)
+                    userDefaults.set("EU", forKey: regionKey)
+                    userDefaults.set("de", forKey: languageKey)
                 case "es_ES":
-                    userDefaults.setObject("EU", forKey: regionKey)
-                    userDefaults.setObject("es", forKey: languageKey)
+                    userDefaults.set("EU", forKey: regionKey)
+                    userDefaults.set("es", forKey: languageKey)
                 case "fr_FR":
-                    userDefaults.setObject("EU", forKey: regionKey)
-                    userDefaults.setObject("fr", forKey: languageKey)
+                    userDefaults.set("EU", forKey: regionKey)
+                    userDefaults.set("fr", forKey: languageKey)
                 case "it_IT":
-                    userDefaults.setObject("EU", forKey: regionKey)
-                    userDefaults.setObject("it", forKey: languageKey)
+                    userDefaults.set("EU", forKey: regionKey)
+                    userDefaults.set("it", forKey: languageKey)
                 case "pt_PT":
-                    userDefaults.setObject("EU", forKey: regionKey)
-                    userDefaults.setObject("pt", forKey: languageKey)
+                    userDefaults.set("EU", forKey: regionKey)
+                    userDefaults.set("pt", forKey: languageKey)
                 case "ru_RU":
-                    userDefaults.setObject("EU", forKey: regionKey)
-                    userDefaults.setObject("ru", forKey: languageKey)
+                    userDefaults.set("EU", forKey: regionKey)
+                    userDefaults.set("ru", forKey: languageKey)
                 case "en_US":
-                    userDefaults.setObject("US", forKey: regionKey)
-                    userDefaults.setObject("en", forKey: languageKey)
+                    userDefaults.set("US", forKey: regionKey)
+                    userDefaults.set("en", forKey: languageKey)
                 case "es_MX":
-                    userDefaults.setObject("US", forKey: regionKey)
-                    userDefaults.setObject("es", forKey: languageKey)
+                    userDefaults.set("US", forKey: regionKey)
+                    userDefaults.set("es", forKey: languageKey)
                 case "pt_BR":
-                    userDefaults.setObject("US", forKey: regionKey)
-                    userDefaults.setObject("pt", forKey: languageKey)
+                    userDefaults.set("US", forKey: regionKey)
+                    userDefaults.set("pt", forKey: languageKey)
                 case "zh_CN":
-                    userDefaults.setObject("CN", forKey: regionKey)
-                    userDefaults.setObject("zh", forKey: languageKey)
+                    userDefaults.set("CN", forKey: regionKey)
+                    userDefaults.set("zh", forKey: languageKey)
                 case "ko_KR":
-                    userDefaults.setObject("KR", forKey: regionKey)
-                    userDefaults.setObject("ko", forKey: languageKey)
+                    userDefaults.set("KR", forKey: regionKey)
+                    userDefaults.set("ko", forKey: languageKey)
                 case "zh_TW":
-                    userDefaults.setObject("TW", forKey: regionKey)
-                    userDefaults.setObject("zh", forKey: languageKey)
+                    userDefaults.set("TW", forKey: regionKey)
+                    userDefaults.set("zh", forKey: languageKey)
                 default:
-                    userDefaults.setObject("EU", forKey: regionKey)
-                    userDefaults.setObject("en", forKey: languageKey)
+                    userDefaults.set("EU", forKey: regionKey)
+                    userDefaults.set("en", forKey: languageKey)
                 }
             }
         }

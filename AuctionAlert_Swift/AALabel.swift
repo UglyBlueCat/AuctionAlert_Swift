@@ -30,9 +30,9 @@ class AALabel: UILabel {
      * Sets up label attributes considered standard or default for this application
      */
     func setupStandards() {
-        backgroundColor = UIColor.clearColor()
+        backgroundColor = UIColor.clear
         textColor = primaryTextColor
-        textAlignment = .Center
+        textAlignment = .center
         adjustsFontSizeToFitWidth = true
         if #available(iOS 9.0, *) {
             allowsDefaultTighteningForTruncation = true
