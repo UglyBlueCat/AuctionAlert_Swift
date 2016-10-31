@@ -44,9 +44,10 @@ class DataHandler {
             if let realmData = resultData["realms"] as? NSArray { // It'll be realm data from battle.net
                 realmList.removeAll()
                 for object in realmData {
-                    if let realmName = object["name"] as? String {
-                        realmList.append(realmName)
-                    }
+                    DLog("object: \n \(object)")
+//                    if let realmName = object["name"] as? String {
+//                        realmList.append(realmName)
+//                    }
                 }
                 NotificationCenter.default.post(name: Notification.Name(rawValue: "kRealmsReceived"), object: nil)
             } else if let message = resultData["message"] as? String { // It'll be an API response message

@@ -32,10 +32,10 @@ class API_Interface {
      * @param: price:   String - The maximum price
      */
     func searchAuction (_ object: String, price: String) {
-        var params: Dictionary<String, AnyObject> = ["command": "search",
-                                                     "realm": userDefaults.string(forKey: realmKey) ?? "",
-                                                     "object_name": object,
-                                                     "price": price]
+        var params: Dictionary<String, AnyObject> = ["command": "search" as AnyObject,
+                                                     "realm": userDefaults.string(forKey: realmKey) as AnyObject? ?? "" as AnyObject,
+                                                     "object_name": object as AnyObject,
+                                                     "price": price as AnyObject]
         params = addGlobalValues(params)
         getRequest(params, urlString: auctionAlertURL)
     }
@@ -51,10 +51,10 @@ class API_Interface {
      * @param: price:   String - The maximum price
      */
     func saveSearch (_ object: String, price: String) {
-        var params: Dictionary<String, AnyObject> = ["command": "save",
-                                                     "realm": userDefaults.string(forKey: realmKey) ?? "",
-                                                     "object_name": object,
-                                                     "price": price]
+        var params: Dictionary<String, AnyObject> = ["command": "save" as AnyObject,
+                                                     "realm": userDefaults.string(forKey: realmKey) as AnyObject,
+                                                     "object_name": object as AnyObject,
+                                                     "price": price as AnyObject]
         params = addGlobalValues(params)
         postRequest(params, urlString: auctionAlertURL)
     }
@@ -80,10 +80,10 @@ class API_Interface {
      * @param: price:   String - The maximum price
      */
     func deleteAuction (_ object: String, price: String) {
-        var params: Dictionary<String, AnyObject> = ["command": "delete",
-                                                     "realm": userDefaults.string(forKey: realmKey) ?? "",
-                                                     "object_name": object,
-                                                     "price": price]
+        var params: Dictionary<String, AnyObject> = ["command": "delete" as AnyObject,
+                                                     "realm": userDefaults.string(forKey: realmKey) as AnyObject,
+                                                     "object_name": object as AnyObject,
+                                                     "price": price as AnyObject]
         params = addGlobalValues(params)
         deleteRequest(params, urlString: auctionAlertURL)
     }
@@ -182,22 +182,18 @@ class API_Interface {
      */
     func makeRequest (_ method: Method, params: Dictionary<String, AnyObject>, urlString: String) {
         
-        if let urlComponents = URLComponents(string: urlString) {
+        if var urlComponents = URLComponents(string: urlString) {
             
             var requestParams: [URLQueryItem] = []
             
             for (paramName, paramValue) in params {
-                if let requestParam : URLQueryItem = URLQueryItem(name: paramName, value: paramValue as? String) {
-                    requestParams.append(requestParam)
-                } else {
-                    DLog("Could not add parameter \(paramName) with value \(paramValue)")
-                }
+                requestParams.append(URLQueryItem(name: paramName, value: paramValue as? String))
             }
             
             urlComponents.queryItems = requestParams
             
             if let url : URL = urlComponents.url {
-                let request : NSMutableURLRequest = NSMutableURLRequest(url: url)
+                var request : URLRequest = URLRequest(url: url)
                 request.httpMethod = method.rawValue
                 NetworkManager.sharedInstance.handleRequest(request) { (data, urlResponse, error) in
                     guard error == nil else {

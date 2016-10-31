@@ -581,7 +581,7 @@ extension ViewController: UITableViewDataSource {
                 priceString = "\(priceGold)g \(priceSilver)s \(priceCopper)c"
             }
             
-            cell.detailLabel!.text = "Search for \(object ?? "") on \(realm ?? "") with a minimum price of \(priceString)"
+            cell.detailLabel!.text = "Search for \(object ?? "") on \(realm ) with a minimum price of \(priceString)"
             
             return cell
         } else {

@@ -52,8 +52,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DLog("Device token: \(tokenString)")
     }
     
-    func application(_ application: UIApplication, didFailtoRegisterForRemoteNotificationsWithError error: NSError) {
-        DLog("\(error.debugDescription)")
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        DLog("\(error)")
     }
     
     // MARK: - Standard AppDelegate Methods

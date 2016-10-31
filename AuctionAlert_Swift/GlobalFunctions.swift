@@ -38,7 +38,7 @@ let battleIconWidth : CGFloat = 56.0
  */
 func DLog(_ msg: String, function: String = #function, file: String = #file, line: Int = #line) {
     let url = URL(fileURLWithPath: file)
-    let className:String! = url.lastPathComponent == nil ? file : url.lastPathComponent
+    let className:String! = url.lastPathComponent
     print("[\(className) \(function)](\(line)) \(msg)")
 }
 
