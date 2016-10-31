@@ -27,8 +27,6 @@
 		00B1922D1D2D2894009A363E /* AuctionAlert_Swift.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 00B1922B1D2D2894009A363E /* AuctionAlert_Swift.xcdatamodeld */; };
 		00B1922F1D2D2894009A363E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00B1922E1D2D2894009A363E /* Assets.xcassets */; };
 		00B192321D2D2894009A363E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00B192301D2D2894009A363E /* LaunchScreen.storyboard */; };
-		00B1923D1D2D2894009A363E /* AuctionAlert_SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B1923C1D2D2894009A363E /* AuctionAlert_SwiftTests.swift */; };
-		00B192481D2D2894009A363E /* AuctionAlert_SwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B192471D2D2894009A363E /* AuctionAlert_SwiftUITests.swift */; };
 		00B1D1C01D35519F00CB145D /* API_Interface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B1D1BF1D35519F00CB145D /* API_Interface.swift */; };
 		00C2D8701D4A00CF00BFF253 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C2D86F1D4A00CF00BFF253 /* SettingsVC.swift */; };
 		00C2D8751D4A04D200BFF253 /* AAButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C2D8741D4A04D200BFF253 /* AAButton.swift */; };
@@ -39,23 +37,6 @@
 		00DD573B1D86E875006D7B3F /* ObjectFieldLHS.png in Resources */ = {isa = PBXBuildFile; fileRef = 00DD573A1D86E875006D7B3F /* ObjectFieldLHS.png */; };
 		990D043F1DB5234B00431E3D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990D043E1DB5234B00431E3D /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		00B192391D2D2894009A363E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 00B192191D2D2894009A363E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 00B192201D2D2894009A363E;
-			remoteInfo = AuctionAlert_Swift;
-		};
-		00B192441D2D2894009A363E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 00B192191D2D2894009A363E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 00B192201D2D2894009A363E;
-			remoteInfo = AuctionAlert_Swift;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		0076B4BD1D47D04400BE0EBD /* Embed Frameworks */ = {
@@ -93,12 +74,6 @@
 		00B1922E1D2D2894009A363E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		00B192311D2D2894009A363E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		00B192331D2D2894009A363E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00B192381D2D2894009A363E /* AuctionAlert_SwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AuctionAlert_SwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		00B1923C1D2D2894009A363E /* AuctionAlert_SwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuctionAlert_SwiftTests.swift; sourceTree = "<group>"; };
-		00B1923E1D2D2894009A363E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00B192431D2D2894009A363E /* AuctionAlert_SwiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AuctionAlert_SwiftUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		00B192471D2D2894009A363E /* AuctionAlert_SwiftUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuctionAlert_SwiftUITests.swift; sourceTree = "<group>"; };
-		00B192491D2D2894009A363E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00B1D1BF1D35519F00CB145D /* API_Interface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = API_Interface.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		00C2D86F1D4A00CF00BFF253 /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		00C2D8741D4A04D200BFF253 /* AAButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AAButton.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -118,20 +93,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		00B192351D2D2894009A363E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		00B192401D2D2894009A363E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -139,8 +100,6 @@
 			isa = PBXGroup;
 			children = (
 				00B192231D2D2894009A363E /* AuctionAlert_Swift */,
-				00B1923B1D2D2894009A363E /* AuctionAlert_SwiftTests */,
-				00B192461D2D2894009A363E /* AuctionAlert_SwiftUITests */,
 				00B192221D2D2894009A363E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -149,8 +108,6 @@
 			isa = PBXGroup;
 			children = (
 				00B192211D2D2894009A363E /* AuctionAlert.app */,
-				00B192381D2D2894009A363E /* AuctionAlert_SwiftTests.xctest */,
-				00B192431D2D2894009A363E /* AuctionAlert_SwiftUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -164,24 +121,6 @@
 				00B96DBD1D492F33004E8ED5 /* Images */,
 			);
 			path = AuctionAlert_Swift;
-			sourceTree = "<group>";
-		};
-		00B1923B1D2D2894009A363E /* AuctionAlert_SwiftTests */ = {
-			isa = PBXGroup;
-			children = (
-				00B1923C1D2D2894009A363E /* AuctionAlert_SwiftTests.swift */,
-				00B1923E1D2D2894009A363E /* Info.plist */,
-			);
-			path = AuctionAlert_SwiftTests;
-			sourceTree = "<group>";
-		};
-		00B192461D2D2894009A363E /* AuctionAlert_SwiftUITests */ = {
-			isa = PBXGroup;
-			children = (
-				00B192471D2D2894009A363E /* AuctionAlert_SwiftUITests.swift */,
-				00B192491D2D2894009A363E /* Info.plist */,
-			);
-			path = AuctionAlert_SwiftUITests;
 			sourceTree = "<group>";
 		};
 		00B96DBD1D492F33004E8ED5 /* Images */ = {
@@ -287,42 +226,6 @@
 			productReference = 00B192211D2D2894009A363E /* AuctionAlert.app */;
 			productType = "com.apple.product-type.application";
 		};
-		00B192371D2D2894009A363E /* AuctionAlert_SwiftTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 00B1924F1D2D2894009A363E /* Build configuration list for PBXNativeTarget "AuctionAlert_SwiftTests" */;
-			buildPhases = (
-				00B192341D2D2894009A363E /* Sources */,
-				00B192351D2D2894009A363E /* Frameworks */,
-				00B192361D2D2894009A363E /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				00B1923A1D2D2894009A363E /* PBXTargetDependency */,
-			);
-			name = AuctionAlert_SwiftTests;
-			productName = AuctionAlert_SwiftTests;
-			productReference = 00B192381D2D2894009A363E /* AuctionAlert_SwiftTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		00B192421D2D2894009A363E /* AuctionAlert_SwiftUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 00B192521D2D2894009A363E /* Build configuration list for PBXNativeTarget "AuctionAlert_SwiftUITests" */;
-			buildPhases = (
-				00B1923F1D2D2894009A363E /* Sources */,
-				00B192401D2D2894009A363E /* Frameworks */,
-				00B192411D2D2894009A363E /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				00B192451D2D2894009A363E /* PBXTargetDependency */,
-			);
-			name = AuctionAlert_SwiftUITests;
-			productName = AuctionAlert_SwiftUITests;
-			productReference = 00B192431D2D2894009A363E /* AuctionAlert_SwiftUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -342,14 +245,6 @@
 							};
 						};
 					};
-					00B192371D2D2894009A363E = {
-						CreatedOnToolsVersion = 7.3.1;
-						TestTargetID = 00B192201D2D2894009A363E;
-					};
-					00B192421D2D2894009A363E = {
-						CreatedOnToolsVersion = 7.3.1;
-						TestTargetID = 00B192201D2D2894009A363E;
-					};
 				};
 			};
 			buildConfigurationList = 00B1921C1D2D2894009A363E /* Build configuration list for PBXProject "AuctionAlert_Swift" */;
@@ -366,8 +261,6 @@
 			projectRoot = "";
 			targets = (
 				00B192201D2D2894009A363E /* AuctionAlert_Swift */,
-				00B192371D2D2894009A363E /* AuctionAlert_SwiftTests */,
-				00B192421D2D2894009A363E /* AuctionAlert_SwiftUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -390,20 +283,6 @@
 				00DD573B1D86E875006D7B3F /* ObjectFieldLHS.png in Resources */,
 				00748D0B1D79EE920090A20B /* TableBG.png in Resources */,
 				009BE1101D7869670071902B /* ObjectFieldBG.png in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		00B192361D2D2894009A363E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		00B192411D2D2894009A363E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,36 +312,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		00B192341D2D2894009A363E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				00B1923D1D2D2894009A363E /* AuctionAlert_SwiftTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		00B1923F1D2D2894009A363E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				00B192481D2D2894009A363E /* AuctionAlert_SwiftUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		00B1923A1D2D2894009A363E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 00B192201D2D2894009A363E /* AuctionAlert_Swift */;
-			targetProxy = 00B192391D2D2894009A363E /* PBXContainerItemProxy */;
-		};
-		00B192451D2D2894009A363E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 00B192201D2D2894009A363E /* AuctionAlert_Swift */;
-			targetProxy = 00B192441D2D2894009A363E /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		00B192281D2D2894009A363E /* Main.storyboard */ = {
@@ -607,52 +457,6 @@
 			};
 			name = Release;
 		};
-		00B192501D2D2894009A363E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = AuctionAlert_SwiftTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.uglybluecat.AuctionAlert-SwiftTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AuctionAlert_Swift.app/AuctionAlert_Swift";
-			};
-			name = Debug;
-		};
-		00B192511D2D2894009A363E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = AuctionAlert_SwiftTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.uglybluecat.AuctionAlert-SwiftTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AuctionAlert_Swift.app/AuctionAlert_Swift";
-			};
-			name = Release;
-		};
-		00B192531D2D2894009A363E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = AuctionAlert_SwiftUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.uglybluecat.AuctionAlert-SwiftUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = AuctionAlert_Swift;
-			};
-			name = Debug;
-		};
-		00B192541D2D2894009A363E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = AuctionAlert_SwiftUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.uglybluecat.AuctionAlert-SwiftUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = AuctionAlert_Swift;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -670,24 +474,6 @@
 			buildConfigurations = (
 				00B1924D1D2D2894009A363E /* Debug */,
 				00B1924E1D2D2894009A363E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		00B1924F1D2D2894009A363E /* Build configuration list for PBXNativeTarget "AuctionAlert_SwiftTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				00B192501D2D2894009A363E /* Debug */,
-				00B192511D2D2894009A363E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		00B192521D2D2894009A363E /* Build configuration list for PBXNativeTarget "AuctionAlert_SwiftUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				00B192531D2D2894009A363E /* Debug */,
-				00B192541D2D2894009A363E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
