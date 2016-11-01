@@ -1,6 +1,6 @@
 //
 //  NetworkManager.swift
-//  IGTDevTask
+//  AuctionAlert_Swift
 //
 //  Created by Robin Spinks on 07/09/2016.
 //  Copyright © 2016 UglyBlueCat. All rights reserved.
