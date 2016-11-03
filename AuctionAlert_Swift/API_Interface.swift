@@ -195,9 +195,9 @@ class API_Interface {
             if let url : URL = urlComponents.url {
                 var request : URLRequest = URLRequest(url: url)
                 request.httpMethod = method.rawValue
-                NetworkManager.sharedInstance.handleRequest(request) { (data, urlResponse, error) in
+                NetworkManager.sharedInstance.handleRequest(request: request) { (data, urlResponse, error) in
                     guard error == nil else {
-                        DLog("Error: \(error!.description)")
+                        DLog("Error: \(error)")
                         return
                     }
                     DataHandler.sharedInstance.newData(data!)

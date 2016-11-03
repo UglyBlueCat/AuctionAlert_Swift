@@ -61,7 +61,7 @@ class ImageFetcher {
             
             let request : URLRequest = URLRequest(url: imageURL)
             
-            NetworkManager.sharedInstance.handleRequest(request) { (data, urlResponse, error) in
+            NetworkManager.sharedInstance.handleRequest(request: request) { (data, urlResponse, error) in
                 DLog("imageURLString: \(imageURLString)")
                 
                 let directory : FileManager.SearchPathDirectory = .documentDirectory

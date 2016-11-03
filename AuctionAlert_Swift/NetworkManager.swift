@@ -37,9 +37,9 @@ class NetworkManager {
      * @param: completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void)
      *         - A method to handle the returned data
      */
-    func handleRequest (_ request: URLRequest, completion: @escaping (Data?, URLResponse?, NSError?) -> Void) {
+    func handleRequest (request: URLRequest, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
         
-        let task : URLSessionDataTask = defaultSession.dataTask(with: request, completionHandler: completion as! (Data?, URLResponse?, Error?) -> Void) 
+        let task : URLSessionDataTask = defaultSession.dataTask(with: request, completionHandler: completion)
         task.resume()
     }
 
