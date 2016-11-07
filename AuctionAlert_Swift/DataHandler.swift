@@ -22,10 +22,10 @@ class DataHandler {
      *
      * @param: newData: NSData - The raw data
      */
-    func newData (_ newData: Data) {
+    func newData (newData: Data) {
         do {
             let jsonData = try JSONSerialization.jsonObject(with: newData, options: .mutableLeaves)
-            self.populateResults(jsonData as AnyObject)
+            self.populateResults(jsonData: jsonData as AnyObject)
         } catch {
             DLog("JSON conversion error: \(error)")
         }
@@ -39,7 +39,7 @@ class DataHandler {
      *
      * @param: jsonData: AnyObject
      */
-    func populateResults (_ jsonData: AnyObject) {
+    func populateResults (jsonData: AnyObject) {
         if let resultData = jsonData as? NSDictionary {
             if let realmData = resultData["realms"] as? NSArray { // It'll be realm data from battle.net
                 realmList.removeAll()
@@ -56,16 +56,16 @@ class DataHandler {
                                                                           userInfo: ["message" : message])
             } else if let iconImage = resultData["icon"] as? String { // It'll be item data from Blizzard
                 if let itemID = resultData["id"] as? Int {
-                    ImageFetcher.sharedInstance.downloadImage(String(itemID), name: iconImage)
+                    ImageFetcher.sharedInstance.downloadImage(code: String(itemID), name: iconImage)
                 }
             } else if let code = resultData["code"] as? Int { // It'll be a code check result
-                API_Interface.sharedInstance.fetchObjectData(String(code))
+                API_Interface.sharedInstance.fetchObjectData(code: String(code))
                 NotificationCenter.default.post(name: Notification.Name(rawValue: "kCodeOK"), object: nil)
             }
         } else if let resultData = jsonData as? NSArray { // It'll be search results from the AuctionAlert API
             searchResults.removeAll()
             for object in resultData {
-                let result: [String: AnyObject] = self.extractValuesFromJSON(object as AnyObject, values: ["item", "owner", "buyout", "bid", "quantity", "message", "code", "locale", "object", "price", "realm"])
+                let result: [String: AnyObject] = self.extractValuesFromJSON(object: object as AnyObject, values: ["item", "owner", "buyout", "bid", "quantity", "message", "code", "locale", "object", "price", "realm"])
                 searchResults.append(result)
             }
             NotificationCenter.default.post(name: Notification.Name(rawValue: "kDataReceived"), object: nil)
@@ -88,7 +88,7 @@ class DataHandler {
      *
      * @returns: Dictionary<String, AnyObject> - A swift Dictionary containing the key/value pairs extracted
      */
-    func extractValuesFromJSON (_ object: AnyObject, values: Array<String>) -> Dictionary<String, AnyObject> {
+    func extractValuesFromJSON (object: AnyObject, values: Array<String>) -> Dictionary<String, AnyObject> {
         var result: [String: AnyObject] = [:]
         for elementName in values {
             if let itemStr = object[elementName] as? String {

@@ -57,7 +57,7 @@ class ViewController: UIViewController {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        positionObjectsWithinSize(size)
+        positionObjectsWithinSize(size: size)
         resultsTable.reloadData()
     }
     
@@ -79,7 +79,7 @@ class ViewController: UIViewController {
     func setupView() {
         view.backgroundColor = primaryColor
         addObjects()
-        positionObjectsWithinSize(view.bounds.size)
+        positionObjectsWithinSize(size: view.bounds.size)
     }
     
     /*
@@ -189,7 +189,7 @@ class ViewController: UIViewController {
      *
      * Sets the size of objects separately so this function can be called from different places
      */
-    func positionObjectsWithinSize(_ size: CGSize) {
+    func positionObjectsWithinSize(size: CGSize) {
         
         let topMargin: CGFloat = 20.0
         let standardControlWidth: CGFloat = 200.0
@@ -330,7 +330,7 @@ class ViewController: UIViewController {
         {
             DLog("Searching for \(object) on \(userDefaults.string(forKey: realmKey)!) with a maximum price of \(price) gold each")
             activityIndicator.startAnimating()
-            API_Interface.sharedInstance.searchAuction(object, price: price)
+            API_Interface.sharedInstance.searchAuction(object: object, price: price)
         }
     }
     
@@ -346,7 +346,7 @@ class ViewController: UIViewController {
             let price : String = priceEntry.text
         {
             DLog("Saving search for \(object) on \(userDefaults.string(forKey: realmKey)!) with a maximum price of \(price) gold each")
-            API_Interface.sharedInstance.saveSearch(object, price: price)
+            API_Interface.sharedInstance.saveSearch(object: object, price: price)
         }
     }
     
@@ -375,7 +375,7 @@ class ViewController: UIViewController {
         {
             DLog("Deleting search for \(object) on \(userDefaults.string(forKey: realmKey)!) with a maximum price of \(price) gold each")
             activityIndicator.startAnimating()
-            API_Interface.sharedInstance.deleteAuction(object, price: price)
+            API_Interface.sharedInstance.deleteAuction(object: object, price: price)
         }
     }
     
@@ -409,7 +409,7 @@ class ViewController: UIViewController {
      *
      * @param: notification: NSNotification - the notification
      */
-    func messageReceived(_ notification: Notification) {
+    func messageReceived(notification: Notification) {
         if let message : String = (notification as NSNotification).userInfo?["message"] as? String {
             DLog("Received message: \(message)")
             
@@ -427,7 +427,7 @@ class ViewController: UIViewController {
                 searchButton.isEnabled = false
             }
             
-            presentAlert(message)
+            presentAlert(message: message)
         } else {
             DLog("Couldn't extract message from notification")
         }
@@ -454,7 +454,7 @@ class ViewController: UIViewController {
     func objectNameEntered() {
         objectEntry.resignFirstResponder()
         if let objectName: String = objectEntry.text {
-            API_Interface.sharedInstance.checkCode(objectName)
+            API_Interface.sharedInstance.checkCode(object: objectName)
         }
     }
     
@@ -470,7 +470,7 @@ class ViewController: UIViewController {
                 // price is int
             } else {
                 if !priceStr.isEmpty {
-                    presentAlert("Price needs to be in whole units of gold")
+                    presentAlert(message: "Price needs to be in whole units of gold")
                 }
             }
         }
@@ -492,7 +492,7 @@ class ViewController: UIViewController {
      *
      * @param: message: String - the message to present to the user
      */
-    func presentAlert (_ message: String) {
+    func presentAlert (message: String) {
         if presentingAlert == false {
             let alert = UIAlertController(title: "Auction Alert", message: message, preferredStyle: .alert)
             let action = UIAlertAction(title: "OK", style: .default, handler: alertDismissed)
@@ -512,7 +512,7 @@ class ViewController: UIViewController {
      *
      * @param: alert: UIAlertAction - The UIAlertAction
      */
-    func alertDismissed(_ alert: UIAlertAction!) {
+    func alertDismissed(alert: UIAlertAction!) {
         presentingAlert = false
     }
     
@@ -564,7 +564,7 @@ extension ViewController: UITableViewDataSource {
             }
             
             if let code : Int = singleResult["item"] as? Int {
-                cell.iconImage.image = ImageFetcher.sharedInstance.imageFromCode(String(code))
+                cell.iconImage.image = ImageFetcher.sharedInstance.imageFromCode(code: String(code))
             }
             
             cell.stackSizeLabel.text = String(quantity)

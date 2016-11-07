@@ -31,14 +31,15 @@ class API_Interface {
      * @param: object:  String - The object to search for
      * @param: price:   String - The maximum price
      */
-    func searchAuction (_ object: String, price: String) {
+    func searchAuction (object: String, price: String) {
         var params: Dictionary<String, AnyObject> = ["command": "search" as AnyObject,
                                                      "realm": userDefaults.string(forKey: realmKey) as AnyObject? ?? "" as AnyObject,
                                                      "object_name": object as AnyObject,
                                                      "price": price as AnyObject]
-        params = addGlobalValues(params)
-        getRequest(params, urlString: auctionAlertURL)
+        params = addGlobalValues(params: params)
+        getRequest(params: params, urlString: auctionAlertURL)
     }
+    
     
     /*
      * saveSearch
@@ -50,13 +51,13 @@ class API_Interface {
      * @param: object:  String - The object to search for
      * @param: price:   String - The maximum price
      */
-    func saveSearch (_ object: String, price: String) {
+    func saveSearch (object: String, price: String) {
         var params: Dictionary<String, AnyObject> = ["command": "save" as AnyObject,
                                                      "realm": userDefaults.string(forKey: realmKey) as AnyObject,
                                                      "object_name": object as AnyObject,
                                                      "price": price as AnyObject]
-        params = addGlobalValues(params)
-        postRequest(params, urlString: auctionAlertURL)
+        params = addGlobalValues(params: params)
+        postRequest(params: params, urlString: auctionAlertURL)
     }
     
     /*
@@ -66,8 +67,8 @@ class API_Interface {
      */
     func listAuctions () {
         var params: Dictionary<String, AnyObject> = ["command": "fetch" as AnyObject]
-        params = addGlobalValues(params)
-        getRequest(params, urlString: auctionAlertURL)
+        params = addGlobalValues(params: params)
+        getRequest(params: params, urlString: auctionAlertURL)
     }
     
     /*
@@ -79,13 +80,13 @@ class API_Interface {
      * @param: object:  String - The object to search for
      * @param: price:   String - The maximum price
      */
-    func deleteAuction (_ object: String, price: String) {
+    func deleteAuction (object: String, price: String) {
         var params: Dictionary<String, AnyObject> = ["command": "delete" as AnyObject,
                                                      "realm": userDefaults.string(forKey: realmKey) as AnyObject,
                                                      "object_name": object as AnyObject,
                                                      "price": price as AnyObject]
-        params = addGlobalValues(params)
-        deleteRequest(params, urlString: auctionAlertURL)
+        params = addGlobalValues(params: params)
+        deleteRequest(params: params, urlString: auctionAlertURL)
     }
     
     
@@ -96,11 +97,11 @@ class API_Interface {
      *
      * @param: object:  String - The object to check
      */
-    func checkCode (_ object: String) {
+    func checkCode (object: String) {
         var params: Dictionary<String, AnyObject> = ["command": "code" as AnyObject,
                                                      "object_name": object as AnyObject]
-        params = addGlobalValues(params)
-        getRequest(params, urlString: auctionAlertURL)
+        params = addGlobalValues(params: params)
+        getRequest(params: params, urlString: auctionAlertURL)
     }
     
     /*
@@ -116,7 +117,7 @@ class API_Interface {
         {
             let params: Dictionary<String, AnyObject> = ["locale": locale as AnyObject, "apikey": battleAPIKey as AnyObject]
             let battleURL : String = "https://\(localBattleHost)/wow/realm/status"
-            getRequest(params, urlString: battleURL)
+            getRequest(params: params, urlString: battleURL)
         }
     }
     
@@ -127,7 +128,7 @@ class API_Interface {
      *
      * @param: - The object code
      */
-    func fetchObjectData (_ code: String) {
+    func fetchObjectData (code: String) {
         if let
             locale : String = userDefaults.string(forKey: localeKey),
             let region : String = userDefaults.string(forKey: regionKey),
@@ -135,7 +136,7 @@ class API_Interface {
         {
             let params: Dictionary<String, AnyObject> = ["locale": locale as AnyObject, "apikey": battleAPIKey as AnyObject]
             let battleURL : String = "https://\(localBattleHost)/wow/item/\(code)"
-            getRequest(params, urlString: battleURL)
+            getRequest(params: params, urlString: battleURL)
         }
     }
     
@@ -146,8 +147,8 @@ class API_Interface {
      *
      * @param: params: Dictionary<String, String> - The parameters for the GET request
      */
-    func getRequest (_ params: Dictionary<String, AnyObject>, urlString: String) {
-        makeRequest(.GET, params: params, urlString: urlString)
+    func getRequest (params: Dictionary<String, AnyObject>, urlString: String) {
+        makeRequest(method: .GET, params: params, urlString: urlString)
     }
     
     /*
@@ -157,8 +158,8 @@ class API_Interface {
      *
      * @param: params: Dictionary<String, String> - The parameters for the POST request
      */
-    func postRequest (_ params: Dictionary<String, AnyObject>, urlString: String) {
-        makeRequest(.POST, params: params, urlString: urlString)
+    func postRequest (params: Dictionary<String, AnyObject>, urlString: String) {
+        makeRequest(method: .POST, params: params, urlString: urlString)
     }
     
     /*
@@ -168,8 +169,8 @@ class API_Interface {
      *
      * @param: params: Dictionary<String, String> - The parameters for the DELETE request
      */
-    func deleteRequest (_ params: Dictionary<String, AnyObject>, urlString: String) {
-        makeRequest(.DELETE, params: params, urlString: urlString)
+    func deleteRequest (params: Dictionary<String, AnyObject>, urlString: String) {
+        makeRequest(method: .DELETE, params: params, urlString: urlString)
     }
     
     /*
@@ -180,7 +181,7 @@ class API_Interface {
      * @param: method: Alamofire.Method             - The method for the request
      * @param: params: Dictionary<String, String>   - The parameters for the request
      */
-    func makeRequest (_ method: Method, params: Dictionary<String, AnyObject>, urlString: String) {
+    func makeRequest (method: Method, params: Dictionary<String, AnyObject>, urlString: String) {
         
         if var urlComponents = URLComponents(string: urlString) {
             
@@ -200,7 +201,7 @@ class API_Interface {
                         DLog("Error: \(error)")
                         return
                     }
-                    DataHandler.sharedInstance.newData(data!)
+                    DataHandler.sharedInstance.newData(newData: data!)
                 }
             } else {
                 DLog("Could not obtain NSURL from \(urlComponents.debugDescription)")
@@ -217,7 +218,7 @@ class API_Interface {
      *
      * @param: response: NSHTTPURLResponse - The response from the request
      */
-    func handleResponse (_ response: HTTPURLResponse) {
+    func handleResponse (response: HTTPURLResponse) {
         switch response.statusCode {
         case 200:
             return
@@ -236,7 +237,7 @@ class API_Interface {
      * @param: Dictionary<String, AnyObject>  - a set of parameters specific to a request
      * @return: Dictionary<String, AnyObject> - the same parameters updated with additional genereric values
      */
-    func addGlobalValues (_ params: Dictionary<String, AnyObject>) -> Dictionary<String, AnyObject> {
+    func addGlobalValues (params: Dictionary<String, AnyObject>) -> Dictionary<String, AnyObject> {
         var localParams: Dictionary<String, AnyObject> = params
         
         if let locale: String = userDefaults.string(forKey: localeKey) {

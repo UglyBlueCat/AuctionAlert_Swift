@@ -36,7 +36,7 @@ class SettingsVC: UIViewController {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        positionObjectsWithinSize(size)
+        positionObjectsWithinSize(size: size)
     }
     
     override var preferredStatusBarStyle : UIStatusBarStyle {
@@ -53,7 +53,7 @@ class SettingsVC: UIViewController {
     func setupView() {
         view.backgroundColor = primaryColor
         addObjects()
-        positionObjectsWithinSize(view.bounds.size)
+        positionObjectsWithinSize(size: view.bounds.size)
         setLanguages()
     }
     
@@ -104,7 +104,7 @@ class SettingsVC: UIViewController {
      *
      * Sets the size of objects separately so this function can be called from different places
      */
-    func positionObjectsWithinSize(_ size: CGSize) {
+    func positionObjectsWithinSize(size: CGSize) {
         
         let topMargin: CGFloat = 20.0
         let standardControlWidth: CGFloat = 200.0

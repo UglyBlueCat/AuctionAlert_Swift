@@ -89,9 +89,10 @@ extension UIColor {
 let primaryColor = UIColor(hexString: "#515151")
 let primaryTextColor = UIColor(hexString: "#FFFFFF")
 let secondaryTextColor = UIColor(hexString: "#000000")
-let accentColor = UIColor(hexString: "#40371A")
-let primaryAttentionColor = UIColor(hexString: "#8CF205")
-let secondaryAttentionColor = UIColor(hexString: "#96BF3C")
+let primaryAccentColor = UIColor(hexString: "#C56309")
+let secondaryAccentColor = UIColor(hexString: "#BA0C6A")
+let primaryAttentionColor = UIColor(hexString: "#FF008B")
+let secondaryAttentionColor = UIColor(hexString: "#E8A63D")
 let pinkColor = UIColor(hexString: "#FF00FF")
 
 /*

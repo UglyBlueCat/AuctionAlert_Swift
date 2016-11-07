@@ -27,7 +27,7 @@ class ImageFetcher {
      * @param: code: String - the item code
      * @return: UIImage     - the image
      */
-    func imageFromCode (_ code: String) -> UIImage {
+    func imageFromCode (code: String) -> UIImage {
         let directory : FileManager.SearchPathDirectory = .documentDirectory
         let domain : FileManager.SearchPathDomainMask = .userDomainMask
         let directoryURLs = FileManager.default.urls(for: directory, in: domain)
@@ -38,7 +38,7 @@ class ImageFetcher {
             DLog("Cannot find image at \(imageLocation.relativePath)")
         }
         if currentCode != code {
-            API_Interface.sharedInstance.fetchObjectData(code)
+            API_Interface.sharedInstance.fetchObjectData(code: code)
             currentCode = code
         }
         return defaultImage
@@ -53,7 +53,7 @@ class ImageFetcher {
      * @param: code: String - the item code
      * @param: name: String - the items icon name
      */
-    func downloadImage (_ code: String, name: String) {
+    func downloadImage (code: String, name: String) {
         
         let imageURLString: String = "http://media.blizzard.com/wow/icons/56/\(name).jpg"
         
