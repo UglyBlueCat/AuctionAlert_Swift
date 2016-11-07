@@ -82,6 +82,7 @@
 		00DCD6851D3F763B0008543B /* AALabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AALabel.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		00DD57361D86CE5A006D7B3F /* BottomBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BottomBG.png; path = Images/BottomBG.png; sourceTree = SOURCE_ROOT; };
 		00DD573A1D86E875006D7B3F /* ObjectFieldLHS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ObjectFieldLHS.png; path = Images/ObjectFieldLHS.png; sourceTree = SOURCE_ROOT; };
+		990484641DD0AF2D004D3652 /* AuctionAlert.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AuctionAlert.entitlements; sourceTree = "<group>"; };
 		990D043E1DB5234B00431E3D /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NetworkManager.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
@@ -115,6 +116,7 @@
 		00B192231D2D2894009A363E /* AuctionAlert_Swift */ = {
 			isa = PBXGroup;
 			children = (
+				990484641DD0AF2D004D3652 /* AuctionAlert.entitlements */,
 				00C2D86E1D4A007200BFF253 /* Core */,
 				00C2D86D1D4A004D00BFF253 /* UI */,
 				00C2D8661D49FFFB00BFF253 /* Other resources */,
@@ -240,6 +242,7 @@
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = F37NX2W83F;
 						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -434,8 +437,10 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = AuctionAlert_Swift/AuctionAlert.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = F37NX2W83F;
 				INFOPLIST_FILE = AuctionAlert_Swift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -452,8 +457,9 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = AuctionAlert_Swift/AuctionAlert.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				DEVELOPMENT_TEAM = F37NX2W83F;
 				INFOPLIST_FILE = AuctionAlert_Swift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -461,6 +467,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.UglyBlueCat.AuctionAlert;
 				PRODUCT_NAME = AuctionAlert;
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
