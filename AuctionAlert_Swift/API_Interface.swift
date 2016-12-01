@@ -178,7 +178,7 @@ class API_Interface {
      *
      * Makes an HTTP request with the provided parameters
      *
-     * @param: method: Alamofire.Method             - The method for the request
+     * @param: method: Method                       - The method for the request
      * @param: params: Dictionary<String, String>   - The parameters for the request
      */
     func makeRequest (method: Method, params: Dictionary<String, AnyObject>, urlString: String) {
