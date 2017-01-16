@@ -18,14 +18,11 @@ class ImageFetcher {
         currentCode = nil
     }
     
-    /*
-     * imageFromCode
-     *
-     * Returns an image named with an item code if it exists,
-     * otherwise returns a default image and triggers download of the desired image
-     *
-     * @param: code: String - the item code
-     * @return: UIImage     - the image
+    /**
+     Returns an image named with an item code if it exists, otherwise returns a default image and triggers download of the desired image
+     
+     - parameter code: The item code
+     - returns: The image
      */
     func imageFromCode (code: String) -> UIImage {
         let directory : FileManager.SearchPathDirectory = .documentDirectory
@@ -45,13 +42,12 @@ class ImageFetcher {
     }
     
     
-    /*
-     * downloadImage
-     *
-     * Downloads an image and stores it named with an item code
-     *
-     * @param: code: String - the item code
-     * @param: name: String - the items icon name
+    /**
+     Downloads an image and stores it named with an item code
+     
+     - parameters:
+        - code: String - the item code
+        - name: String - the items icon name
      */
     func downloadImage (code: String, name: String) {
         

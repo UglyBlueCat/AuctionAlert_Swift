@@ -22,14 +22,12 @@ class API_Interface {
         urlSession = NetworkManager.sharedInstance.defaultSession
     }
     
-    /*
-     * searchAuction
-     *
-     * Initiates a search API call for an object in a realm
-     *
-     * @param: realm:   String - The realm to search in
-     * @param: object:  String - The object to search for
-     * @param: price:   String - The maximum price
+    /**
+     Initiates a search API call for an object in a realm
+     
+     - parameters:
+        - object:  The object to search for
+        - price:   The maximum price
      */
     func searchAuction (object: String, price: String) {
         var params: Dictionary<String, AnyObject> = ["command": "search" as AnyObject,
@@ -41,15 +39,13 @@ class API_Interface {
     }
     
     
-    /*
-     * saveSearch
-     *
-     * Saves a search for an object in a realm
-     * This will result in a push notification if the object is found by the server
-     *
-     * @param: realm:   String - The realm to search in
-     * @param: object:  String - The object to search for
-     * @param: price:   String - The maximum price
+    /**
+     Saves a search for an object in a realm
+     This will result in a push notification if the object is found by the server
+     
+     - parameters:
+        - object:  The object to search for
+        - price:   The maximum price
      */
     func saveSearch (object: String, price: String) {
         var params: Dictionary<String, AnyObject> = ["command": "save" as AnyObject,
@@ -60,10 +56,8 @@ class API_Interface {
         postRequest(params: params, urlString: auctionAlertURL)
     }
     
-    /*
-     * listAuctions
-     *
-     * Initiates an API call to retrieve all saved searches
+    /**
+     Initiates an API call to retrieve all saved searches
      */
     func listAuctions () {
         var params: Dictionary<String, AnyObject> = ["command": "fetch" as AnyObject]
@@ -71,14 +65,12 @@ class API_Interface {
         getRequest(params: params, urlString: auctionAlertURL)
     }
     
-    /*
-     * deleteAuction
-     *
-     * Initiates an API call to delete a saved search
-     *
-     * @param: realm:   String - The realm to search in
-     * @param: object:  String - The object to search for
-     * @param: price:   String - The maximum price
+    /**
+     Initiates an API call to delete a saved search
+     
+     - parameters:
+        - object:  The object to search for
+        - price:   The maximum price
      */
     func deleteAuction (object: String, price: String) {
         var params: Dictionary<String, AnyObject> = ["command": "delete" as AnyObject,
@@ -90,12 +82,10 @@ class API_Interface {
     }
     
     
-    /*
-     * checkCode
-     *
-     * validates an entered object name by retrieving its code from the API
-     *
-     * @param: object:  String - The object to check
+    /**
+     Validates an entered object name by retrieving its code from the API
+     
+     - parameter object: The object to check
      */
     func checkCode (object: String) {
         var params: Dictionary<String, AnyObject> = ["command": "code" as AnyObject,
@@ -104,10 +94,8 @@ class API_Interface {
         getRequest(params: params, urlString: auctionAlertURL)
     }
     
-    /*
-     * fetchRealmData
-     *
-     * retrieves realm data from the battle.net server for the current region
+    /**
+     Retrieves realm data from the battle.net server for the current region
      */
     func fetchRealmData () {
         if let
@@ -121,12 +109,10 @@ class API_Interface {
         }
     }
     
-    /*
-     * fetchObjectData
-     *
-     * retrieves the data for an object from the battle.net API
-     *
-     * @param: - The object code
+    /**
+     Retrieves the data for an object from the battle.net API
+     
+     - parameter code: The objects code
      */
     func fetchObjectData (code: String) {
         if let
@@ -140,46 +126,46 @@ class API_Interface {
         }
     }
     
-    /*
-     * getRequest
-     *
-     * Calls a request with the GET method
-     *
-     * @param: params: Dictionary<String, String> - The parameters for the GET request
+    /**
+     Calls an HTTP request with the GET method
+     
+     - parameters:
+        - params: The parameters for the GET request
+        - urlString: the URL of the GET request
      */
     func getRequest (params: Dictionary<String, AnyObject>, urlString: String) {
         makeRequest(method: .GET, params: params, urlString: urlString)
     }
     
-    /*
-     * postRequest
-     *
-     * Calls a request with the POST method
-     *
-     * @param: params: Dictionary<String, String> - The parameters for the POST request
+    /**
+     Calls an HTTP request with the POST method
+     
+     - parameters:
+     - params: The parameters for the POST request
+     - urlString: the URL of the POST request
      */
     func postRequest (params: Dictionary<String, AnyObject>, urlString: String) {
         makeRequest(method: .POST, params: params, urlString: urlString)
     }
     
-    /*
-     * deleteRequest
-     *
-     * Calls a request with the DELETE method
-     *
-     * @param: params: Dictionary<String, String> - The parameters for the DELETE request
+    /**
+     Calls an HTTP request with the DELETE method
+     
+     - parameters:
+     - params: The parameters for the DELETE request
+     - urlString: the URL of the DELETE request
      */
     func deleteRequest (params: Dictionary<String, AnyObject>, urlString: String) {
         makeRequest(method: .DELETE, params: params, urlString: urlString)
     }
     
-    /*
-     * makeRequest
-     *
-     * Makes an HTTP request with the provided parameters
-     *
-     * @param: method: Method                       - The method for the request
-     * @param: params: Dictionary<String, String>   - The parameters for the request
+    /**
+     Makes an HTTP request with the provided parameters
+     
+     - parameters: 
+        - method: The method for the request
+        - params: The parameters for the request
+        - urlString: the URL of the request
      */
     func makeRequest (method: Method, params: Dictionary<String, AnyObject>, urlString: String) {
         
@@ -211,12 +197,10 @@ class API_Interface {
         }
     }
     
-    /*
-     * handleResponse
-     *
-     * performs actions based on response code
-     *
-     * @param: response: NSHTTPURLResponse - The response from the request
+    /**
+     Performs actions based on response code
+     
+     - parameter response: The response from the request
      */
     func handleResponse (response: HTTPURLResponse) {
         switch response.statusCode {
@@ -229,13 +213,11 @@ class API_Interface {
         }
     }
     
-    /*
-     * addGlobalValues
-     *
-     * Adds global values to a parameter set
-     *
-     * @param: Dictionary<String, AnyObject>  - a set of parameters specific to a request
-     * @return: Dictionary<String, AnyObject> - the same parameters updated with additional genereric values
+    /**
+     Adds global values to a parameter set
+     
+     - parameter params: A set of parameters specific to a request
+     - returns: The same parameters updated with additional genereric values
      */
     func addGlobalValues (params: Dictionary<String, AnyObject>) -> Dictionary<String, AnyObject> {
         var localParams: Dictionary<String, AnyObject> = params

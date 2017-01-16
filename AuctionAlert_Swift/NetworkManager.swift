@@ -25,17 +25,12 @@ class NetworkManager {
         self.defaultSession = URLSession(configuration: configuration)
     }
         
-    /*
-     * handleRequest
-     *
-     * Handles an NSURLRequest of whatever type
-     *
-     * This gives me the ability to expand the class to handle different request methods
-     * e.g. For RESTful API interaction
-     *
-     * @param: request: NSURLRequest - The URL request
-     * @param: completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void)
-     *         - A method to handle the returned data
+    /**
+     Handles an HTTP request of any type
+     
+     - parameters:
+        - request: The HTTP request
+        - completion: A method to handle the returned data
      */
     func handleRequest (request: URLRequest, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
         

@@ -25,16 +25,15 @@ let realmKey : String = "kRealm"
 let deviceKey : String = "kDevice"
 let battleIconWidth : CGFloat = 56.0
 
-/*
- * DLog
- *
- * Prints a message to the console prefixed with filename, function & line number
- * A replacement for __PRETTY_FUNCTION__
- *
- * @param: msg:      String  - The message to print
- * @param: function: String  - Defaults to #function
- * @param: file:     String  - Defaults to #file
- * @param: line:     Int     - Defaults to #line
+/**
+ Prints a message to the console prefixed with filename, function & line number.
+ A replacement for \_\_PRETTY_FUNCTION__
+ 
+ - parameters:
+    - msg: The message to print
+    - function: The calling function or method (Defaults to #function)
+    - file: The file containing function (Defaults to #file)
+    - line: The line of the DLog call (Defaults to #line)
  */
 func DLog(_ msg: String, function: String = #function, file: String = #file, line: Int = #line) {
     let url = URL(fileURLWithPath: file)
@@ -42,15 +41,14 @@ func DLog(_ msg: String, function: String = #function, file: String = #file, lin
     print("[\(className) \(function)](\(line)) \(msg)")
 }
 
-/*
- * ConvertMoney
- *
- * Converts a monetary value into gold, silver & copper
- *
- * @param: allCopper: Int  - The monetary value to convert
- * @return: gold:     Int  - The gold portion
- * @return: silver:   Int  - The silver portion
- * @return: copper:   Int  - The copper portion
+/**
+ Converts a monetary value into gold, silver & copper
+ 
+ - parameter allCopper: The monetary value to convert
+ - returns: 
+    - gold:     The gold portion
+    - silver:   The silver portion
+    - copper:   The copper portion
  */
 func ConvertMoney(_ allCopper: Int) -> (gold: Int, silver: Int, copper: Int) {
     let gold : Int = Int(allCopper/10000)
