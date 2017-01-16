@@ -33,11 +33,9 @@ class SearchResultCell: UITableViewCell {
         self.sizeObjects()
     }
     
-    /*
-     * setupView()
-     *
-     * Set up objects in the cell. 
-     * Seperate from sizeObjects() so it can be called from initialisers
+    /**
+     Set up objects in the cell..
+     Seperate from sizeObjects() so it can be called from initialisers.
      */
     func setupView() {
         self.backgroundColor = UIColor.clear
@@ -71,11 +69,9 @@ class SearchResultCell: UITableViewCell {
         self.addSubview(stackSizeLabel!)
     }
     
-    /*
-     * sizeObjects()
-     *
-     * Change the size of objects in the cell
-     * These are in a seperate function so they can be called from layoutSubviews()
+    /**
+     Change the size of objects in the cell.
+     These are in a seperate function so they can be called from layoutSubviews()
      */
     func sizeObjects() {
         let cellHeight : CGFloat = bounds.size.height

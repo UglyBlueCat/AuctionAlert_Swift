@@ -29,10 +29,8 @@ class AASegmentedControl: UISegmentedControl {
         addTarget(handler, action: selector, for: .valueChanged)
     }
     
-    /*
-     * setupStandards
-     *
-     * Sets up attributes considered standard or default for this application
+    /**
+     Sets up attributes considered standard or default for this application
      */
     func setupStandards() {
         tintColor = secondaryTextColor

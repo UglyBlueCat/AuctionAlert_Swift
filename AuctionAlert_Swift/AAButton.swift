@@ -25,10 +25,8 @@ class AAButton: UIButton {
         addTarget(handler, action: selector, for: .touchUpInside)
     }
     
-    /*
-     * setupStandards
-     *
-     * Sets up attributes considered standard or default for this application
+    /**
+     Sets up attributes considered standard or default for this application
      */
     func setupStandards() {
         setTitleColor(primaryTextColor, for: UIControlState())

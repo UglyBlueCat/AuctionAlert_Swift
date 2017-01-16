@@ -45,10 +45,8 @@ class SettingsVC: UIViewController {
     
     // MARK: - Custom Methods
     
-    /*
-     * setupView()
-     *
-     * Set up the view
+    /**
+     Set up the view
      */
     func setupView() {
         view.backgroundColor = primaryColor
@@ -57,10 +55,8 @@ class SettingsVC: UIViewController {
         setLanguages()
     }
     
-    /*
-     * addObjects()
-     *
-     * Add objects to the view
+    /**
+     Add objects to the view
      */
     func addObjects() {
         
@@ -99,10 +95,8 @@ class SettingsVC: UIViewController {
         view.addSubview(doneButton!)
     }
     
-    /*
-     * sizeObjects
-     *
-     * Sets the size of objects separately so this function can be called from different places
+    /**
+     Sets the size of objects separately so this function can be called from different places
      */
     func positionObjectsWithinSize(size: CGSize) {
         
@@ -154,11 +148,9 @@ class SettingsVC: UIViewController {
                                     height: doneButton.frame.minY - realmLabel.frame.maxY - 2*margin)
     }
     
-    /*
-     * doneButtonTapped()
-     *
-     * Respond to the tapping of the done button
-     * Checks all settings are saved and removes the view
+    /**
+     Respond to the tapping of the done button.
+     Checks all settings are saved and removes the view.
      */
     func doneButtonTapped() {
         userDefaults.setValue(regions[regionControl.selectedSegmentIndex], forKey: regionKey)
@@ -168,8 +160,6 @@ class SettingsVC: UIViewController {
     }
     
     /*
-     * regionSegmentTapped()
-     *
      * Respond to the tapping of a segment on the region segmented control
      */
     func regionSegmentTapped() {
@@ -179,19 +169,15 @@ class SettingsVC: UIViewController {
     }
     
     /*
-     * languageSegmentTapped()
-     *
-     * Respond to the tapping of a segment on the language segmented control
+     Respond to the tapping of a segment on the language segmented control
      */
     func languageSegmentTapped() {
         userDefaults.setValue(languages[languageControl.selectedSegmentIndex], forKey: languageKey)
         setLocale()
     }
     
-    /*
-     * setLanguages()
-     *
-     * Sets the availability of languages on the language segmented control depending on region
+    /**
+     Sets the availability of languages on the language segmented control depending on region
      */
     func setLanguages() {
         let currentSelectedIndex = languageControl.selectedSegmentIndex
@@ -236,10 +222,8 @@ class SettingsVC: UIViewController {
         }
     }
     
-    /*
-     * setLocale()
-     *
-     * Sets the locale from the region and language
+    /**
+     Sets the locale from the region and language
      */
     func setLocale() {
         switch regionControl.selectedSegmentIndex {
@@ -285,11 +269,9 @@ class SettingsVC: UIViewController {
         API_Interface.sharedInstance.fetchRealmData()
     }
     
-    /*
-     * newRealmsReceived
-     *
-     * Responds to a new realms notification
-     * Reloads realms spinner with fresh data
+    /**
+     Responds to a new realms notification.
+     Reloads realms spinner with fresh data.
      */
     func newRealmsReceived () {
         realmSpinner.reloadAllComponents()

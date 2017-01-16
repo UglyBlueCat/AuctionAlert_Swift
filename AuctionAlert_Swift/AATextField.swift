@@ -25,10 +25,8 @@ class AATextField: UITextField {
         addTarget(handler, action: selector, for: [.editingDidEnd, .editingDidEndOnExit])
     }
     
-    /*
-     * setupStandards
-     *
-     * Sets up attributes considered standard or default for this application
+    /**
+     Sets up attributes considered standard or default for this application
      */
     func setupStandards() {
         textColor = primaryTextColor

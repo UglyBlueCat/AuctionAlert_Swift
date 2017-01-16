@@ -71,10 +71,8 @@ class ViewController: UIViewController {
     
     // MARK: - Custom Methods
     
-    /*
-     * setupView()
-     *
-     * Set up the view
+    /**
+     Set up the view.
      */
     func setupView() {
         view.backgroundColor = primaryColor
@@ -82,10 +80,8 @@ class ViewController: UIViewController {
         positionObjectsWithinSize(size: view.bounds.size)
     }
     
-    /*
-     * addObjects()
-     *
-     * Add objects to the view
+    /**
+     Add objects to the view.
      */
     func addObjects() {
         
@@ -184,10 +180,8 @@ class ViewController: UIViewController {
         resultsTable.register(SearchListCell.self, forCellReuseIdentifier: "SearchListCell")
     }
     
-    /*
-     * sizeObjects
-     *
-     * Sets the size of objects separately so this function can be called from different places
+    /**
+     Sets the size of objects separately so this function can be called from different places.
      */
     func positionObjectsWithinSize(size: CGSize) {
         
@@ -317,11 +311,9 @@ class ViewController: UIViewController {
                                          height: standardControlHeight)
     }
     
-    /*
-     * searchButtonTapped()
-     *
-     * Respond to the tapping of the search button
-     * Initiates the download of new data with parameters entered
+    /**
+     Respond to the tapping of the search button.
+     Initiates the download of new data with parameters entered.
      */
     func searchButtonTapped() {
         if let
@@ -334,11 +326,9 @@ class ViewController: UIViewController {
         }
     }
     
-    /*
-     * saveButtonTapped()
-     *
-     * Respond to the tapping of the save button
-     * Initiates the saving of a search with parameters entered
+    /**
+     Respond to the tapping of the save button.
+     Initiates the saving of a search with parameters entered.
      */
     func saveButtonTapped() {
         if let
@@ -350,11 +340,9 @@ class ViewController: UIViewController {
         }
     }
     
-    /*
-     * listButtonTapped()
-     *
-     * Respond to the tapping of the list button
-     * Initiates the download of all current searches
+    /**
+     Respond to the tapping of the list button
+     Initiates the download of all current searches
      */
     func listButtonTapped() {
         DLog("listing all searches")
@@ -362,11 +350,9 @@ class ViewController: UIViewController {
         API_Interface.sharedInstance.listAuctions()
     }
     
-    /*
-     * deleteButtonTapped()
-     *
-     * Respond to the tapping of the delete button
-     * Initiates the deletion of the selected search
+    /**
+     Respond to the tapping of the delete button
+     Initiates the deletion of the selected search
      */
     func deleteButtonTapped() {
         if let
@@ -379,35 +365,29 @@ class ViewController: UIViewController {
         }
     }
     
-    /*
-     * deleteButtonTapped()
-     *
-     * Respond to the tapping of the delete button
-     * Initiates the deletion of the selected search
+    /**
+     Respond to the tapping of the delete button
+     Initiates the deletion of the selected search
      */
     func settingsButtonTapped() {
         let settingsVC : SettingsVC = SettingsVC()
         present(settingsVC, animated: true, completion: nil)
     }
     
-    /*
-     * newDataReceived()
-     *
-     * Called when notification of new data download completion is received
-     * Reloads the table and stops the activity indicator
+    /**
+     Called when notification of new data download completion is received
+     Reloads the table and stops the activity indicator
      */
     func newDataReceived() {
-        DLog("Recieved: \(DataHandler.sharedInstance.searchResults.count) objects")
+        DLog("Received: \(DataHandler.sharedInstance.searchResults.count) objects")
         resultsTable!.reloadData()
         activityIndicator.stopAnimating()
     }
     
-    /*
-     * messageReceived()
-     *
-     * Called when notification of message is received
-     *
-     * @param: notification: NSNotification - the notification
+    /**
+     Called when notification of message is received
+     
+     - parameter notification: The notification
      */
     func messageReceived(notification: Notification) {
         if let message : String = (notification as NSNotification).userInfo?["message"] as? String {
@@ -434,11 +414,9 @@ class ViewController: UIViewController {
         activityIndicator.stopAnimating()
     }
     
-    /*
-     * newImageReceived()
-     *
-     * Called when notification of new icon image download completion is received
-     * Reloads the table
+    /**
+     Called when notification of new icon image download completion is received.
+     Reloads the table.
      */
     func newImageReceived() {
         if DataHandler.sharedInstance.searchResults.count > 0 {
@@ -446,10 +424,8 @@ class ViewController: UIViewController {
         }
     }
     
-    /*
-     * objectNameEntered
-     *
-     * called after user edits object name text field
+    /**
+     Called after user edits the object name text field
      */
     func objectNameEntered() {
         objectEntry.resignFirstResponder()
@@ -458,10 +434,8 @@ class ViewController: UIViewController {
         }
     }
     
-    /*
-     * priceEntered
-     *
-     * called after user edits price text field
+    /**
+     Called after user edits the price text field
      */
     func priceEntered() {
         priceEntry.resignFirstResponder()
@@ -476,21 +450,17 @@ class ViewController: UIViewController {
         }
     }
     
-    /*
-     * tableTapped
-     *
-     * Called when the table is tapped
+    /**
+     Called when the table is tapped
      */
     func tableTapped() {
         view.endEditing(true)
     }
     
-    /*
-     * presentAlert
-     *
-     * Presents an alert to the user
-     *
-     * @param: message: String - the message to present to the user
+    /**
+     Presents an alert to the user
+     
+     - parameter message: The message to present to the user
      */
     func presentAlert (message: String) {
         if presentingAlert == false {
@@ -504,23 +474,19 @@ class ViewController: UIViewController {
         }
     }
     
-    /*
-     * alertDismissed
-     *
-     * A handler for a UIAlertAction which dismisses the alert
-     * Resets the flag indicating an alert is currently presented
-     *
-     * @param: alert: UIAlertAction - The UIAlertAction
+    /**
+     A handler for a UIAlertAction which dismisses the alert.
+     Resets the flag indicating an alert is currently presented.
+     
+     - parameter alert: The UIAlertAction
      */
     func alertDismissed(alert: UIAlertAction!) {
         presentingAlert = false
     }
     
-    /*
-     * codeOK
-     *
-     * Called when a notification has been recieved that an item code has been returned for an item name entered into the object field
-     * Enables the search and save buttons
+    /**
+     Called when a notification has been recieved that an item code has been returned for an item name entered into the object field.
+     Enables the search and save buttons.
      */
     func codeOK() {
         searchButton.isEnabled = true

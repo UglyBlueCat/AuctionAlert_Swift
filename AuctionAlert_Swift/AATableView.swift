@@ -20,10 +20,8 @@ class AATableView: UITableView {
         setupStandards()
     }
     
-    /*
-     * setupStandards
-     *
-     * Sets up tableview attributes considered standard or default for this application
+    /**
+     Sets up tableview attributes considered standard or default for this application
      */
     func setupStandards() {
         backgroundColor = UIColor.clear

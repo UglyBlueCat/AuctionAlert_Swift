@@ -24,10 +24,8 @@ class AALabel: UILabel {
         text = textStr
     }
     
-    /*
-     * setupStandards
-     *
-     * Sets up label attributes considered standard or default for this application
+    /**
+     Sets up label attributes considered standard or default for this application
      */
     func setupStandards() {
         backgroundColor = UIColor.clear
