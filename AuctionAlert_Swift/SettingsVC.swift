@@ -274,10 +274,12 @@ class SettingsVC: UIViewController {
      Reloads realms spinner with fresh data.
      */
     func newRealmsReceived () {
-        realmSpinner.reloadAllComponents()
-        if let realm : String = userDefaults.string(forKey: realmKey) {
-            if let index : Int = DataHandler.sharedInstance.realmList.index(of: realm) {
-                realmSpinner.selectRow(index, inComponent: 0, animated: true)
+        DispatchQueue.main.async {
+            self.realmSpinner.reloadAllComponents()
+            if let realm : String = userDefaults.string(forKey: realmKey) {
+                if let index : Int = DataHandler.sharedInstance.realmList.index(of: realm) {
+                    self.realmSpinner.selectRow(index, inComponent: 0, animated: true)
+                }
             }
         }
     }

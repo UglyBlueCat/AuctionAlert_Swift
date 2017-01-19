@@ -164,10 +164,6 @@ class ViewController: UIViewController {
         settingsButton = AAButton(title: "", handler: self, selector: #selector(settingsButtonTapped))
         settingsButton.layer.borderWidth = 0
         view.addSubview(settingsButton)
-        
-        // TODO: Remove temporary debugging code
-        objectEntry.text = "silk cloth"
-        priceEntry.text = "10"
     }
     
     func setupTable () {
@@ -380,8 +376,10 @@ class ViewController: UIViewController {
      */
     func newDataReceived() {
         DLog("Received: \(DataHandler.sharedInstance.searchResults.count) objects")
-        resultsTable!.reloadData()
-        activityIndicator.stopAnimating()
+        DispatchQueue.main.async {
+            self.resultsTable!.reloadData()
+            self.activityIndicator.stopAnimating()
+        }
     }
     
     /**
@@ -399,19 +397,26 @@ class ViewController: UIViewController {
             
             if message.contains("No searches") && DataHandler.sharedInstance.searchResults.count == 1 {
                 DataHandler.sharedInstance.searchResults.removeAll()
-                resultsTable!.reloadData()
+                DispatchQueue.main.async {
+                    self.resultsTable!.reloadData()
+                }
             }
             
             if message.contains("Unknown Object") {
-                saveButton.isEnabled = false
-                searchButton.isEnabled = false
+                DispatchQueue.main.async {
+                    self.saveButton.isEnabled = false
+                    self.searchButton.isEnabled = false
+                }
             }
-            
-            presentAlert(message: message)
+            DispatchQueue.main.async {
+                self.presentAlert(message: message)
+            }
         } else {
             DLog("Couldn't extract message from notification")
         }
-        activityIndicator.stopAnimating()
+        DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+        }
     }
     
     /**
@@ -420,7 +425,9 @@ class ViewController: UIViewController {
      */
     func newImageReceived() {
         if DataHandler.sharedInstance.searchResults.count > 0 {
-            resultsTable!.reloadData()
+            DispatchQueue.main.async {
+                self.resultsTable!.reloadData()
+            }
         }
     }
     
@@ -454,7 +461,9 @@ class ViewController: UIViewController {
      Called when the table is tapped
      */
     func tableTapped() {
-        view.endEditing(true)
+        DispatchQueue.main.async {
+            self.view.endEditing(true)
+        }
     }
     
     /**
@@ -489,8 +498,10 @@ class ViewController: UIViewController {
      Enables the search and save buttons.
      */
     func codeOK() {
-        searchButton.isEnabled = true
-        saveButton.isEnabled = true
+        DispatchQueue.main.async {
+            self.searchButton.isEnabled = true
+            self.saveButton.isEnabled = true
+        }
     }
 }
 
