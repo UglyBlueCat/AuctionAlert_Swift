@@ -361,7 +361,7 @@ class ViewController: UIViewController {
      Initiates the download of all current searches
      */
     func listButtonTapped() {
-        DLog("listing all searches")
+        
         activityIndicator.startAnimating()
         API_Interface.sharedInstance.listAuctions()
     }
@@ -393,6 +393,7 @@ class ViewController: UIViewController {
      Initiates the deletion of the selected search
      */
     func settingsButtonTapped() {
+        
         let settingsVC : SettingsVC = SettingsVC()
         present(settingsVC, animated: true, completion: nil)
     }
@@ -401,7 +402,9 @@ class ViewController: UIViewController {
      Called after user edits the object name text field
      */
     func objectNameEntered() {
+        
         objectEntry.resignFirstResponder()
+        
         if let objectName: String = objectEntry.text {
             API_Interface.sharedInstance.checkCode(object: objectName)
         }
@@ -411,7 +414,9 @@ class ViewController: UIViewController {
      Called after user edits the price text field
      */
     func priceEntered() {
+        
         priceEntry.resignFirstResponder()
+        
         if let priceStr : String = priceEntry.text {
             if let _ : Int = Int(priceStr) {
                 // price is int
@@ -427,6 +432,7 @@ class ViewController: UIViewController {
      Called when the table is tapped
      */
     func tableTapped() {
+        
         DispatchQueue.main.async {
             self.view.endEditing(true)
         }
