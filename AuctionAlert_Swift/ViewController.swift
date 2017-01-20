@@ -13,16 +13,23 @@ class ViewController: UIViewController {
     var realmLabel: AALabel!
     var itemLabel: AALabel!
     var maxPriceLabel: AALabel!
+    
     var objectEntry: AATextField!
     var priceEntry: AATextField!
+    
     var searchButton: AAButton!
     var saveButton: AAButton!
     var listButton: AAButton!
     var deleteButton: AAButton!
-    var resultsTable: AATableView!
-    var activityIndicator: UIActivityIndicatorView!
     var settingsButton: AAButton!
+    
+    var resultsTable: AATableView!
+    
+    var activityIndicator: UIActivityIndicatorView!
+    
     var presentingAlert: Bool!
+    var validItemName: Bool!
+    
     var logoImageView: UIImageView!
     var topBackground: UIImageView!
     var bottomBackground: UIImageView!
@@ -37,6 +44,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         presentingAlert = false
+        validItemName = false
         setupView()
         NotificationCenter.default.addObserver(self, selector: #selector(newDataReceived), name: NSNotification.Name(rawValue: "kDataReceived"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(messageReceived), name: NSNotification.Name(rawValue: "kMessageReceived"), object: nil)
@@ -69,7 +77,7 @@ class ViewController: UIViewController {
         return UIStatusBarStyle.lightContent
     }
     
-    // MARK: - Custom Methods
+    // MARK: - Custom View Methods
     
     /**
      Set up the view.
@@ -138,11 +146,9 @@ class ViewController: UIViewController {
         view.addSubview(priceEntry!)
         
         searchButton = AAButton(title: "Search", handler: self, selector: #selector(searchButtonTapped))
-        searchButton.isEnabled = false
         view.addSubview(searchButton!)
         
         saveButton = AAButton(title: "Save", handler: self, selector: #selector(saveButtonTapped))
-        saveButton.isEnabled = false
         view.addSubview(saveButton!)
         
         listButton = AAButton(title: "List", handler: self, selector: #selector(listButtonTapped))
@@ -307,11 +313,19 @@ class ViewController: UIViewController {
                                          height: standardControlHeight)
     }
     
+    // MARK: - Action Methods
+    
     /**
      Respond to the tapping of the search button.
      Initiates the download of new data with parameters entered.
      */
     func searchButtonTapped() {
+        
+        if (!validItemName) {
+            presentAlert(message: "Invalid item name")
+            return
+        }
+        
         if let
             object : String = objectEntry.text,
             let price : String = priceEntry.text
@@ -327,6 +341,12 @@ class ViewController: UIViewController {
      Initiates the saving of a search with parameters entered.
      */
     func saveButtonTapped() {
+        
+        if (!validItemName) {
+            presentAlert(message: "Invalid item name")
+            return
+        }
+        
         if let
             object : String = objectEntry.text,
             let price : String = priceEntry.text
@@ -351,6 +371,13 @@ class ViewController: UIViewController {
      Initiates the deletion of the selected search
      */
     func deleteButtonTapped() {
+        
+        if (!validItemName) {
+            presentAlert(message: "Invalid item name")
+            return
+        }
+        
+
         if let
             object : String = objectEntry.text,
             let price : String = priceEntry.text
@@ -368,67 +395,6 @@ class ViewController: UIViewController {
     func settingsButtonTapped() {
         let settingsVC : SettingsVC = SettingsVC()
         present(settingsVC, animated: true, completion: nil)
-    }
-    
-    /**
-     Called when notification of new data download completion is received
-     Reloads the table and stops the activity indicator
-     */
-    func newDataReceived() {
-        DLog("Received: \(DataHandler.sharedInstance.searchResults.count) objects")
-        DispatchQueue.main.async {
-            self.resultsTable!.reloadData()
-            self.activityIndicator.stopAnimating()
-        }
-    }
-    
-    /**
-     Called when notification of message is received
-     
-     - parameter notification: The notification
-     */
-    func messageReceived(notification: Notification) {
-        if let message : String = (notification as NSNotification).userInfo?["message"] as? String {
-            DLog("Received message: \(message)")
-            
-            if message.contains("Saved search") || message.contains("Search deleted") {
-                API_Interface.sharedInstance.listAuctions()
-            }
-            
-            if message.contains("No searches") && DataHandler.sharedInstance.searchResults.count == 1 {
-                DataHandler.sharedInstance.searchResults.removeAll()
-                DispatchQueue.main.async {
-                    self.resultsTable!.reloadData()
-                }
-            }
-            
-            if message.contains("Unknown Object") {
-                DispatchQueue.main.async {
-                    self.saveButton.isEnabled = false
-                    self.searchButton.isEnabled = false
-                }
-            }
-            DispatchQueue.main.async {
-                self.presentAlert(message: message)
-            }
-        } else {
-            DLog("Couldn't extract message from notification")
-        }
-        DispatchQueue.main.async {
-            self.activityIndicator.stopAnimating()
-        }
-    }
-    
-    /**
-     Called when notification of new icon image download completion is received.
-     Reloads the table.
-     */
-    func newImageReceived() {
-        if DataHandler.sharedInstance.searchResults.count > 0 {
-            DispatchQueue.main.async {
-                self.resultsTable!.reloadData()
-            }
-        }
     }
     
     /**
@@ -467,6 +433,85 @@ class ViewController: UIViewController {
     }
     
     /**
+     A handler for a UIAlertAction which dismisses the alert.
+     Resets the flag indicating an alert is currently presented.
+     
+     - parameter alert: The UIAlertAction
+     */
+    func alertDismissed(alert: UIAlertAction!) {
+        presentingAlert = false
+    }
+    
+    // MARK: - Notification Methods
+    
+    /**
+     Called when notification of new data download completion is received
+     Reloads the table and stops the activity indicator
+     */
+    func newDataReceived() {
+        DLog("Received: \(DataHandler.sharedInstance.searchResults.count) objects")
+        DispatchQueue.main.async {
+            self.resultsTable!.reloadData()
+            self.activityIndicator.stopAnimating()
+        }
+    }
+    
+    /**
+     Called when notification of message is received
+     
+     - parameter notification: The notification
+     */
+    func messageReceived(notification: Notification) {
+        if let message : String = (notification as NSNotification).userInfo?["message"] as? String {
+            DLog("Received message: \(message)")
+            
+            if message.contains("Saved search") || message.contains("Search deleted") {
+                API_Interface.sharedInstance.listAuctions()
+            }
+            
+            if message.contains("No searches") && DataHandler.sharedInstance.searchResults.count == 1 {
+                DataHandler.sharedInstance.searchResults.removeAll()
+                DispatchQueue.main.async {
+                    self.resultsTable!.reloadData()
+                }
+            }
+            
+            if message.contains("Unknown Object") {
+                validItemName = false
+            }
+            DispatchQueue.main.async {
+                self.presentAlert(message: message)
+            }
+        } else {
+            DLog("Couldn't extract message from notification")
+        }
+        DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+        }
+    }
+    
+    /**
+     Called when notification of new icon image download completion is received.
+     Reloads the table.
+     */
+    func newImageReceived() {
+        if DataHandler.sharedInstance.searchResults.count > 0 {
+            DispatchQueue.main.async {
+                self.resultsTable!.reloadData()
+            }
+        }
+    }
+    
+    /**
+     Called when a notification has been recieved that an item code has been returned for an item name entered into the object field.
+     */
+    func codeOK() {
+        validItemName = true
+    }
+    
+    // MARK: - Custom Methods
+    
+    /**
      Presents an alert to the user
      
      - parameter message: The message to present to the user
@@ -480,27 +525,6 @@ class ViewController: UIViewController {
             present(alert, animated: true, completion: nil)
         } else {
             DLog("Already presenting alert")
-        }
-    }
-    
-    /**
-     A handler for a UIAlertAction which dismisses the alert.
-     Resets the flag indicating an alert is currently presented.
-     
-     - parameter alert: The UIAlertAction
-     */
-    func alertDismissed(alert: UIAlertAction!) {
-        presentingAlert = false
-    }
-    
-    /**
-     Called when a notification has been recieved that an item code has been returned for an item name entered into the object field.
-     Enables the search and save buttons.
-     */
-    func codeOK() {
-        DispatchQueue.main.async {
-            self.searchButton.isEnabled = true
-            self.saveButton.isEnabled = true
         }
     }
 }
@@ -572,18 +596,25 @@ extension ViewController: UITableViewDataSource {
 extension ViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         let singleResult: Dictionary<String, AnyObject> = DataHandler.sharedInstance.searchResults[(indexPath as NSIndexPath).row]
+        
         if let realm: String = singleResult["realm"] as? String {
             userDefaults.set(realm.capitalized, forKey: realmKey)
             realmLabel.text = "Realm: \(realm.capitalized)"
+            
             if let object: String = singleResult["object"] as? String {
                 objectEntry.text = object
+                validItemName = true
             }
+            
             if let price: Int = singleResult["price"] as? Int {
                 priceEntry.text = price.description
             }
+            
             if let locale: String = singleResult["locale"] as? String {
                 userDefaults.set(locale, forKey: localeKey)
+                
                 switch locale {
                 case "en_GB":
                     userDefaults.set("EU", forKey: regionKey)
