@@ -402,11 +402,14 @@ class ViewController: UIViewController {
      Called after user edits the object name text field
      */
     func objectNameEntered() {
-        
+
+        validItemName = false
         objectEntry.resignFirstResponder()
         
         if let objectName: String = objectEntry.text {
-            API_Interface.sharedInstance.checkCode(object: objectName)
+            if !objectName.isEmpty {
+                API_Interface.sharedInstance.checkCode(object: objectName)
+            }
         }
     }
     
