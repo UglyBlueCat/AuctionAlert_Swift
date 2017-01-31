@@ -257,9 +257,9 @@ class ViewController: UIViewController {
                                height: standardControlHeight)
         
         maxPriceLabel.frame = CGRect(x: priceBG.frame.minX,
-                                     y: priceBG.frame.minY - standardControlHeight/4,
+                                     y: priceBG.frame.minY - standardControlHeight/2,
                                      width: priceBGWidth,
-                                     height: standardControlHeight/4)
+                                     height: standardControlHeight/3)
         
         priceEntry.frame = CGRect(x: objectBG.frame.maxX - priceBGWidth + margin,
                                   y: realmLabel.frame.maxY,
