@@ -29,6 +29,7 @@ class ViewController: UIViewController {
     
     var presentingAlert: Bool!
     var validItemName: Bool!
+    var readyForAction: Bool!
     
     var logoImageView: UIImageView!
     var topBackground: UIImageView!
@@ -45,6 +46,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         presentingAlert = false
         validItemName = false
+        readyForAction = true
         setupView()
         NotificationCenter.default.addObserver(self, selector: #selector(newDataReceived), name: NSNotification.Name(rawValue: "kDataReceived"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(messageReceived), name: NSNotification.Name(rawValue: "kMessageReceived"), object: nil)
@@ -334,6 +336,11 @@ class ViewController: UIViewController {
             return
         }
         
+        if (!readyForAction) {
+            presentAlert(message: "Waiting for results of previous action")
+            return
+        }
+        
         if let
             object : String = objectEntry.text,
             let price : String = priceEntry.text
@@ -341,6 +348,7 @@ class ViewController: UIViewController {
             DLog("Searching for \(object) on \(userDefaults.string(forKey: realmKey)!) with a maximum price of \(price) gold each")
             activityIndicator.startAnimating()
             API_Interface.sharedInstance.searchAuction(object: object, price: price)
+            readyForAction = false
         }
     }
     
@@ -355,12 +363,18 @@ class ViewController: UIViewController {
             return
         }
         
+        if (!readyForAction) {
+            presentAlert(message: "Waiting for results of previous action")
+            return
+        }
+        
         if let
             object : String = objectEntry.text,
             let price : String = priceEntry.text
         {
             DLog("Saving search for \(object) on \(userDefaults.string(forKey: realmKey)!) with a maximum price of \(price) gold each")
             API_Interface.sharedInstance.saveSearch(object: object, price: price)
+            readyForAction = false
         }
     }
     
@@ -370,8 +384,14 @@ class ViewController: UIViewController {
      */
     func listButtonTapped() {
         
+        if (!readyForAction) {
+            presentAlert(message: "Waiting for results of previous action")
+            return
+        }
+        
         activityIndicator.startAnimating()
         API_Interface.sharedInstance.listAuctions()
+        readyForAction = false
     }
     
     /**
@@ -385,6 +405,10 @@ class ViewController: UIViewController {
             return
         }
         
+        if (!readyForAction) {
+            presentAlert(message: "Waiting for results of previous action")
+            return
+        }
 
         if let
             object : String = objectEntry.text,
@@ -393,6 +417,7 @@ class ViewController: UIViewController {
             DLog("Deleting search for \(object) on \(userDefaults.string(forKey: realmKey)!) with a maximum price of \(price) gold each")
             activityIndicator.startAnimating()
             API_Interface.sharedInstance.deleteAuction(object: object, price: price)
+            readyForAction = false
         }
     }
     
@@ -471,6 +496,7 @@ class ViewController: UIViewController {
             self.resultsTable!.reloadData()
             self.activityIndicator.stopAnimating()
         }
+        readyForAction = true
     }
     
     /**
@@ -486,22 +512,31 @@ class ViewController: UIViewController {
                 API_Interface.sharedInstance.listAuctions()
             }
             
-            if message.contains("No searches") && DataHandler.sharedInstance.searchResults.count == 1 {
+            else if message.contains("No searches") && DataHandler.sharedInstance.searchResults.count == 1 {
                 DataHandler.sharedInstance.searchResults.removeAll()
                 DispatchQueue.main.async {
                     self.resultsTable!.reloadData()
                 }
+                readyForAction = true
             }
             
-            if message.contains("Unknown Object") {
+            else if message.contains("Unknown Object") {
                 validItemName = false
             }
+                
+            else if message.contains("Nothing found") {
+                readyForAction = true
+            }
+            
             DispatchQueue.main.async {
                 self.presentAlert(message: message)
             }
-        } else {
+        }
+        
+        else {
             DLog("Couldn't extract message from notification")
         }
+        
         DispatchQueue.main.async {
             self.activityIndicator.stopAnimating()
         }
