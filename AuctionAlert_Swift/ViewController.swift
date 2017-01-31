@@ -189,11 +189,17 @@ class ViewController: UIViewController {
         
         let topMargin: CGFloat = 20.0
         let standardControlWidth: CGFloat = 200.0
-        let standardControlHeight: CGFloat = 30.0
         let viewHeight : CGFloat = size.height
         let viewWidth : CGFloat = size.width
         let margin: CGFloat = (viewWidth + viewHeight)/100
         let numButtons: CGFloat = 4.0
+        
+        var standardControlHeight: CGFloat
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            standardControlHeight = 40.0
+        } else {
+            standardControlHeight = 30.0
+        }
         
         var buttonWidth : CGFloat
         if standardControlWidth*numButtons > viewWidth - (numButtons + 1)*margin {
