@@ -141,8 +141,10 @@ class ViewController: UIViewController {
         objectEntry.textColor = primaryColor
         view.addSubview(objectEntry!)
         
-        priceEntry = AATextField(placeHolder: "Max (g)", handler: self, selector: #selector(priceEntered))
+        priceEntry = AATextField(placeHolder: "Gold", handler: self, selector: #selector(priceEntered))
         priceEntry.keyboardType = .numberPad
+        priceEntry.attributedPlaceholder = NSAttributedString(string: priceEntry.placeholder!, attributes: [NSForegroundColorAttributeName : UIColor.gray])
+
         view.addSubview(priceEntry!)
         
         searchButton = AAButton(title: "Search", handler: self, selector: #selector(searchButtonTapped))
