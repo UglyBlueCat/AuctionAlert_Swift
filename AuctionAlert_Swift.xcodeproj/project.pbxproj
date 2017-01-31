@@ -458,7 +458,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = AuctionAlert_Swift/AuctionAlert.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = F37NX2W83F;
 				INFOPLIST_FILE = AuctionAlert_Swift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
