@@ -36,7 +36,26 @@
 		00DD57371D86CE5A006D7B3F /* BottomBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 00DD57361D86CE5A006D7B3F /* BottomBG.png */; };
 		00DD573B1D86E875006D7B3F /* ObjectFieldLHS.png in Resources */ = {isa = PBXBuildFile; fileRef = 00DD573A1D86E875006D7B3F /* ObjectFieldLHS.png */; };
 		990D043F1DB5234B00431E3D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990D043E1DB5234B00431E3D /* NetworkManager.swift */; };
+		9926C6821E5B6A3200531FC0 /* UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9926C6811E5B6A3200531FC0 /* UITests.swift */; };
+		99A0E6E71E51E69800356F5D /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A0E6E61E51E69800356F5D /* NetworkManagerTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		992071881E448772005F4153 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 00B192191D2D2894009A363E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 00B192201D2D2894009A363E;
+			remoteInfo = AuctionAlert_Swift;
+		};
+		992071961E44878E005F4153 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 00B192191D2D2894009A363E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 00B192201D2D2894009A363E;
+			remoteInfo = AuctionAlert_Swift;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		0076B4BD1D47D04400BE0EBD /* Embed Frameworks */ = {
@@ -84,10 +103,30 @@
 		00DD573A1D86E875006D7B3F /* ObjectFieldLHS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ObjectFieldLHS.png; path = Images/ObjectFieldLHS.png; sourceTree = SOURCE_ROOT; };
 		990484641DD0AF2D004D3652 /* AuctionAlert.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AuctionAlert.entitlements; sourceTree = "<group>"; };
 		990D043E1DB5234B00431E3D /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NetworkManager.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		992071831E448771005F4153 /* AuctionAlertTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AuctionAlertTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		992071871E448772005F4153 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		992071911E44878E005F4153 /* AuctionAlertUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AuctionAlertUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		992071951E44878E005F4153 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9926C6811E5B6A3200531FC0 /* UITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITests.swift; sourceTree = "<group>"; };
+		99A0E6E61E51E69800356F5D /* NetworkManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		00B1921E1D2D2894009A363E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		992071801E448771005F4153 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9920718E1E44878E005F4153 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -101,6 +140,8 @@
 			isa = PBXGroup;
 			children = (
 				00B192231D2D2894009A363E /* AuctionAlert_Swift */,
+				992071841E448772005F4153 /* AuctionAlertTests */,
+				992071921E44878E005F4153 /* AuctionAlertUITests */,
 				00B192221D2D2894009A363E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -109,6 +150,8 @@
 			isa = PBXGroup;
 			children = (
 				00B192211D2D2894009A363E /* AuctionAlert.app */,
+				992071831E448771005F4153 /* AuctionAlertTests.xctest */,
+				992071911E44878E005F4153 /* AuctionAlertUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -207,6 +250,24 @@
 			name = Controls;
 			sourceTree = "<group>";
 		};
+		992071841E448772005F4153 /* AuctionAlertTests */ = {
+			isa = PBXGroup;
+			children = (
+				992071871E448772005F4153 /* Info.plist */,
+				99A0E6E61E51E69800356F5D /* NetworkManagerTests.swift */,
+			);
+			path = AuctionAlertTests;
+			sourceTree = "<group>";
+		};
+		992071921E44878E005F4153 /* AuctionAlertUITests */ = {
+			isa = PBXGroup;
+			children = (
+				992071951E44878E005F4153 /* Info.plist */,
+				9926C6811E5B6A3200531FC0 /* UITests.swift */,
+			);
+			path = AuctionAlertUITests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -228,13 +289,49 @@
 			productReference = 00B192211D2D2894009A363E /* AuctionAlert.app */;
 			productType = "com.apple.product-type.application";
 		};
+		992071821E448771005F4153 /* AuctionAlertTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9920718C1E448772005F4153 /* Build configuration list for PBXNativeTarget "AuctionAlertTests" */;
+			buildPhases = (
+				9920717F1E448771005F4153 /* Sources */,
+				992071801E448771005F4153 /* Frameworks */,
+				992071811E448771005F4153 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				992071891E448772005F4153 /* PBXTargetDependency */,
+			);
+			name = AuctionAlertTests;
+			productName = AuctionAlertTests;
+			productReference = 992071831E448771005F4153 /* AuctionAlertTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		992071901E44878E005F4153 /* AuctionAlertUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 992071981E44878E005F4153 /* Build configuration list for PBXNativeTarget "AuctionAlertUITests" */;
+			buildPhases = (
+				9920718D1E44878E005F4153 /* Sources */,
+				9920718E1E44878E005F4153 /* Frameworks */,
+				9920718F1E44878E005F4153 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				992071971E44878E005F4153 /* PBXTargetDependency */,
+			);
+			name = AuctionAlertUITests;
+			productName = AuctionAlertUITests;
+			productReference = 992071911E44878E005F4153 /* AuctionAlertUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		00B192191D2D2894009A363E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0730;
+				LastSwiftUpdateCheck = 0820;
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = UglyBlueCat;
 				TargetAttributes = {
@@ -248,6 +345,20 @@
 								enabled = 1;
 							};
 						};
+					};
+					992071821E448771005F4153 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = F37NX2W83F;
+						LastSwiftMigration = 0820;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 00B192201D2D2894009A363E;
+					};
+					992071901E44878E005F4153 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = F37NX2W83F;
+						LastSwiftMigration = 0820;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 00B192201D2D2894009A363E;
 					};
 				};
 			};
@@ -265,6 +376,8 @@
 			projectRoot = "";
 			targets = (
 				00B192201D2D2894009A363E /* AuctionAlert_Swift */,
+				992071821E448771005F4153 /* AuctionAlertTests */,
+				992071901E44878E005F4153 /* AuctionAlertUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -287,6 +400,20 @@
 				00DD573B1D86E875006D7B3F /* ObjectFieldLHS.png in Resources */,
 				00748D0B1D79EE920090A20B /* TableBG.png in Resources */,
 				009BE1101D7869670071902B /* ObjectFieldBG.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		992071811E448771005F4153 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9920718F1E44878E005F4153 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,7 +443,36 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9920717F1E448771005F4153 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				99A0E6E71E51E69800356F5D /* NetworkManagerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9920718D1E44878E005F4153 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9926C6821E5B6A3200531FC0 /* UITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		992071891E448772005F4153 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 00B192201D2D2894009A363E /* AuctionAlert_Swift */;
+			targetProxy = 992071881E448772005F4153 /* PBXContainerItemProxy */;
+		};
+		992071971E44878E005F4153 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 00B192201D2D2894009A363E /* AuctionAlert_Swift */;
+			targetProxy = 992071961E44878E005F4153 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		00B192281D2D2894009A363E /* Main.storyboard */ = {
@@ -472,6 +628,80 @@
 			};
 			name = Release;
 		};
+		9920718A1E448772005F4153 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = F37NX2W83F;
+				INFOPLIST_FILE = AuctionAlertTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.uglybluecat.AuctionAlertTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AuctionAlert.app/AuctionAlert";
+			};
+			name = Debug;
+		};
+		9920718B1E448772005F4153 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = F37NX2W83F;
+				INFOPLIST_FILE = AuctionAlertTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.uglybluecat.AuctionAlertTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AuctionAlert.app/AuctionAlert";
+			};
+			name = Release;
+		};
+		992071991E44878E005F4153 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = F37NX2W83F;
+				INFOPLIST_FILE = AuctionAlertUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.uglybluecat.AuctionAlertUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = AuctionAlert_Swift;
+			};
+			name = Debug;
+		};
+		9920719A1E44878E005F4153 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = F37NX2W83F;
+				INFOPLIST_FILE = AuctionAlertUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.uglybluecat.AuctionAlertUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = AuctionAlert_Swift;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -489,6 +719,24 @@
 			buildConfigurations = (
 				00B1924D1D2D2894009A363E /* Debug */,
 				00B1924E1D2D2894009A363E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9920718C1E448772005F4153 /* Build configuration list for PBXNativeTarget "AuctionAlertTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9920718A1E448772005F4153 /* Debug */,
+				9920718B1E448772005F4153 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		992071981E44878E005F4153 /* Build configuration list for PBXNativeTarget "AuctionAlertUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				992071991E44878E005F4153 /* Debug */,
+				9920719A1E44878E005F4153 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

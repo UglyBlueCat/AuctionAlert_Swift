@@ -11,6 +11,7 @@ import Foundation
 class NetworkManager {
     
     let defaultSession : URLSession
+    var testVariable : Int // something to test against
     
     /*
      * Create a shared instance to initialise class as a singleton
@@ -23,6 +24,8 @@ class NetworkManager {
         configuration.timeoutIntervalForRequest = 300.0
         
         self.defaultSession = URLSession(configuration: configuration)
+        
+        self.testVariable = 0
     }
         
     /**
