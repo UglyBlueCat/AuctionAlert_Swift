@@ -184,7 +184,7 @@ class API_Interface {
                 request.httpMethod = method.rawValue
                 NetworkManager.sharedInstance.handleRequest(request: request) { (data, urlResponse, error) in
                     guard error == nil else {
-                        DLog("Error: \(error)")
+                        DLog("Error: \(String(describing: error))")
                         return
                     }
                     DataHandler.sharedInstance.newData(newData: data!)
