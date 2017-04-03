@@ -16,6 +16,13 @@ class NetworkManager {
     /*
      * Create a shared instance to initialise class as a singleton
      * originally taken from: http://krakendev.io/blog/the-right-way-to-write-a-singleton
+     *
+     * This is done to ensure that only one URLSession exists,
+     * as URLSession is a queue for netwrking tasks,
+     * multiples of which would defeat the object of having a queue
+     *
+     * I am aware that this class does not need to be a singleton, as URLSession is a singleton,
+     * but I want to show an example of a singleton class in this showcase project
      */
     static let sharedInstance = NetworkManager()
     fileprivate init() {
