@@ -18,7 +18,7 @@ class NetworkManager {
      * originally taken from: http://krakendev.io/blog/the-right-way-to-write-a-singleton
      *
      * This is done to ensure that only one URLSession exists,
-     * as URLSession is a queue for netwrking tasks,
+     * as URLSession is a queue for networking tasks,
      * multiples of which would defeat the object of having a queue
      *
      * I am aware that this class does not need to be a singleton, as URLSession is a singleton,
