@@ -155,7 +155,8 @@ class SettingsVC: UIViewController {
     func doneButtonTapped() {
         userDefaults.setValue(regions[regionControl.selectedSegmentIndex], forKey: regionKey)
         userDefaults.setValue(languages[languageControl.selectedSegmentIndex], forKey: languageKey)
-        userDefaults.set(DataHandler.sharedInstance.realmList[realmSpinner.selectedRow(inComponent: 0)], forKey: realmKey)
+        let dataHandler = DataHandler()
+        userDefaults.set(dataHandler.realmList[realmSpinner.selectedRow(inComponent: 0)], forKey: realmKey)
         dismiss(animated: true, completion: nil)
     }
     

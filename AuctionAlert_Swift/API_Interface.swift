@@ -187,7 +187,8 @@ class API_Interface {
                         DLog("Error: \(String(describing: error))")
                         return
                     }
-                    DataHandler.sharedInstance.newData(newData: data!)
+                    let dataHandler = DataHandler()
+                    dataHandler.newData(newData: data!)
                 }
             } else {
                 DLog("Could not obtain NSURL from \(urlComponents.debugDescription)")

@@ -12,8 +12,7 @@ class DataHandler {
     var searchResults: Array<Dictionary<String, AnyObject>> = Array()
     var realmList: Array<String> = Array()
     
-    static let sharedInstance = DataHandler()
-    fileprivate init() {}
+    init() {}
     
     /**
      Converts a raw data object to JSON, which is then passed to populateResults
