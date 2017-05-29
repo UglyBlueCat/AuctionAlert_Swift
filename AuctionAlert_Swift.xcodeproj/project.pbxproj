@@ -24,7 +24,6 @@
 		00B192251D2D2894009A363E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B192241D2D2894009A363E /* AppDelegate.swift */; };
 		00B192271D2D2894009A363E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B192261D2D2894009A363E /* ViewController.swift */; };
 		00B1922A1D2D2894009A363E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00B192281D2D2894009A363E /* Main.storyboard */; };
-		00B1922D1D2D2894009A363E /* AuctionAlert_Swift.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 00B1922B1D2D2894009A363E /* AuctionAlert_Swift.xcdatamodeld */; };
 		00B1922F1D2D2894009A363E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00B1922E1D2D2894009A363E /* Assets.xcassets */; };
 		00B192321D2D2894009A363E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00B192301D2D2894009A363E /* LaunchScreen.storyboard */; };
 		00B1D1C01D35519F00CB145D /* API_Interface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B1D1BF1D35519F00CB145D /* API_Interface.swift */; };
@@ -90,7 +89,6 @@
 		00B192241D2D2894009A363E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AppDelegate.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		00B192261D2D2894009A363E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		00B192291D2D2894009A363E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		00B1922C1D2D2894009A363E /* AuctionAlert_Swift.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AuctionAlert_Swift.xcdatamodel; sourceTree = "<group>"; };
 		00B1922E1D2D2894009A363E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		00B192311D2D2894009A363E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		00B192331D2D2894009A363E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -192,7 +190,6 @@
 			isa = PBXGroup;
 			children = (
 				00B192331D2D2894009A363E /* Info.plist */,
-				00B1922B1D2D2894009A363E /* AuctionAlert_Swift.xcdatamodeld */,
 				007CC79F1D37E6FC000E0A39 /* GlobalFunctions.swift */,
 			);
 			name = "Other resources";
@@ -481,7 +478,6 @@
 				00C2D8751D4A04D200BFF253 /* AAButton.swift in Sources */,
 				990D043F1DB5234B00431E3D /* NetworkManager.swift in Sources */,
 				00DCD6861D3F763B0008543B /* AALabel.swift in Sources */,
-				00B1922D1D2D2894009A363E /* AuctionAlert_Swift.xcdatamodeld in Sources */,
 				007CC7A01D37E6FC000E0A39 /* GlobalFunctions.swift in Sources */,
 				00C2D8771D4A0F4D00BFF253 /* AATextField.swift in Sources */,
 				00B192271D2D2894009A363E /* ViewController.swift in Sources */,
@@ -794,19 +790,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		00B1922B1D2D2894009A363E /* AuctionAlert_Swift.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				00B1922C1D2D2894009A363E /* AuctionAlert_Swift.xcdatamodel */,
-			);
-			currentVersion = 00B1922C1D2D2894009A363E /* AuctionAlert_Swift.xcdatamodel */;
-			path = AuctionAlert_Swift.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 00B192191D2D2894009A363E /* Project object */;
 }
