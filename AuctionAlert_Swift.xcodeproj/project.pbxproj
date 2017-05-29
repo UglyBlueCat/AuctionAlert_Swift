@@ -38,6 +38,7 @@
 		9926C6821E5B6A3200531FC0 /* UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9926C6811E5B6A3200531FC0 /* UITests.swift */; };
 		9980989D1E5F41300022A498 /* DataHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9980989C1E5F41300022A498 /* DataHandlerTests.swift */; };
 		99A0E6E71E51E69800356F5D /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A0E6E61E51E69800356F5D /* NetworkManagerTests.swift */; };
+		99A261541EDC7E8400C21549 /* Auction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A261531EDC7E8400C21549 /* Auction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +110,7 @@
 		9926C6811E5B6A3200531FC0 /* UITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITests.swift; sourceTree = "<group>"; };
 		9980989C1E5F41300022A498 /* DataHandlerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataHandlerTests.swift; sourceTree = "<group>"; };
 		99A0E6E61E51E69800356F5D /* NetworkManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
+		99A261531EDC7E8400C21549 /* Auction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auction.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -296,6 +298,7 @@
 			isa = PBXGroup;
 			children = (
 				00A115DC1D37A33A00C13962 /* DataHandler.swift */,
+				99A261531EDC7E8400C21549 /* Auction.swift */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -483,6 +486,7 @@
 				00B192271D2D2894009A363E /* ViewController.swift in Sources */,
 				00B192251D2D2894009A363E /* AppDelegate.swift in Sources */,
 				00639A351D5E2027003044B4 /* AATableView.swift in Sources */,
+				99A261541EDC7E8400C21549 /* Auction.swift in Sources */,
 				00A115DD1D37A33A00C13962 /* DataHandler.swift in Sources */,
 				00D236B61D579C8B00270303 /* ImageFetcher.swift in Sources */,
 				00C2D8701D4A00CF00BFF253 /* SettingsVC.swift in Sources */,
