@@ -161,11 +161,12 @@
 		00B192231D2D2894009A363E /* AuctionAlert_Swift */ = {
 			isa = PBXGroup;
 			children = (
+				99A2614C1EDC7A2900C21549 /* Data */,
+				99A2614B1EDC7A1B00C21549 /* Network */,
 				990484641DD0AF2D004D3652 /* AuctionAlert.entitlements */,
 				00C2D86E1D4A007200BFF253 /* Core */,
 				00C2D86D1D4A004D00BFF253 /* UI */,
 				00C2D8661D49FFFB00BFF253 /* Other resources */,
-				00B96DBD1D492F33004E8ED5 /* Images */,
 			);
 			path = AuctionAlert_Swift;
 			sourceTree = "<group>";
@@ -190,9 +191,6 @@
 		00C2D8661D49FFFB00BFF253 /* Other resources */ = {
 			isa = PBXGroup;
 			children = (
-				00B192281D2D2894009A363E /* Main.storyboard */,
-				00B1922E1D2D2894009A363E /* Assets.xcassets */,
-				00B192301D2D2894009A363E /* LaunchScreen.storyboard */,
 				00B192331D2D2894009A363E /* Info.plist */,
 				00B1922B1D2D2894009A363E /* AuctionAlert_Swift.xcdatamodeld */,
 				007CC79F1D37E6FC000E0A39 /* GlobalFunctions.swift */,
@@ -203,6 +201,8 @@
 		00C2D86D1D4A004D00BFF253 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				99A2614A1EDC7A0700C21549 /* Assets */,
+				99A261491EDC79C700C21549 /* Storyboards */,
 				00C2D8711D4A048A00BFF253 /* ViewControllers */,
 				00C2D8721D4A049900BFF253 /* Cells */,
 				00C2D8731D4A04B200BFF253 /* Controls */,
@@ -214,10 +214,6 @@
 			isa = PBXGroup;
 			children = (
 				00B192241D2D2894009A363E /* AppDelegate.swift */,
-				990D043E1DB5234B00431E3D /* NetworkManager.swift */,
-				00B1D1BF1D35519F00CB145D /* API_Interface.swift */,
-				00A115DC1D37A33A00C13962 /* DataHandler.swift */,
-				00D236B51D579C8B00270303 /* ImageFetcher.swift */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -255,9 +251,9 @@
 		992071841E448772005F4153 /* AuctionAlertTests */ = {
 			isa = PBXGroup;
 			children = (
+				99A2614E1EDC7A4E00C21549 /* Network */,
+				99A2614D1EDC7A4700C21549 /* Data */,
 				992071871E448772005F4153 /* Info.plist */,
-				99A0E6E61E51E69800356F5D /* NetworkManagerTests.swift */,
-				9980989C1E5F41300022A498 /* DataHandlerTests.swift */,
 			);
 			path = AuctionAlertTests;
 			sourceTree = "<group>";
@@ -269,6 +265,58 @@
 				9926C6811E5B6A3200531FC0 /* UITests.swift */,
 			);
 			path = AuctionAlertUITests;
+			sourceTree = "<group>";
+		};
+		99A261491EDC79C700C21549 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				00B192281D2D2894009A363E /* Main.storyboard */,
+				00B192301D2D2894009A363E /* LaunchScreen.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		99A2614A1EDC7A0700C21549 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				00B1922E1D2D2894009A363E /* Assets.xcassets */,
+				00B96DBD1D492F33004E8ED5 /* Images */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
+		99A2614B1EDC7A1B00C21549 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				990D043E1DB5234B00431E3D /* NetworkManager.swift */,
+				00B1D1BF1D35519F00CB145D /* API_Interface.swift */,
+				00D236B51D579C8B00270303 /* ImageFetcher.swift */,
+			);
+			name = Network;
+			sourceTree = "<group>";
+		};
+		99A2614C1EDC7A2900C21549 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				00A115DC1D37A33A00C13962 /* DataHandler.swift */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
+		99A2614D1EDC7A4700C21549 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				9980989C1E5F41300022A498 /* DataHandlerTests.swift */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
+		99A2614E1EDC7A4E00C21549 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				99A0E6E61E51E69800356F5D /* NetworkManagerTests.swift */,
+			);
+			name = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
