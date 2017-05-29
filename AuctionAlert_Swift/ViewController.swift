@@ -40,6 +40,8 @@ class ViewController: UIViewController {
     var itemLabelBG: UIImageView!
     var objectLHS: UIImageView!
     
+    let dataHandler : DataHandler = DataHandler()
+    
     // MARK: - UIViewController Methods
 
     override func viewDidLoad() {
@@ -491,7 +493,7 @@ class ViewController: UIViewController {
      Reloads the table and stops the activity indicator
      */
     func newDataReceived() {
-        DLog("Received: \(DataHandler.sharedInstance.searchResults.count) objects")
+        DLog("Received: \(dataHandler.searchResults.count) objects")
         DispatchQueue.main.async {
             self.resultsTable!.reloadData()
             self.activityIndicator.stopAnimating()
@@ -512,8 +514,8 @@ class ViewController: UIViewController {
                 API_Interface.sharedInstance.listAuctions()
             }
             
-            else if message.contains("No searches") && DataHandler.sharedInstance.searchResults.count == 1 {
-                DataHandler.sharedInstance.searchResults.removeAll()
+            else if message.contains("No searches") && dataHandler.searchResults.count == 1 {
+                dataHandler.searchResults.removeAll()
                 DispatchQueue.main.async {
                     self.resultsTable!.reloadData()
                 }
@@ -547,7 +549,7 @@ class ViewController: UIViewController {
      Reloads the table.
      */
     func newImageReceived() {
-        if DataHandler.sharedInstance.searchResults.count > 0 {
+        if dataHandler.searchResults.count > 0 {
             DispatchQueue.main.async {
                 self.resultsTable!.reloadData()
             }
@@ -583,11 +585,11 @@ class ViewController: UIViewController {
 
 extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return DataHandler.sharedInstance.searchResults.count
+        return dataHandler.searchResults.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let singleResult: Dictionary<String, AnyObject> = DataHandler.sharedInstance.searchResults[(indexPath as NSIndexPath).row]
+        let singleResult: Dictionary<String, AnyObject> = dataHandler.searchResults[(indexPath as NSIndexPath).row]
         
         if let quantity : Int = singleResult["quantity"] as? Int {
             let cell : SearchResultCell = tableView.dequeueReusableCell(withIdentifier: "SearchResultCell", for: indexPath) as! SearchResultCell
@@ -649,7 +651,7 @@ extension ViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let singleResult: Dictionary<String, AnyObject> = DataHandler.sharedInstance.searchResults[(indexPath as NSIndexPath).row]
+        let singleResult: Dictionary<String, AnyObject> = dataHandler.searchResults[(indexPath as NSIndexPath).row]
         
         if let realm: String = singleResult["realm"] as? String {
             userDefaults.set(realm.capitalized, forKey: realmKey)

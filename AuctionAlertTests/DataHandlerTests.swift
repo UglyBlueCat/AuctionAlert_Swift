@@ -15,7 +15,7 @@ class DataHandlerTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        dataHandler = DataHandler.sharedInstance
+        dataHandler = DataHandler()
     }
     
     override func tearDown() {
@@ -26,10 +26,4 @@ class DataHandlerTests: XCTestCase {
         XCTAssertNotNil(dataHandler)
     }
     
-    func testOnlySingleInstance() {
-        let testRealmArray: Array<String> = ["hellfire", "argent dawn"]
-        let secondDataHandler : DataHandler! = DataHandler.sharedInstance
-        dataHandler.realmList = testRealmArray
-        XCTAssertEqual(secondDataHandler.realmList, testRealmArray)
-    }
 }
