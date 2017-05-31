@@ -66,4 +66,12 @@ class FileHandler {
         
         return readString
     }
+    
+    func delete() throws {
+        do {
+            try FileManager.default.removeItem(at: fileURL)
+        } catch {
+            throw error
+        }
+    }
 }
