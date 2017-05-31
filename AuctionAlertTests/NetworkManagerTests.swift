@@ -51,11 +51,11 @@ class NetworkManagerTests: XCTestCase {
         
         makeRequest { (data, urlResponse, error) in
             guard error == nil else {
-                XCTFail("error: \(error)")
+                XCTFail("error: \(error!.localizedDescription)")
                 return
             }
             guard data != nil else {
-                XCTFail()
+                XCTFail("data == nil")
                 return
             }
             testData = data!
