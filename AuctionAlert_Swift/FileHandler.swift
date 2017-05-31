@@ -17,6 +17,8 @@ class FileHandler {
     
     var fileURL : URL = URL(string: "")!
     
+    init() {}
+    
     init(fileName : String) throws {
         do {
             try createFileURL(fileName)
