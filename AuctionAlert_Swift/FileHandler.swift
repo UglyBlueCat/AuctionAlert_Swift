@@ -15,7 +15,7 @@ class FileHandler {
         case appendFolderError(folder : String)
     }
     
-    var fileURL : URL = URL(string: "")!
+    var fileURL : URL!
     
     init() {}
     
