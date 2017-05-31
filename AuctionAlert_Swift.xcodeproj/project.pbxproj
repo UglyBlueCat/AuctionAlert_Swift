@@ -36,6 +36,7 @@
 		00DD573B1D86E875006D7B3F /* ObjectFieldLHS.png in Resources */ = {isa = PBXBuildFile; fileRef = 00DD573A1D86E875006D7B3F /* ObjectFieldLHS.png */; };
 		990D043F1DB5234B00431E3D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990D043E1DB5234B00431E3D /* NetworkManager.swift */; };
 		9926C6821E5B6A3200531FC0 /* UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9926C6811E5B6A3200531FC0 /* UITests.swift */; };
+		9966070B1EDEB73F0025DE64 /* FileHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9966070A1EDEB73F0025DE64 /* FileHandler.swift */; };
 		9980989D1E5F41300022A498 /* DataHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9980989C1E5F41300022A498 /* DataHandlerTests.swift */; };
 		99A0E6E71E51E69800356F5D /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A0E6E61E51E69800356F5D /* NetworkManagerTests.swift */; };
 		99A261541EDC7E8400C21549 /* Auction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A261531EDC7E8400C21549 /* Auction.swift */; };
@@ -108,6 +109,7 @@
 		992071911E44878E005F4153 /* AuctionAlertUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AuctionAlertUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		992071951E44878E005F4153 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9926C6811E5B6A3200531FC0 /* UITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITests.swift; sourceTree = "<group>"; };
+		9966070A1EDEB73F0025DE64 /* FileHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileHandler.swift; sourceTree = "<group>"; };
 		9980989C1E5F41300022A498 /* DataHandlerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataHandlerTests.swift; sourceTree = "<group>"; };
 		99A0E6E61E51E69800356F5D /* NetworkManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
 		99A261531EDC7E8400C21549 /* Auction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auction.swift; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 		99A2614C1EDC7A2900C21549 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				9966070A1EDEB73F0025DE64 /* FileHandler.swift */,
 				00A115DC1D37A33A00C13962 /* DataHandler.swift */,
 				99A261531EDC7E8400C21549 /* Auction.swift */,
 			);
@@ -490,6 +493,7 @@
 				00A115DD1D37A33A00C13962 /* DataHandler.swift in Sources */,
 				00D236B61D579C8B00270303 /* ImageFetcher.swift in Sources */,
 				00C2D8701D4A00CF00BFF253 /* SettingsVC.swift in Sources */,
+				9966070B1EDEB73F0025DE64 /* FileHandler.swift in Sources */,
 				0055C8C31D4A62A6009CCFF3 /* AASegmentedControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
