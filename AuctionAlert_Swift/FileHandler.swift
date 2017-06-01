@@ -47,24 +47,24 @@ class FileHandler {
         fileURL = writePath.appendingPathComponent(fileName)
     }
     
-    func write(_ text : String) throws {
+    func write(_ data : Data) throws {
         do {
-            try text.write(to: fileURL, atomically: false, encoding: String.Encoding.utf8)
+            try data.write(to: fileURL)
         } catch {
             throw error
         }
     }
     
-    func read() throws -> String {
-        var readString : String
+    func read() throws -> Data {
+        var readData : Data
         
         do {
-            readString = try String(contentsOf: fileURL)
+            readData = try Data(contentsOf: fileURL)
         } catch {
             throw error
         }
         
-        return readString
+        return readData
     }
     
     func delete() throws {
