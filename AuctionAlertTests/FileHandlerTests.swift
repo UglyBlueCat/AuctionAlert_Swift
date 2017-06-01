@@ -40,7 +40,7 @@ class FileHandlerTests: XCTestCase {
         do {
             testData = try JSONSerialization.data(withJSONObject: testDict)
         } catch {
-            XCTFail("Failed to convet testDict to JSON data: \(error)")
+            XCTFail("Failed to convert testDict to JSON data: \(error)")
         }
         
         do {
