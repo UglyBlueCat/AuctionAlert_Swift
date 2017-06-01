@@ -35,7 +35,6 @@ class FileHandlerTests: XCTestCase {
     func testWriteAndRead() {
         let testDict : Dictionary<String, Any> = ["array":[1,2,3], "boolean":true, "number":123, "object":["a":"b","c":"d","e":"f"], "string":"Hello World"]
         var testData : Data = Data()
-        var readDict : Dictionary<String, Any> = [:]
         var readData : Data = Data()
         
         do {
@@ -56,12 +55,6 @@ class FileHandlerTests: XCTestCase {
             XCTFail("Failed to read from file: \(error.localizedDescription)")
         }
         
-        do {
-            readDict = try JSONSerialization.jsonObject(with: readData, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String, Any>
-        } catch {
-            XCTFail("Failed to convet readData to Dictionary: \(error)")
-        }
-        
-        XCTAssertEqual(testDict.count, readDict.count)
+        XCTAssertEqual(testData, readData)
     }
 }
