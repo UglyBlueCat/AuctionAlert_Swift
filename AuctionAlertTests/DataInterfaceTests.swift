@@ -13,18 +13,10 @@ class DataInterfaceTests: XCTestCase {
     
     let dataInterface = DataInterface()
     
-    let testAuctionList : Array<Dictionary<String, String>> = [["item" : "4306", "owner" : "Jim", "buyout" : "10", "bid" : "1", "quantity" : "200"], ["item" : "4306", "owner" : "Jim", "buyout" : "10", "bid" : "1", "quantity" : "200"], ["item" : "4306", "owner" : "Jim", "buyout" : "10", "bid" : "1", "quantity" : "200"]]
-    
-    override func setUp() {
-        super.setUp()
-    }
-    
-    override func tearDown() {
-        super.tearDown()
-    }
-    
     func testAuctionArray() {
         var returnedAuctionList : Array<Dictionary<String, String>> = []
+        
+        let testAuctionList : Array<Dictionary<String, String>> = [["item" : "4306", "owner" : "Jim", "buyout" : "10", "bid" : "1", "quantity" : "200"], ["item" : "4306", "owner" : "Jim", "buyout" : "10", "bid" : "1", "quantity" : "200"], ["item" : "4306", "owner" : "Jim", "buyout" : "10", "bid" : "1", "quantity" : "200"]]
         
         do {
             try dataInterface.saveAuctionList(testAuctionList)
