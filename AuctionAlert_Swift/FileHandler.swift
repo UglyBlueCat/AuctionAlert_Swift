@@ -96,9 +96,16 @@ class FileHandler {
      
      - throws: An error describing what went wrong
      */
-    func delete() throws {
+    func delete(completion : (() throws -> Void)? = nil) throws {
+        
         do {
             try FileManager.default.removeItem(at: fileURL)
+        } catch {
+            throw error
+        }
+        
+        do {
+            try completion?()
         } catch {
             throw error
         }
