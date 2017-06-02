@@ -24,12 +24,8 @@ class DataInterface {
         } catch FileHandler.FileHandlerError.writeError(let desc) {
             DLog("FileHandlerError.writeError occured: \(desc)")
             DLog("Deleting & trying once more...")
-            do {
-                try auctionFileHandler.delete() { (success) in
-                    try auctionFileHandler.write(jsonData)
-                }
-            } catch {
-                throw error
+            try auctionFileHandler.delete() { (success) in
+                try auctionFileHandler.write(jsonData)
             }
         } catch {
             throw error
