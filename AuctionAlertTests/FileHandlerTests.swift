@@ -11,14 +11,23 @@ import XCTest
 
 class FileHandlerTests: XCTestCase {
     var testFile : FileHandler = FileHandler()
+    var testData : Data = Data()
+    var readData : Data = Data()
     
     override func setUp() {
         super.setUp()
+        let testDict : Dictionary<String, Any> = ["array":[1,2,3], "boolean":true, "number":123, "object":["a":"b","c":"d","e":"f"], "string":"Hello World"]
         
         do {
             try testFile = FileHandler(fileName: "testFile")
         } catch {
             XCTFail("Failed file URL creation: \(error.localizedDescription)")
+        }
+        
+        do {
+            testData = try JSONSerialization.data(withJSONObject: testDict)
+        } catch {
+            XCTFail("Failed to convert testDict to JSON data: \(error.localizedDescription)")
         }
     }
     
@@ -33,15 +42,6 @@ class FileHandlerTests: XCTestCase {
     }
     
     func testWriteAndRead() {
-        let testDict : Dictionary<String, Any> = ["array":[1,2,3], "boolean":true, "number":123, "object":["a":"b","c":"d","e":"f"], "string":"Hello World"]
-        var testData : Data = Data()
-        var readData : Data = Data()
-        
-        do {
-            testData = try JSONSerialization.data(withJSONObject: testDict)
-        } catch {
-            XCTFail("Failed to convert testDict to JSON data: \(error)")
-        }
         
         do {
             try testFile.write(testData)
