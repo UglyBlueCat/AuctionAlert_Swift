@@ -38,4 +38,27 @@ class DataInterfaceTests: XCTestCase {
             }
         }
     }
+    
+    func testRealmArray() {
+        var returnedRealmList : Array<String> = []
+        let testRealmList : Array<String> = ["Hellfire", "Argent Dawn", "Darksorrow"]
+        
+        do {
+            try dataInterface.saveRealmList(testRealmList)
+        } catch {
+            XCTFail("Failed to save realm list: \(error.localizedDescription)")
+        }
+        
+        do {
+            returnedRealmList = try dataInterface.loadRealmList()
+        } catch {
+            XCTFail("Failed to load realm list: \(error.localizedDescription)")
+        }
+        
+        XCTAssertEqual(testRealmList.count, returnedRealmList.count)
+        
+        for i in 0..<testRealmList.count {
+            XCTAssertEqual(testRealmList[i], returnedRealmList[i])
+        }
+    }
 }
