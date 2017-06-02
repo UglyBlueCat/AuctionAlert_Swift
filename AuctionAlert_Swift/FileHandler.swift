@@ -27,6 +27,14 @@ class FileHandler {
         }
     }
     
+    /**
+     Creates a URL for a file and assigns it to the global variable fileURL
+     
+     - parameters:
+         - fileName: The name of the file
+     
+     - throws: An error describing what went wrong
+     */
     private func createFileURL(_ fileName : String) throws {
         let folder = "AuctionAlert"
         
@@ -47,6 +55,14 @@ class FileHandler {
         fileURL = writePath.appendingPathComponent(fileName)
     }
     
+    /**
+     Stores a Data object in the file at the URL created by init
+     
+     - parameters:
+         - data: The Data object to store
+     
+     - throws: An error describing what went wrong
+     */
     func write(_ data : Data) throws {
         do {
             try data.write(to: fileURL)
@@ -55,6 +71,13 @@ class FileHandler {
         }
     }
     
+    /**
+     Reads data from the file at the URL created by init
+     
+     - returns: The Data object read from the file
+     
+     - throws: An error describing what went wrong
+     */
     func read() throws -> Data {
         var readData : Data
         
@@ -67,6 +90,11 @@ class FileHandler {
         return readData
     }
     
+    /**
+     Deletes the file at the URL created by init
+     
+     - throws: An error describing what went wrong
+     */
     func delete() throws {
         do {
             try FileManager.default.removeItem(at: fileURL)
