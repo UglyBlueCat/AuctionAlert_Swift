@@ -12,7 +12,8 @@ class FileHandler {
     
     enum FileHandlerError: Error {
         case findPathError
-        case appendFolderError(folder : String)
+        case appendFolderError(_ : String)
+        case writeError(_ : String)
     }
     
     var fileURL : URL!
@@ -43,7 +44,7 @@ class FileHandler {
         }
         
         guard let writePath = NSURL(fileURLWithPath: path).appendingPathComponent(folder) else {
-            throw FileHandlerError.appendFolderError(folder: folder)
+            throw FileHandlerError.appendFolderError(folder)
         }
         
         do {
@@ -67,7 +68,7 @@ class FileHandler {
         do {
             try data.write(to: fileURL)
         } catch {
-            throw error
+            throw FileHandlerError.writeError(error.localizedDescription)
         }
     }
     
