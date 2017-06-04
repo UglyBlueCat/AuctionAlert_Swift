@@ -11,11 +11,10 @@ import XCTest
 
 class DataHandlerTests: XCTestCase {
     
-    var dataHandler : DataHandler!
+    var dataHandler = DataHandler()
     
     override func setUp() {
         super.setUp()
-        dataHandler = DataHandler()
     }
     
     override func tearDown() {
