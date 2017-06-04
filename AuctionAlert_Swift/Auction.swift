@@ -10,31 +10,19 @@ import Foundation
 
 class Auction {
     
-    var item = ""
+    var item = 0
     var owner = ""
-    var buyout = ""
-    var bid = ""
-    var quantity = ""
-    var message = ""
-    var code = ""
-    var locale = ""
-    var object = ""
-    var price = ""
-    var realm = ""
+    var buyout = 0
+    var bid = 0
+    var quantity = 0
     
     init() {}
     
-    init(_ dict : Dictionary<String, String>) {
-        self.item = dict["item"] ?? ""
-        self.owner = dict["owner"] ?? ""
-        self.buyout = dict["buyout"] ?? ""
-        self.bid = dict["bid"] ?? ""
-        self.quantity = dict["quantity"] ?? ""
-        self.message = dict["itmessageem"] ?? ""
-        self.code = dict["code"] ?? ""
-        self.locale = dict["locale"] ?? ""
-        self.object = dict["object"] ?? ""
-        self.price = dict["price"] ?? ""
-        self.realm = dict["realm"] ?? ""
+    init(_ dict : Dictionary<String, Any>) {
+        self.item = dict["item"] as? Int ?? 0
+        self.owner = dict["owner"] as? String ?? ""
+        self.buyout = dict["buyout"] as? Int ?? 0
+        self.bid = dict["bid"] as? Int ?? 0
+        self.quantity = dict["quantity"] as? Int ?? 0
     }
 }
