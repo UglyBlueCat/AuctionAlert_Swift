@@ -12,7 +12,7 @@ class DataInterface {
     
     init() {}
     
-    func saveAuctionList(_ auctionList : Array<Dictionary<String, Any>>) throws {
+    func saveAuctionList(_ auctionList : Array<Dictionary<String, Any>>, completion : (() throws -> Void)? = nil) throws {
         
         var auctionFileHandler : FileHandler = FileHandler()
         var jsonData : Data = Data()
@@ -27,6 +27,12 @@ class DataInterface {
             try auctionFileHandler.delete() { (success) in
                 try auctionFileHandler.write(jsonData)
             }
+        } catch {
+            throw error
+        }
+        
+        do {
+            try completion?()
         } catch {
             throw error
         }
@@ -49,7 +55,7 @@ class DataInterface {
         return auctionList
     }
     
-    func saveRealmList(_ realmList : Array<String>) throws {
+    func saveRealmList(_ realmList : Array<String>, completion : (() throws -> Void)? = nil) throws {
         
         var realmFileHandler : FileHandler = FileHandler()
         var jsonData : Data = Data()
@@ -64,6 +70,12 @@ class DataInterface {
             try realmFileHandler.delete() { (success) in
                 try realmFileHandler.write(jsonData)
             }
+        } catch {
+            throw error
+        }
+        
+        do {
+            try completion?()
         } catch {
             throw error
         }
