@@ -12,7 +12,7 @@ class DataInterface {
     
     init() {}
     
-    func saveAuctionList(_ auctionList : Array<Dictionary<String, String>>) throws {
+    func saveAuctionList(_ auctionList : Array<Dictionary<String, Any>>) throws {
         
         var auctionFileHandler : FileHandler = FileHandler()
         var jsonData : Data = Data()
@@ -32,16 +32,16 @@ class DataInterface {
         }
     }
     
-    func loadAuctionList() throws -> Array<Dictionary<String, String>> {
+    func loadAuctionList() throws -> Array<Dictionary<String, Any>> {
         
         var auctionFileHandler : FileHandler = FileHandler()
-        var auctionList : Array<Dictionary<String, String>> = []
+        var auctionList : Array<Dictionary<String, Any>> = []
         var auctionData : Data = Data()
         
         do {
             auctionFileHandler = try FileHandler(fileName: "Auctions")
             auctionData = try auctionFileHandler.read()
-            auctionList = try JSONSerialization.jsonObject(with: auctionData) as! Array<Dictionary<String, String>>
+            auctionList = try JSONSerialization.jsonObject(with: auctionData) as! Array<Dictionary<String, Any>>
         } catch {
             throw error
         }

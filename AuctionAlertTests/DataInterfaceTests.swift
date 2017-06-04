@@ -14,9 +14,9 @@ class DataInterfaceTests: XCTestCase {
     let dataInterface = DataInterface()
     
     func testAuctionArray() {
-        var returnedAuctionList : Array<Dictionary<String, String>> = []
+        var returnedAuctionList : Array<Dictionary<String, Any>> = []
         
-        let testAuctionList : Array<Dictionary<String, String>> = [["item" : "4306", "owner" : "Jim", "buyout" : "10", "bid" : "1", "quantity" : "200"], ["item" : "4306", "owner" : "Jim", "buyout" : "10", "bid" : "1", "quantity" : "200"], ["item" : "4306", "owner" : "Jim", "buyout" : "10", "bid" : "1", "quantity" : "200"]]
+        let testAuctionList : Array<Dictionary<String, Any>> = [["item" : 4306, "owner" : "Jim", "buyout" : 10, "bid" : 1, "quantity" : 200], ["item" : 4306, "owner" : "Jim", "buyout" : 10, "bid" : 1, "quantity" : 200], ["item" : 4306, "owner" : "Jim", "buyout" : 10, "bid" : 1, "quantity" : 200]]
         
         do {
             try dataInterface.saveAuctionList(testAuctionList)
@@ -34,7 +34,14 @@ class DataInterfaceTests: XCTestCase {
         
         for i in 0..<testAuctionList.count {
             for key in testAuctionList[i].keys {
-                XCTAssertEqual(testAuctionList[i][key], returnedAuctionList[i][key])
+                let testObject = testAuctionList[i][key]
+                let returnedObject = returnedAuctionList[i][key]
+                
+                if testObject is String {
+                    XCTAssertEqual(testObject as! String, returnedObject as! String)
+                } else if testObject is Int {
+                    XCTAssertEqual(testObject as! Int, returnedObject as! Int)
+                }
             }
         }
     }
