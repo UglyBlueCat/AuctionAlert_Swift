@@ -93,7 +93,10 @@ class DataHandler {
      - parameter realmData: The list of realms
      */
     func populateRealmData (realmData: NSArray) {
+        let dataInterface = DataInterface()
+        
         realmList.removeAll()
+        
         for object in realmData {
             if let dictionaryObject = object as? NSDictionary,
                 let realmName = dictionaryObject["name"] as? String
@@ -101,7 +104,15 @@ class DataHandler {
                 realmList.append(realmName)
             }
         }
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "kRealmsReceived"), object: nil)
+        
+        do {
+            try dataInterface.saveRealmList(realmList) { () in
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "kRealmsReceived"), object: nil)
+            }
+        } catch {
+            DLog("Error saving realm list: \(error)")
+        }
+        
     }
     
     
