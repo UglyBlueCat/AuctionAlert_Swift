@@ -20,7 +20,8 @@ class SettingsVC: UIViewController {
     var realmSpinner: UIPickerView!
     let regions: Array = ["EU", "US", "KR", "TW"] //, "CN"] currently unsupported by battle.net
     let languages: Array = ["en", "de", "es", "fr", "it", "pt", "ru", "ko", "zh"]
-    let dataHandler: DataHandler = DataHandler()
+    let dataInterface = DataInterface()
+    var realmList : Array<String> = []
     
     // MARK: - UIViewController Methods
     
@@ -154,9 +155,10 @@ class SettingsVC: UIViewController {
      Checks all settings are saved and removes the view.
      */
     func doneButtonTapped() {
+        
         userDefaults.setValue(regions[regionControl.selectedSegmentIndex], forKey: regionKey)
         userDefaults.setValue(languages[languageControl.selectedSegmentIndex], forKey: languageKey)
-        userDefaults.set(dataHandler.realmList[realmSpinner.selectedRow(inComponent: 0)], forKey: realmKey)
+        userDefaults.set(realmList[realmSpinner.selectedRow(inComponent: 0)], forKey: realmKey)
         dismiss(animated: true, completion: nil)
     }
     
@@ -275,10 +277,16 @@ class SettingsVC: UIViewController {
      Reloads realms spinner with fresh data.
      */
     func newRealmsReceived () {
+        do {
+            realmList = try dataInterface.loadRealmList()
+        } catch {
+            DLog("Realm list load error: \(error.localizedDescription)")
+        }
+        
         DispatchQueue.main.async {
             self.realmSpinner.reloadAllComponents()
             if let realm : String = userDefaults.string(forKey: realmKey) {
-                if let index : Int = self.dataHandler.realmList.index(of: realm) {
+                if let index : Int = self.realmList.index(of: realm) {
                     self.realmSpinner.selectRow(index, inComponent: 0, animated: true)
                 }
             }
@@ -292,8 +300,9 @@ extension SettingsVC: UIPickerViewDelegate {
                                titleForRow row: Int,
                                            forComponent component: Int) -> String? {
         var realm : String!
-        if dataHandler.realmList.count > (row + 1) {
-            realm = dataHandler.realmList[row]
+        
+        if realmList.count > (row + 1) {
+            realm = realmList[row]
         }
         return realm
     }
@@ -302,8 +311,9 @@ extension SettingsVC: UIPickerViewDelegate {
                                didSelectRow row: Int,
                                             inComponent component: Int) {
         var realm : String!
-        if dataHandler.realmList.count > (row + 1) {
-            realm = dataHandler.realmList[row]
+        
+        if realmList.count > (row + 1) {
+            realm = realmList[row]
         }
         userDefaults.set(realm, forKey: realmKey)
     }
@@ -316,7 +326,8 @@ extension SettingsVC: UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView,
-                      numberOfRowsInComponent component: Int) -> Int {
-        return dataHandler.realmList.count - 1
+                    numberOfRowsInComponent component: Int) -> Int {
+        
+        return realmList.count - 1
     }
 }

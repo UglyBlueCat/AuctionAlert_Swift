@@ -9,8 +9,6 @@
 import Foundation
 
 class DataHandler {
-    var searchResults: Array<Dictionary<String, AnyObject>> = Array()
-    var realmList: Array<String> = Array()
     
     init() {}
     
@@ -36,18 +34,18 @@ class DataHandler {
     func populateResults (jsonData: AnyObject) {
         if let resultData = jsonData as? NSDictionary {
             if let realmData = resultData["realms"] as? NSArray {
-                self.populateRealmData(realmData: realmData)
+                self.populateRealmData(realmData)
             } else if let message = resultData["message"] as? String {
-                self.handleMessage(message: message)
+                self.handleMessage(message)
             } else if let iconImage = resultData["icon"] as? String {
                 self.populateItemData(iconImage: iconImage, resultData: resultData)
             } else if let code = resultData["code"] as? Int {
                 self.handleCodeCheckResult(code: code)
             }
         } else if let resultData = jsonData as? NSArray {
-            self.populateSearchResults(resultData: resultData)
+            self.populateSearchResults(resultData)
         } else if let message = jsonData["message"] as? String {
-            self.handleMessage(message: message)
+            self.handleMessage(message)
         } else {
             DLog("Cannot convert data")
         }
@@ -81,7 +79,7 @@ class DataHandler {
      
      - parameter message: The message
      */
-    func handleMessage (message: String) {
+    func handleMessage (_ message: String) {
         NotificationCenter.default.post(name: Notification.Name(rawValue: "kMessageReceived"),
                                         object: nil,
                                         userInfo: ["message" : message])
@@ -92,8 +90,9 @@ class DataHandler {
      
      - parameter realmData: The list of realms
      */
-    func populateRealmData (realmData: NSArray) {
+    func populateRealmData (_ realmData: NSArray) {
         let dataInterface = DataInterface()
+        var realmList: Array<String> = Array()
         
         realmList.removeAll()
         
@@ -112,7 +111,6 @@ class DataHandler {
         } catch {
             DLog("Error saving realm list: \(error)")
         }
-        
     }
     
     
@@ -121,13 +119,24 @@ class DataHandler {
      
      - parameter resultData: The search results
      */
-    func populateSearchResults (resultData: NSArray) {
+    func populateSearchResults (_ resultData: NSArray) {
+        let dataInterface = DataInterface()
+        var searchResults: Array<Dictionary<String, Any>> = Array()
+        
         searchResults.removeAll()
+        
         for object in resultData {
-            let result: [String: AnyObject] = self.extractValuesFromJSON(object: object as AnyObject, values: ["item", "owner", "buyout", "bid", "quantity", "message", "code", "locale", "object", "price", "realm"])
+            let result: [String: Any] = self.extractValuesFromJSON(object: object as AnyObject, values: ["item", "owner", "buyout", "bid", "quantity"])
             searchResults.append(result)
         }
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "kDataReceived"), object: nil)
+        
+        do {
+            try dataInterface.saveAuctionList(searchResults) { () in
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "kDataReceived"), object: nil)
+            }
+        } catch {
+            DLog("Error saving auction results: \(error)")
+        }
     }
     
     /**
