@@ -258,8 +258,8 @@
 		992071841E448772005F4153 /* AuctionAlertTests */ = {
 			isa = PBXGroup;
 			children = (
-				99A2614E1EDC7A4E00C21549 /* Network */,
 				99A2614D1EDC7A4700C21549 /* Data */,
+				99A2614E1EDC7A4E00C21549 /* Network */,
 				992071871E448772005F4153 /* Info.plist */,
 			);
 			path = AuctionAlertTests;
