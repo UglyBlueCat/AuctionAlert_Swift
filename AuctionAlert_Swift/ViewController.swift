@@ -678,47 +678,26 @@ extension ViewController: UITableViewDelegate {
             if let locale: String = singleResult["locale"] as? String {
                 userDefaults.set(locale, forKey: localeKey)
                 
-                switch locale {
-                case "en_GB":
-                    userDefaults.set("EU", forKey: regionKey)
-                    userDefaults.set("en", forKey: languageKey)
-                case "de_DE":
-                    userDefaults.set("EU", forKey: regionKey)
-                    userDefaults.set("de", forKey: languageKey)
-                case "es_ES":
-                    userDefaults.set("EU", forKey: regionKey)
-                    userDefaults.set("es", forKey: languageKey)
-                case "fr_FR":
-                    userDefaults.set("EU", forKey: regionKey)
-                    userDefaults.set("fr", forKey: languageKey)
-                case "it_IT":
-                    userDefaults.set("EU", forKey: regionKey)
-                    userDefaults.set("it", forKey: languageKey)
-                case "pt_PT":
-                    userDefaults.set("EU", forKey: regionKey)
-                    userDefaults.set("pt", forKey: languageKey)
-                case "ru_RU":
-                    userDefaults.set("EU", forKey: regionKey)
-                    userDefaults.set("ru", forKey: languageKey)
-                case "en_US":
-                    userDefaults.set("US", forKey: regionKey)
-                    userDefaults.set("en", forKey: languageKey)
-                case "es_MX":
-                    userDefaults.set("US", forKey: regionKey)
-                    userDefaults.set("es", forKey: languageKey)
-                case "pt_BR":
-                    userDefaults.set("US", forKey: regionKey)
-                    userDefaults.set("pt", forKey: languageKey)
-                case "zh_CN":
-                    userDefaults.set("CN", forKey: regionKey)
-                    userDefaults.set("zh", forKey: languageKey)
-                case "ko_KR":
-                    userDefaults.set("KR", forKey: regionKey)
-                    userDefaults.set("ko", forKey: languageKey)
-                case "zh_TW":
-                    userDefaults.set("TW", forKey: regionKey)
-                    userDefaults.set("zh", forKey: languageKey)
-                default:
+                typealias localeTuple = (locale : String, countryCode : String, language: String)
+                
+                let localeArray : [localeTuple] = [("en_GB", "EU", "en"),
+                                                 ("de_DE", "EU", "de"),
+                                                 ("es_ES", "EU", "es"),
+                                                 ("fr_FR", "EU", "fr"),
+                                                 ("it_IT", "EU", "it"),
+                                                 ("pt_PT", "EU", "pt"),
+                                                 ("ru_RU", "EU", "ru"),
+                                                 ("en_US", "US", "en"),
+                                                 ("es_MX", "US", "ru"),
+                                                 ("pt_BR", "US", "pt"),
+                                                 ("zh_CN", "CN", "zh"),
+                                                 ("ko_KR", "KR", "ko"),
+                                                 ("zh_TW", "TW", "zh")]
+                
+                if let currentLocale = localeArray.first(where: {$0.locale == locale}) {
+                    userDefaults.set(currentLocale.countryCode, forKey: regionKey)
+                    userDefaults.set(currentLocale.language, forKey: languageKey)
+                } else {
                     userDefaults.set("EU", forKey: regionKey)
                     userDefaults.set("en", forKey: languageKey)
                 }
